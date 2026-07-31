@@ -69,4 +69,8 @@ export class ModeloService {
   combo() {
     return this.http.get<MarcaModeloDTO[]>(`${this.api}/Combo`);
   }
+
+  comboMarca(idMarca: number) {
+    return this.http.get<any>(`${this.api}/ComboMarca/${idMarca}`);
+  }
 }

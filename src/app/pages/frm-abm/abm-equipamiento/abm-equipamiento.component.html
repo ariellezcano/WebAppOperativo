@@ -1,0 +1,174 @@
+<div class="container my-5">
+  <div class="card shadow-lg border-0 equipamiento-card">
+    <!-- CABECERA -->
+    <div
+      class="card-header d-flex justify-content-between align-items-center py-3 px-4"
+      style="
+        background: linear-gradient(90deg, #0d6efd, #0b5ed7);
+        color: white;
+        border-bottom: 4px solid #ff9800;
+      "
+    >
+      <h4 class="m-0 fw-bold">
+        <i class="bi bi-broadcast-pin me-2"></i>
+
+        {{ editando ? "Editar Equipamiento" : "Alta de Equipamiento" }}
+      </h4>
+    </div>
+
+    <div class="card-body bg-light">
+      <form #form="ngForm" (ngSubmit)="guardar()" class="row g-4">
+        <!-- MARCA -->
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold"> Marca </label>
+
+          <select
+            class="form-select"
+            [(ngModel)]="marca"
+            name="marca"
+            (change)="cambioMarca()"
+            required
+          >
+            <option [ngValue]="0">Seleccione...</option>
+
+            <option *ngFor="let item of marcas" [ngValue]="item.id">
+              {{ item.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <!-- MODELO -->
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold"> Modelo </label>
+
+          <select
+            class="form-select"
+            [(ngModel)]="item.modelo"
+            name="modelo"
+            required
+          >
+            <option [ngValue]="0">Seleccione...</option>
+
+            <option *ngFor="let m of modelos" [ngValue]="m.idModelo">
+              {{ m.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <!-- TIPO -->
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold"> Tipo Equipo </label>
+
+          <select
+            class="form-select"
+            [(ngModel)]="item.tipoEquipo"
+            name="tipoEquipo"
+            required
+          >
+            <option [ngValue]="0">Seleccione...</option>
+
+            <option *ngFor="let t of tipos" [ngValue]="t.idTipoEquipo">
+              {{ t.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <!-- ESTADO -->
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold"> Estado </label>
+
+          <select
+            class="form-select"
+            [(ngModel)]="item.estado"
+            name="estado"
+            required
+          >
+            <option [ngValue]="0">Seleccione...</option>
+
+            <option *ngFor="let e of estados" [ngValue]="e.idEstado">
+              {{ e.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <!-- ID POLICIAL -->
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold"> ID Policial </label>
+
+          <input
+            class="form-control"
+            name="idPolicial"
+            [(ngModel)]="item.idPolicial"
+            required
+          />
+        </div>
+
+        <!-- SERIE -->
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold"> Nº Serie </label>
+
+          <input
+            class="form-control"
+            name="nroSerie"
+            [(ngModel)]="item.nroSerie"
+          />
+        </div>
+
+        <!-- IMEI -->
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold"> IMEI </label>
+
+          <input class="form-control" name="imei" [(ngModel)]="item.imei" />
+        </div>
+
+        <!-- UNIDAD -->
+
+        <div class="col-md-12">
+          <label class="form-label fw-semibold"> Nombre Unidad </label>
+
+          <input
+            class="form-control"
+            name="nombreUnidad"
+            [(ngModel)]="item.nombreUnidad"
+          />
+        </div>
+
+        <!-- OBSERVACION -->
+
+        <div class="col-md-12">
+          <label class="form-label fw-semibold"> Observación </label>
+
+          <textarea
+            rows="4"
+            class="form-control"
+            name="observacion"
+            [(ngModel)]="item.observacion"
+          ></textarea>
+        </div>
+
+        <!-- BOTONES -->
+
+        <div class="col-12 text-end">
+          <button class="btn btn-success px-4 me-2" [disabled]="!form.valid">
+            <i class="bi bi-save me-2"></i>
+
+            {{ editando ? "Actualizar" : "Guardar" }}
+          </button>
+
+          <button type="button" class="btn btn-secondary px-4" (click)="back()">
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Volver
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

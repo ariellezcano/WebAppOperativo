@@ -25,6 +25,9 @@ import { FilTipoEquipoComponent } from './filtros/fil-tipo-equipo/fil-tipo-equip
 import { FilEstadoComponent } from './filtros/fil-estado/fil-estado.component';
 import { LstEstadoComponent } from './lst/lst-estado/lst-estado.component';
 import { AbmEstadoComponent } from './frm-abm/abm-estado/abm-estado.component';
+import { FilEquipamientoComponent } from './filtros/fil-equipamiento/fil-equipamiento.component';
+import { LstEquipamientoComponent } from './lst/lst-equipamiento/lst-equipamiento.component';
+import { AbmEquipamientoComponent } from './frm-abm/abm-equipamiento/abm-equipamiento.component';
 //import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
@@ -49,7 +52,10 @@ import { AbmEstadoComponent } from './frm-abm/abm-estado/abm-estado.component';
     FilTipoEquipoComponent,
     FilEstadoComponent,
     LstEstadoComponent,
-    AbmEstadoComponent
+    AbmEstadoComponent,
+    FilEquipamientoComponent,
+    LstEquipamientoComponent,
+    AbmEquipamientoComponent
   ],
   imports: [
     CommonModule,

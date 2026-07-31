@@ -1,0 +1,32 @@
+.table-hover tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.table th {
+  color: #0d47a1;
+  white-space: nowrap;
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+.card {
+  border-radius: 18px;
+}
+
+.btn {
+  border-radius: 30px;
+}
+
+.badge {
+  font-size: .85rem;
+}
+
+.table-responsive {
+  border-radius: 15px;
+}
+
+.card-footer {
+  background: white;
+}

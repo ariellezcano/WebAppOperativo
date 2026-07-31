@@ -13,6 +13,8 @@ import { AbmTipoEquipoComponent } from './frm-abm/abm-tipo-equipo/abm-tipo-equip
 import { LstTipoEquipoComponent } from './lst/lst-tipo-equipo/lst-tipo-equipo.component';
 import { LstEstadoComponent } from './lst/lst-estado/lst-estado.component';
 import { AbmEstadoComponent } from './frm-abm/abm-estado/abm-estado.component';
+import { LstEquipamientoComponent } from './lst/lst-equipamiento/lst-equipamiento.component';
+import { AbmEquipamientoComponent } from './frm-abm/abm-equipamiento/abm-equipamiento.component';
 
 const routes: Routes = [
   {
@@ -68,45 +70,46 @@ const routes: Routes = [
       },
 
       //TIPO EQUIPO
-        {
-          path: 'lst_tipoEquipo',
-          component: LstTipoEquipoComponent,
-          canActivate: [AuthGuard],
-        },
-        {
-          path: 'abm_tipoEquipo/:id',
-          component: AbmTipoEquipoComponent,
-          canActivate: [AuthGuard],
-        },
+      {
+        path: 'lst_tipoEquipo',
+        component: LstTipoEquipoComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'abm_tipoEquipo/:id',
+        component: AbmTipoEquipoComponent,
+        canActivate: [AuthGuard],
+      },
 
-        //ESTADOS
-        {
-          path: 'lst_estados',
-          component: LstEstadoComponent,
-          canActivate: [AuthGuard],
-        },
-        {
-          path: 'abm_estados/:id',
-          component: AbmEstadoComponent,
-          canActivate: [AuthGuard],
-        },
+      //ESTADOS
+      {
+        path: 'lst_estados',
+        component: LstEstadoComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'abm_estados/:id',
+        component: AbmEstadoComponent,
+        canActivate: [AuthGuard],
+      },
+      //EQUIPAMIENTO
 
-
-      //   {
-      //     path: 'lst_usuario_solicitante',
-      //     component: LstUsuarioSolicitanteComponent,
-      //     canActivate: [AuthGuard],
-      //   },
+      {
+        path: 'lst_equipos',
+        component: LstEquipamientoComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'abm_equipamiento/:id',
+        component: AbmEquipamientoComponent,
+        canActivate: [AuthGuard],
+      },
       //   {
       //     path: 'agregar_solicitante',
       //     component: AbmUsuarioSolicitanteComponent,
       //     canActivate: [AuthGuard],
       //   },
-      //   {
-      //     path: 'agregar_solicitante/:id',
-      //     component: AbmUsuarioSolicitanteComponent,
-      //     canActivate: [AuthGuard],
-      //   },
+
       //   {
       //     path: 'agregar_correo/:id',
       //     component: AbmCorreoInstitucionalComponent,
