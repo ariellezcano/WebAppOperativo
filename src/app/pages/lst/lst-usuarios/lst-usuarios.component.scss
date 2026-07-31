@@ -1,0 +1,96 @@
+.card {
+  border-radius: 1rem;
+}
+
+.card-header {
+  border-top-left-radius: 1rem !important;
+  border-top-right-radius: 1rem !important;
+}
+
+.table tbody tr:hover {
+  background-color: #eef5ff !important;
+}
+
+.btn {
+  border-radius: 0.5rem;
+}
+
+.table th {
+  white-space: nowrap;
+}
+
+.badge {
+  font-size: 0.9rem;
+}
+
+/* === HEADER MEJORADO CON BORDE NARANJA === */
+.header-usuarios {
+  background: linear-gradient(135deg, #0b2545, #13315c);
+  color: #fff;
+  border-bottom: 4px solid #ff7b00;  /* 🔶 Naranja corporativo */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Icono */
+.header-usuarios i {
+  font-size: 1.4rem !important;
+}
+
+/* Botón */
+.btn-agregar-usuario {
+  background: #ffffff;
+  color: #0b2545;
+  font-weight: 600;
+  border: 1px solid #d9e2ec;
+  transition: all 0.3s ease;
+}
+
+.btn-agregar-usuario:hover {
+  background: #e9eff7;
+  color: #0b2545;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(19, 49, 92, 0.3);
+}
+
+.btn-agregar-usuario i {
+  font-size: 1.2rem;
+}
+
+
+
+
+/* --- ESTILOS ROLES --- */
+.rol-badge {
+  font-size: 0.85rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* MANAGER → Azul intenso */
+.MANAGER {
+  background-color: #0d6efd !important;
+  color: white !important;
+  box-shadow: 0 0 6px rgba(13, 110, 253, 0.5);
+}
+
+/* ADMINISTRADOR → Naranja profesional */
+.ADMINISTRADOR {
+  background-color: #fd7e14 !important;
+  color: white !important;
+  box-shadow: 0 0 6px rgba(253, 126, 20, 0.5);
+}
+
+/* VISTA → Verde agradable */
+.VISTA {
+  background-color: #198754 !important;
+  color: white !important;
+  box-shadow: 0 0 6px rgba(25, 135, 84, 0.5);
+}
+
+/* MANAGER → Violeta jerárquico */
+.DEVELOPER {
+  background-color: #6f42c1 !important;
+  color: white !important;
+  box-shadow: 0 0 6px rgba(111, 66, 193, 0.5);
+}

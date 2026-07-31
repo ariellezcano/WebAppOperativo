@@ -1,0 +1,65 @@
+<div class="card filtro-panel shadow-sm my-4">
+
+  <div class="row align-items-end g-4">
+
+    <!-- Registros -->
+    <div class="col-md-2">
+      <label class="form-label filtro-label">Registros por página</label>
+      <select
+        (change)="filter()"
+        class="form-select filtro-input"
+        [(ngModel)]="limit"
+      >
+        <option *ngFor="let c of limits" [ngValue]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <!-- Navegación -->
+    <div class="col-md-5">
+      <label class="form-label filtro-label text-center w-100">Navegación</label>
+
+      <div class="filtro-nav-container">
+
+        <button
+          class="btn btn-outline-primary filtro-nav-btn"
+          [disabled]="paginaActual <= 1"
+          (click)="setPage(paginaActual, 'anterior')"
+        >
+          <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <div class="filtro-nav-info">
+          Página {{ paginaActual }} / {{ totalPaginas }}
+          <span>({{ totalRegistros }} registros)</span>
+        </div>
+
+        <button
+          class="btn btn-outline-primary filtro-nav-btn"
+          [disabled]="paginaActual >= totalPaginas"
+          (click)="setPage(paginaActual, 'siguiente')"
+        >
+          <i class="bi bi-chevron-right"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Buscar -->
+    <div class="col-md-5">
+      <label class="form-label filtro-label">Buscar</label>
+      <div class="input-group filtro-buscar">
+        <input
+          type="text"
+          class="form-control filtro-input text-center"
+          [(ngModel)]="busqueda"
+          (ngModelChange)="filter()"
+          placeholder="Nombre de Marca"
+        />
+        <span class="input-group-text filtro-buscar-icon">
+          <i class="bi bi-search"></i>
+        </span>
+      </div>
+    </div>
+
+  </div>
+</div>

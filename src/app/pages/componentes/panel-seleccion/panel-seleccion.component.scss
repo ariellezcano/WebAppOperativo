@@ -1,0 +1,378 @@
+// .dashboard-card {
+//   background: #ffffff;
+//   border: 1px solid #dee2e6;
+//   border-radius: 1.2rem;
+//   padding: 2rem 1.8rem;
+//   height: 100%;
+//   text-align: center;
+//   cursor: pointer;
+//   transition: all 0.25s ease;
+//   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+// }
+
+// .dashboard-card:hover {
+//   transform: translateY(-6px);
+//   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+// }
+
+// .dashboard-card .icon {
+//   width: 72px;
+//   height: 72px;
+//   border-radius: 50%;
+//   margin: 0 auto 1.2rem auto;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: 1.9rem;
+//   color: #fff;
+// }
+
+// .dashboard-card h5 {
+//   font-weight: 600;
+//   margin-bottom: 0.6rem;
+//   color: #0b1a33;
+// }
+
+// .dashboard-card p {
+//   font-size: 0.95rem;
+//   color: #6c757d;
+//   line-height: 1.4;
+//   margin: 0;
+// }
+
+// .row > div {
+//   display: flex;
+// }
+
+// .dashboard-card {
+//   width: 100%;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+// }
+
+/* ===========================================================
+   FONDO
+=========================================================== */
+
+.container-fluid {
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+
+/* ===========================================================
+   TARJETAS DE INDICADORES
+=========================================================== */
+
+.indicador-card {
+  border-radius: 18px;
+  transition: .3s;
+  cursor: default;
+}
+
+.indicador-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,.15);
+}
+
+.indicador-card h2{
+    font-size:2.2rem;
+    margin-top:8px;
+    margin-bottom:0;
+}
+
+.indicador-icon{
+
+    font-size:3rem;
+    opacity:.8;
+
+}
+
+
+/* ===========================================================
+   TARJETAS PRINCIPALES
+=========================================================== */
+
+.dashboard-card{
+
+    background:#FFF;
+
+    border-radius:20px;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    height:100%;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+
+.dashboard-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:#0d6efd;
+
+    transform:scaleX(0);
+
+    transition:.35s;
+
+}
+
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 35px rgba(0,0,0,.15);
+
+}
+
+
+.dashboard-card:hover::before{
+
+    transform:scaleX(1);
+
+}
+
+
+.dashboard-card h4{
+
+    margin-top:20px;
+
+    font-weight:700;
+
+    color:#2d3436;
+
+}
+
+
+.dashboard-card p{
+
+    color:#6c757d;
+
+    min-height:70px;
+
+    margin-top:15px;
+
+}
+
+
+/* ===========================================================
+   ICONO
+=========================================================== */
+
+.icon{
+
+    width:80px;
+
+    height:80px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#FFF;
+
+    font-size:36px;
+
+    transition:.35s;
+
+}
+
+
+.dashboard-card:hover .icon{
+
+    transform:scale(1.15) rotate(8deg);
+
+}
+
+
+/* ===========================================================
+   BOTONES
+=========================================================== */
+
+.dashboard-card button{
+
+    border-radius:25px;
+
+    padding:8px 28px;
+
+    font-weight:600;
+
+}
+
+
+/* ===========================================================
+   TABLA
+=========================================================== */
+
+.table{
+
+    margin-bottom:0;
+
+}
+
+.table thead{
+
+    background:#0d6efd;
+
+    color:#FFF;
+
+}
+
+.table thead th{
+
+    border:none;
+
+    font-weight:600;
+
+}
+
+.table tbody tr{
+
+    transition:.2s;
+
+}
+
+.table tbody tr:hover{
+
+    background:#eef5ff;
+
+}
+
+
+/* ===========================================================
+   CARD SUPERIOR
+=========================================================== */
+
+.card{
+
+    border-radius:20px;
+
+}
+
+.card-header{
+
+    border-radius:20px 20px 0 0 !important;
+
+}
+
+
+/* ===========================================================
+   TITULOS
+=========================================================== */
+
+h3{
+
+    font-weight:700;
+
+}
+
+h5{
+
+    font-weight:600;
+
+}
+
+
+/* ===========================================================
+   RESPONSIVE
+=========================================================== */
+
+@media(max-width:992px){
+
+.dashboard-card{
+
+padding:25px;
+
+}
+
+.icon{
+
+width:70px;
+height:70px;
+font-size:30px;
+
+}
+
+.indicador-icon{
+
+font-size:2.5rem;
+
+}
+
+}
+
+
+@media(max-width:768px){
+
+.dashboard-card{
+
+margin-bottom:10px;
+
+}
+
+.dashboard-card p{
+
+min-height:auto;
+
+}
+
+}
+
+.container-fluid{
+
+    min-height:100vh;
+
+    background:#f4f6f9;
+
+    position:relative;
+
+}
+
+.container-fluid::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:url('/assets/img/logo.png') no-repeat center;
+
+    background-size:500px;
+
+    opacity:.04;
+
+    pointer-events:none;
+
+}

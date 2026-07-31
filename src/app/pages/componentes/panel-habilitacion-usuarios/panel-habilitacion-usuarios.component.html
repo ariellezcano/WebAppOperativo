@@ -1,0 +1,72 @@
+<div class="container">
+  <br />
+  <div class="row alert alert-info">
+    <h3><b>Habilitar Usuarios para uso del Sistema</b></h3>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-12">
+      <app-busqueda-persona (filter)="doFound($event)"></app-busqueda-persona>
+    </div>
+  </div>
+  <hr />
+  <form *ngIf="proceso" (ngSubmit)="pregunta()">
+    <div class="row">
+      <div class="col-md-12 alert alert-info text-center">
+        <h3>
+          <u
+            ><em>{{ valor(dtUsuario.tipoPersona) }}</em></u
+          >
+        </h3>
+        <h4>
+          <b>{{ dtUsuario.apellido }}, {{ dtUsuario.nombre }}</b>
+          Dni n°: <b>{{ dtUsuario.norDni }}</b>
+        </h4>
+        <br />
+        <ng-container
+          *ngIf="dtUsuario.rol !== 4; then thenTemplate; else elseTemplate"
+        ></ng-container>
+        <ng-template #thenTemplate>
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <app-combo-rol
+                [dibujar]="item"
+                (emitir)="seleccionRol($event)"
+              ></app-combo-rol>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+        </ng-template>
+        <ng-template #elseTemplate>
+          <h4>
+            Rol seleccionado: <b>{{dtUsuario.rolSeleccionado}}</b>
+          </h4>
+        </ng-template>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div *ngIf="dtUsuario.rol !== 4" class="col-md-12">
+        <button type="submit" class="btn btn-primary d-grid gap-2 col-6 mx-auto">
+          <i class="fa fa-thumbs-up" aria-hidden="true"
+            >&nbsp;Guardar Usuario</i
+          >
+        </button>
+      </div>
+    </div>
+    &nbsp;
+  </form>
+  <div class="row">
+    <div class="col-md-12">
+      <button
+        (click)="back()"
+        type="submit"
+        class="btn btn-danger d-grid gap-2 col-6 mx-auto"
+      >
+        <i class="fa fa-times" aria-hidden="true">&nbsp; Cancelar</i>
+      </button>
+    </div>
+  </div>
+</div>
+<br>

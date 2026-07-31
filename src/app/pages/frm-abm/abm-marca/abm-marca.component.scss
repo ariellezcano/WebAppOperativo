@@ -1,0 +1,25 @@
+.marcas-abm-card .form-control {
+  border-radius: 0.6rem;
+}
+
+.marcas-abm-card .form-label {
+  color: #0d47a1;
+}
+
+.marcas-abm-card .form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.25);
+}
+
+.marcas-abm-card .btn {
+  border-radius: 2rem;
+  transition: all 0.2s ease;
+}
+
+.marcas-abm-card .btn:hover {
+  transform: translateY(-1px);
+}
+
+.marcas-abm-card hr {
+  opacity: 0.15;
+}

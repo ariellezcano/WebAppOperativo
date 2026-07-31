@@ -1,0 +1,77 @@
+/* NAV GENERAL */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0b1a33; /* azul oscuro original */
+  color: #fff;
+  padding: 12px 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  border-bottom: 3px solid #1e3a8a; /* borde azul */
+}
+
+/* TITULO SISTEMA */
+.navbar-brand {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+/* LINKS */
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease, border-bottom 0.2s ease;
+}
+
+.navbar-links a:hover {
+  color: #60a5fa; /* celeste */
+}
+
+/* LINK ACTIVO */
+.activo {
+  border-bottom: 2px solid #60a5fa; /* celeste */
+}
+
+/* USUARIO + BOTÓN */
+.user-info-text {
+  font-size: 0.9rem;
+}
+
+
+
+.btn-logout {
+  background-color: #dc2626; /* rojo elegante */
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: background 0.25s ease, transform 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-logout i {
+  font-size: 1.2rem;
+}
+
+.btn-logout:hover {
+  background-color: #b91c1c; /* rojo más fuerte */
+  transform: scale(1.05);
+}
+
+.btn-logout:active {
+  transform: scale(0.95);
+}

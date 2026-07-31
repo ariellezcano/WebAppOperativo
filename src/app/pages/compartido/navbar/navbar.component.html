@@ -1,0 +1,31 @@
+
+<nav class="navbar">
+
+  <div
+  class="navbar-brand cursor-pointer"
+  (click)="volverAlPanel()"
+>
+  {{ config?.titulo }}
+</div>
+  <ul class="navbar-links" *ngIf="config?.links?.length">
+    <li *ngFor="let link of config.links">
+      <a
+        [routerLink]="link.route"
+        routerLinkActive="activo"
+      >
+        {{ link.label }}
+      </a>
+    </li>
+  </ul>
+
+  <div class="d-flex align-items-center gap-3 text-light">
+    <small>
+      Usuario: <strong>{{ usuario }}</strong>
+    </small>
+
+    <button (click)="logout()" type="button" class="btn-logout">
+      <i class="bi bi-power"></i>
+    </button>
+  </div>
+
+</nav>

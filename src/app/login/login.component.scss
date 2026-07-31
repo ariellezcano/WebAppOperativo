@@ -1,0 +1,87 @@
+/* --- FONDO GENERAL --- */
+.login-wrapper {
+  background: linear-gradient(135deg, #0b1a33, #0f2747);
+}
+
+/* --- CAJA PRINCIPAL DEL LOGIN --- */
+.login-box {
+  background: #ffffff;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 430px;
+  border-radius: 1.2rem;
+
+  /* 🔶 BORDE NARANJA */
+  border: 4px solid #ff7b00;
+
+  /* Sombra elegante */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* --- LOGO --- */
+.login-logo {
+  width: 90px;
+  margin-bottom: 10px;
+}
+
+/* --- TÍTULOS --- */
+.title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #003366;
+  margin-bottom: 0;
+}
+
+.subtitle {
+  color: #6c7583;
+  font-size: 0.95rem;
+  margin-top: -5px;
+}
+
+/* --- LABELS --- */
+.form-label {
+  font-weight: 600;
+  color: #003366;
+}
+
+/* --- INPUTS --- */
+.form-control {
+  border-radius: 0.6rem;
+  padding: 0.75rem;
+  border: 1px solid #c8d2df;
+  font-size: 0.95rem;
+}
+
+.form-control:focus {
+  border-color: #0055a5;
+  box-shadow: 0 0 0 0.15rem rgba(0, 85, 165, 0.15);
+}
+
+/* --- INPUT ICONOS --- */
+.input-group-text {
+  background: #003366;
+  color: white;
+  border: none;
+  border-radius: 0.6rem 0 0 0.6rem;
+}
+
+/* --- BOTÓN PRINCIPAL --- */
+.btn-primary {
+  background-color: #003366;
+  border: none;
+  border-radius: 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 0.7rem;
+}
+
+.btn-primary:hover {
+  background-color: #00264d;
+}
+
+/* --- FOOTER --- */
+.footer-text {
+  font-size: 0.85rem;
+  color: #c5c9d1;
+  margin-top: 1rem;
+}

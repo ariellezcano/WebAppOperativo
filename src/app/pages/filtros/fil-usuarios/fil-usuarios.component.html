@@ -1,0 +1,77 @@
+<div class="card border-primary rounded-4 shadow-sm p-3 my-3">
+
+  <div class="row align-items-center">
+
+    <!-- Límite -->
+    <div class="col-md-2 mb-3">
+      <label class="form-label fw-semibold small text-secondary">Registros por página</label>
+      <select
+        (change)="filter()"
+        class="form-select border-primary shadow-sm rounded-3"
+        name="limit"
+        id="limit"
+        [(ngModel)]="limit"
+      >
+        <option *ngFor="let c of limits" [ngValue]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <!-- Navegación -->
+    <div class="col-md-5 mb-3">
+      <nav aria-label="Page navigation" class="mt-3">
+        <ul class="pagination justify-content-center mb-0">
+
+          <li [class]="paginaActual <= 1 ? 'page-item disabled' : 'page-item'">
+            <a
+              (click)="setPage(paginaActual, 'anterior')"
+              class="page-link rounded-start-3 shadow-sm"
+              href="javascript:void(0);"
+            >
+              &laquo;
+            </a>
+          </li>
+
+          <li class="page-item disabled">
+            <span class="page-link bg-light text-dark fw-semibold border-0 shadow-none">
+              Página {{ paginaActual }} / {{ totalPaginas }}  
+              <small class="text-muted">({{ totalRegistros }} registros)</small>
+            </span>
+          </li>
+
+          <li
+            [class]="paginaActual === totalPaginas ? 'page-item disabled' : 'page-item'"
+          >
+            <a
+              (click)="setPage(paginaActual, 'siguiente')"
+              class="page-link rounded-end-3 shadow-sm"
+              href="javascript:void(0);"
+            >
+              &raquo;
+            </a>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Búsqueda -->
+    <div class="col-md-5 mb-3">
+      <label class="form-label fw-semibold small text-secondary">Buscar</label>
+      <div class="input-group shadow-sm">
+        <input
+          type="text"
+          class="form-control border-primary text-center rounded-start-3"
+          name="criterio"
+          [(ngModel)]="busqueda"
+          (ngModelChange)="filter()"
+          placeholder="Buscar por apellido o nombre"
+        />
+        <span class="input-group-text bg-primary text-white rounded-end-3">
+          <i class="bi bi-search"></i>
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+</div>

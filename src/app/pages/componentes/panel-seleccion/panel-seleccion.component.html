@@ -1,0 +1,315 @@
+<!-- <div class="container my-5">
+  <h2 class="fw-bold text-primary mb-4">
+    <i class="bi bi-speedometer2 me-2"></i>
+    Panel Principal
+  </h2>
+
+  <div class="row g-4">
+
+    <div
+      class="col-md-6 col-lg-4"
+      *ngIf="rol === 'DEVELOPER' || rol === 'MANAGER'"
+    >
+      <div class="dashboard-card" (click)="irAUsuarios()">
+        <div class="icon bg-secondary">
+          <i class="bi bi-people-fill"></i>
+        </div>
+
+        <h5>Usuarios</h5>
+
+        <p>Administración de usuarios y permisos del sistema.</p>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="dashboard-card" (click)="irAOperativos()">
+        <div class="icon bg-primary">
+          <i class="bi bi-shield-check"></i>
+        </div>
+
+        <h5>Operativos</h5>
+
+        <p>Administración de operativos donde se asignará el equipamiento.</p>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <div class="dashboard-card" (click)="irAEquipamientos()">
+        <div class="icon bg-success">
+          <i class="bi bi-broadcast-pin"></i>
+        </div>
+
+        <h5>Equipamientos</h5>
+
+        <p>Gestión de radios, celulares y demás equipamiento disponible.</p>
+      </div>
+    </div>
+
+  
+    <div class="col-md-6 col-lg-4">
+      <div class="dashboard-card" (click)="irAPlanillas()">
+        <div class="icon bg-warning text-dark">
+          <i class="bi bi-file-earmark-text-fill"></i>
+        </div>
+
+        <h5>Planilla de Distribución</h5>
+
+        <p>Registro de entrega y devolución del equipamiento al personal.</p>
+      </div>
+    </div>
+
+  
+    <div class="col-md-6 col-lg-4">
+      <div class="dashboard-card" (click)="irAMovimientos()">
+        <div class="icon bg-danger">
+          <i class="bi bi-arrow-left-right"></i>
+        </div>
+
+        <h5>Movimientos</h5>
+
+        <p>
+          Consulta de todos los movimientos realizados sobre los equipamientos.
+        </p>
+      </div>
+    </div>
+
+
+    <div class="col-md-6 col-lg-4">
+      <div class="dashboard-card" (click)="irAReportes()">
+        <div class="icon bg-dark">
+          <i class="bi bi-bar-chart-line-fill"></i>
+        </div>
+
+        <h5>Reportes</h5>
+
+        <p>
+          Reportes estadísticos, operativos y de distribución del equipamiento.
+        </p>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container-fluid py-4">
+  <!-- ENCABEZADO -->
+  <div class="card border-0 shadow-sm mb-4">
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div class="d-flex align-items-center">
+          <img src="assets/img/logo.png" alt="Logo" width="70" class="me-3" />
+
+          <div>
+            <h3 class="mb-0 text-primary fw-bold">
+              Sistema de Gestión de Equipamientos
+            </h3>
+
+            <small class="text-muted">
+              Policía del Chaco - Departamento Tecnologías de la Información y
+              la Comunicación
+            </small>
+          </div>
+        </div>
+
+        <div class="text-end">
+          <h6 class="mb-1">
+            <b> Bienvenido al Sistema </b>
+          </h6>
+
+          <!-- <strong>{{ usuario.nombre }}</strong> -->
+
+          <div class="text-muted">
+            <i class="bi bi-calendar3"></i>
+
+           <b> {{ fechaActual | date: "EEEE dd/MM/yyyy" }}</b>
+          </div>
+
+          <div class="text-primary fw-bold">
+            <i class="bi bi-clock"></i>
+
+            {{ fechaActual | date: "HH:mm:ss" }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INDICADORES -->
+
+  <div class="row g-4 mb-4">
+    <div class="col-md-3">
+      <div class="card border-0 shadow indicador-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <small class="text-muted"> Equipamientos </small>
+
+              <h2 class="fw-bold">
+                <!-- {{totalEquipamientos}} -->
+              </h2>
+            </div>
+
+            <i class="bi bi-broadcast-pin indicador-icon text-success"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow indicador-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <small class="text-muted"> Operativos </small>
+
+              <h2 class="fw-bold">
+                <!-- {{totalOperativos}} -->
+              </h2>
+            </div>
+
+            <i class="bi bi-shield-check indicador-icon text-primary"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow indicador-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <small class="text-muted"> Planillas </small>
+
+              <h2 class="fw-bold">
+                <!-- {{totalPlanillas}} -->
+              </h2>
+            </div>
+
+            <i
+              class="bi bi-file-earmark-text-fill indicador-icon text-warning"
+            ></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card border-0 shadow indicador-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <small class="text-muted"> Movimientos </small>
+
+              <h2 class="fw-bold">
+                <!-- {{totalMovimientos}} -->
+              </h2>
+            </div>
+
+            <i class="bi bi-arrow-left-right indicador-icon text-danger"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULOS -->
+
+  <div class="row g-4">
+    <!-- USUARIOS -->
+
+    <div
+      class="col-lg-4 col-md-6"
+      *ngIf="rol == 'DEVELOPER' || rol == 'MANAGER'"
+    >
+      <div class="dashboard-card" (click)="irAUsuarios()">
+        <div class="icon bg-secondary">
+          <i class="bi bi-people-fill"></i>
+        </div>
+
+        <h4>Usuarios</h4>
+
+        <p>Administración de usuarios y permisos del sistema.</p>
+
+        <button class="btn btn-outline-secondary">Ingresar</button>
+      </div>
+    </div>
+
+    <!-- OPERATIVOS -->
+    <div class="col-lg-4 col-md-6">
+      <div class="dashboard-card" (click)="irAOperativos()">
+        <div class="icon bg-primary">
+          <i class="bi bi-shield-check"></i>
+        </div>
+
+        <h4>Operativos</h4>
+
+        <p>Administración de operativos donde se distribuye el equipamiento.</p>
+
+        <button class="btn btn-outline-primary">Ingresar</button>
+      </div>
+    </div>
+
+    <!-- EQUIPAMIENTOS -->
+
+    <div class="col-lg-4 col-md-6">
+      <div class="dashboard-card" (click)="irAEquipamientos()">
+        <div class="icon bg-success">
+          <i class="bi bi-broadcast-pin"></i>
+        </div>
+
+        <h4>Equipamientos</h4>
+
+        <p>Radios, celulares, notebooks y demás equipos registrados.</p>
+
+        <button class="btn btn-outline-success">Ingresar</button>
+      </div>
+    </div>
+
+    <!-- PLANILLAS -->
+
+    <div class="col-lg-4 col-md-6">
+      <div class="dashboard-card" (click)="irAPlanillas()">
+        <div class="icon bg-warning">
+          <i class="bi bi-file-earmark-text-fill"></i>
+        </div>
+
+        <h4>Planillas de Distribución</h4>
+
+        <p>Registro de entrega y devolución de equipamientos.</p>
+
+        <button class="btn btn-outline-warning">Ingresar</button>
+      </div>
+    </div>
+
+    <!-- MOVIMIENTOS -->
+
+    <div class="col-lg-4 col-md-6">
+      <div class="dashboard-card" (click)="irAMovimientos()">
+        <div class="icon bg-danger">
+          <i class="bi bi-arrow-left-right"></i>
+        </div>
+
+        <h4>Movimientos</h4>
+
+        <p>Historial completo de entregas, devoluciones y modificaciones.</p>
+
+        <button class="btn btn-outline-danger">Ingresar</button>
+      </div>
+    </div>
+
+    <!-- REPORTES -->
+
+    <div class="col-lg-4 col-md-6">
+      <div class="dashboard-card" (click)="irAReportes()">
+        <div class="icon bg-dark">
+          <i class="bi bi-bar-chart-line-fill"></i>
+        </div>
+
+        <h4>Reportes</h4>
+
+        <p>Informes estadísticos y administrativos del sistema.</p>
+
+        <button class="btn btn-outline-dark">Ingresar</button>
+      </div>
+    </div>
+  </div>
+</div>

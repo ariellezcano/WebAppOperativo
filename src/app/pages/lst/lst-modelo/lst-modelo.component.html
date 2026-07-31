@@ -1,0 +1,112 @@
+<div class="container-fluid my-5 px-5">
+  <div class="card modelos-card shadow-lg border-0 rounded-4 overflow-hidden">
+
+    <!-- CABECERA -->
+    <div
+      class="card-header d-flex justify-content-between align-items-center py-3"
+      style="
+        background: linear-gradient(90deg, #0d6efd, #0b5ed7);
+        color: #f8f9fa;
+        border-bottom: 4px solid #ff9800;
+      "
+    >
+      <h3 class="m-0 fw-bold d-flex align-items-center">
+        <i class="bi bi-diagram-3-fill me-2" style="color: #ffe9c2"></i>
+        Modelos por Marca
+      </h3>
+
+      <button
+  *ngIf="puedeOperar()"
+  class="btn btn-light rounded-pill px-4 fw-semibold"
+  (click)="linkear(0)"
+>
+
+        <i class="bi bi-plus-circle me-2"></i>
+        Agregar
+      </button>
+    </div>
+
+    <!-- CUERPO -->
+    <div class="card-body bg-light py-4">
+
+      <!-- FILTROS -->
+      <div class="d-flex flex-wrap align-items-end gap-3 mb-4">
+        <app-fil-modelo
+          (emmit)="doFound($event)"
+          class="flex-grow-1"
+        ></app-fil-modelo>
+      </div>
+
+      <!-- LISTADO -->
+      <div class="table-responsive rounded-4 shadow-sm bg-white w-100">
+        <table class="table table-hover align-middle mb-0 w-100">
+          <thead class="table-primary text-center">
+            <tr>
+              <th class="text-start">Modelo</th>
+              <th class="text-start">Marca</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- FILAS -->
+            <tr *ngFor="let item of items; index as i">
+              <td class="fw-semibold">
+                {{ item.nombre }}
+              </td>
+
+              <td>
+                <span class="badge bg-info text-dark px-3 py-2">
+                  {{ item.nombreMarca }}
+                </span>
+              </td>
+
+              <td class="text-center">
+                <button
+  *ngIf="puedeOperar()"
+  class="btn btn-sm btn-outline-primary rounded-pill px-3 me-2"
+  title="Editar"
+  (click)="linkear(item.idModelo)"
+>
+
+                  <i class="bi bi-pencil-square"></i>
+                </button>
+
+                <button
+  *ngIf="puedeEliminar()"
+  class="btn btn-sm btn-outline-danger rounded-pill px-3"
+  title="Eliminar"
+  (click)="eliminar(item.idModelo)"
+>
+
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+
+            <!-- SIN DATOS -->
+            <tr *ngIf="items.length === 0">
+              <td colspan="3" class="empty-state">
+                <i class="bi bi-inbox fs-1 text-secondary d-block mb-2"></i>
+                <span class="fw-semibold text-secondary fs-5">
+                  No se encontraron registros
+                </span>
+                <p class="text-muted mt-1">
+                  Ajuste los filtros o agregue un nuevo modelo.
+                </p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div
+      class="card-footer text-end text-muted small bg-white border-top fw-semibold py-3"
+    >
+      Total: {{ items.length }} registros
+    </div>
+
+  </div>
+</div>
