@@ -63,4 +63,13 @@ export class EstadoService {
   delete(idEstado: number) {
     return this.http.delete<Results<any>>(`${this.api}/${idEstado}`);
   }
+
+  /* =======================
+       COMBO SIMPLE
+    ======================= */
+    combo() {
+      return this.http.get<Estado[]>(
+        `${this.api}/Combo`
+      );
+    }
 }
