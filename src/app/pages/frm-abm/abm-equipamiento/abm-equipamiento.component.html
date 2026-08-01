@@ -80,6 +80,7 @@
 
         <div class="col-md-6">
           <label class="form-label fw-semibold"> Estado </label>
+            <!-- (ngModelChange)="estadoCambio($event)" -->
 
           <select
             class="form-select"
@@ -130,14 +131,16 @@
 
         <!-- UNIDAD -->
 
-        <div class="col-md-12">
-          <label class="form-label fw-semibold"> Nombre Unidad </label>
+        <div class="col-md-5">
+          <label class="form-label fw-semibold">Unidad</label>
 
-          <input
-            class="form-control"
-            name="nombreUnidad"
-            [(ngModel)]="item.nombreUnidad"
-          />
+          <app-fil-autocompletado-unidad
+            (unidadSeleccionada)="unidadSeleccionada($event)"
+          ></app-fil-autocompletado-unidad>
+
+          <small *ngIf="item.nombreUnidad" class="text-muted fst-italic">
+            Seleccionada: {{ item.nombreUnidad }}
+          </small>
         </div>
 
         <!-- OBSERVACION -->

@@ -60,6 +60,7 @@ export class EquipamientoService {
   ====================================== */
 
   insert(item: Equipamiento) {
+    console.log("data enviada", item)
     return this.http.post<Results<Equipamiento>>(`${this.api}`, item);
   }
 

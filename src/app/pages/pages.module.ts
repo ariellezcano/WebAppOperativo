@@ -28,6 +28,8 @@ import { AbmEstadoComponent } from './frm-abm/abm-estado/abm-estado.component';
 import { FilEquipamientoComponent } from './filtros/fil-equipamiento/fil-equipamiento.component';
 import { LstEquipamientoComponent } from './lst/lst-equipamiento/lst-equipamiento.component';
 import { AbmEquipamientoComponent } from './frm-abm/abm-equipamiento/abm-equipamiento.component';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { FilAutocompletadoUnidadComponent } from './componentes/fil-autocompletado-unidad/fil-autocompletado-unidad.component';
 //import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
@@ -55,7 +57,8 @@ import { AbmEquipamientoComponent } from './frm-abm/abm-equipamiento/abm-equipam
     AbmEstadoComponent,
     FilEquipamientoComponent,
     LstEquipamientoComponent,
-    AbmEquipamientoComponent
+    AbmEquipamientoComponent,
+    FilAutocompletadoUnidadComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +66,7 @@ import { AbmEquipamientoComponent } from './frm-abm/abm-equipamiento/abm-equipam
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    //AutocompleteLibModule, // 👈 acá
+    AutocompleteLibModule, // 👈 acá
   ],
   providers: [],
   bootstrap: [PagesComponent],

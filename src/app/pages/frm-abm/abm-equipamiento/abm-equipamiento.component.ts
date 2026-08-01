@@ -6,12 +6,14 @@ import { Estado } from 'src/app/modelos/components/estado';
 import { Marca } from 'src/app/modelos/components/marca';
 import { Modelo } from 'src/app/modelos/components/modelo';
 import { TipoEquipo } from 'src/app/modelos/components/tipoEquipo';
+import { Unidad } from 'src/app/modelos/components/unidad';
 import { MarcaComboDTO } from 'src/app/modelos/relacionModelos/marcaComboDTO';
 import { EquipamientoService } from 'src/app/services/components/equipamiento.service';
 import { EstadoService } from 'src/app/services/components/estado.service';
 import { MarcaService } from 'src/app/services/components/marca.service';
 import { ModeloService } from 'src/app/services/components/modelo.service';
 import { TipoEquipoService } from 'src/app/services/components/tipo-equipo.service';
+import { Utils } from 'src/app/utils/utils';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,10 +26,10 @@ export class AbmEquipamientoComponent implements OnInit {
 
   editando = false;
 
-  marcas: any[] = [];
-  modelos: any[] = [];
-  tipos: any[] = [];
-  estados: any[] = [];
+  marcas: MarcaComboDTO[] = [];
+  modelos: Modelo[] = [];
+  tipos: TipoEquipo[] = [];
+  estados: Estado[] = [];
 
   marca = 0;
 
@@ -63,6 +65,7 @@ export class AbmEquipamientoComponent implements OnInit {
     this.tipos = await firstValueFrom(this.tipoService.combo());
 
     this.estados = await firstValueFrom(this.estadoService.combo());
+    //console.log(this.estados);
   }
 
   async cambioMarca() {
@@ -75,7 +78,7 @@ export class AbmEquipamientoComponent implements OnInit {
         this.modeloService.comboMarca(this.marca),
       );
 
-      console.log('Respuesta modelos:', re);
+      //console.log('Respuesta modelos:', re);
 
       this.modelos = re.dato;
     }
@@ -106,12 +109,14 @@ export class AbmEquipamientoComponent implements OnInit {
   }
 
   async guardar() {
+    this.item.usuarioAlta = Number(Utils.getSession('user'));
     try {
       const re = this.editando
         ? await firstValueFrom(this.wsdl.update(this.item))
         : await firstValueFrom(this.wsdl.insert(this.item));
 
       const result = JSON.parse(JSON.stringify(re));
+      console.log('result', result);
 
       if (result.code == '200' || result.code == '201') {
         Swal.fire({
@@ -133,6 +138,21 @@ export class AbmEquipamientoComponent implements OnInit {
 
       Swal.fire('Error', 'No se pudo guardar el equipamiento', 'error');
     }
+  }
+
+  // estadoCambio(valor: any) {
+  //   console.log('Estado seleccionado:', valor);
+  // }
+
+  unidadSeleccionada(unidad: Unidad | null) {
+    if (!unidad) {
+      this.item.unidadPerteneciente = null;
+      this.item.nombreUnidad = null;
+      return;
+    }
+
+    this.item.unidadPerteneciente = unidad.id;
+    this.item.nombreUnidad = unidad.nombre;
   }
 
   back() {

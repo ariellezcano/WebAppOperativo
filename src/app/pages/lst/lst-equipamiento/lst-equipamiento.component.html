@@ -41,9 +41,7 @@
 
               <th>Tipo</th>
 
-              <th>Serie</th>
-
-              <th>IMEI</th>
+              <th>Identificador</th>
 
               <th>Estado</th>
 
@@ -53,7 +51,7 @@
             </tr>
           </thead>
 
-          <tbody>
+          <tbody class="text-center">
             <tr *ngFor="let item of items">
               <td>
                 <strong>
@@ -74,11 +72,20 @@
               </td>
 
               <td>
-                {{ item.nroSerie }}
-              </td>
+                <span
+                  *ngIf="
+                    item.imei != null &&
+                      item.imei != undefined &&
+                      item.imei != '';
+                    else serie
+                  "
+                >
+                  {{ item.imei }}
+                </span>
 
-              <td>
-                {{ item.imei }}
+                <ng-template #serie>
+                  {{ item.nroSerie }}
+                </ng-template>
               </td>
 
               <td class="text-center">
