@@ -15,6 +15,9 @@ import { LstEstadoComponent } from './lst/lst-estado/lst-estado.component';
 import { AbmEstadoComponent } from './frm-abm/abm-estado/abm-estado.component';
 import { LstEquipamientoComponent } from './lst/lst-equipamiento/lst-equipamiento.component';
 import { AbmEquipamientoComponent } from './frm-abm/abm-equipamiento/abm-equipamiento.component';
+import { LstOperativoComponent } from './lst/lst-operativo/lst-operativo.component';
+import { AbmOperativoComponent } from './frm-abm/abm-operativo/abm-operativo.component';
+import { AbmDetalleOperativoComponent } from './frm-abm/abm-detalle-operativo/abm-detalle-operativo.component';
 
 const routes: Routes = [
   {
@@ -104,162 +107,27 @@ const routes: Routes = [
         component: AbmEquipamientoComponent,
         canActivate: [AuthGuard],
       },
-      //   {
-      //     path: 'agregar_solicitante',
-      //     component: AbmUsuarioSolicitanteComponent,
-      //     canActivate: [AuthGuard],
-      //   },
 
-      //   {
-      //     path: 'agregar_correo/:id',
-      //     component: AbmCorreoInstitucionalComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_correos_institucionales',
-      //     component: LstCorreoInstitucionalComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'plataformas/:id',
-      //     component: AbmPlataformaComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_plataforma',
-      //     component: LstPlataformasComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_plataforma/:id',
-      //     component: AbmActualizacionplataformaComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_reclamos',
-      //     component: LstReclamosComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_reclamos',
-      //     component: AbmReclamosComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_sistemas',
-      //     component: LstSistemasComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_sistemas/:id',
-      //     component: AbmSistemasComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_conexiones',
-      //     component: LstConexionesComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_conexiones/:id',
-      //     component: AbmConexionesComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_solicitudReclamo',
-      //     component: LstSolicitudReclamoComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_solicitudReclamo/:id',
-      //     component: AbmSolicitudReclamoComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_novedadesDTI',
-      //     component: LstNovedadesDTIComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_novedadesDTI/:id',
-      //     component: AbmNovedadesDtiComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_tipoNovedad',
-      //     component: LstTiponovedadComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_tipoNovedad/:id',
-      //     component: AbmTiponovedadComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_cambiarTitular/:id',
-      //     component: AbmCambioTitularComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_proveedor',
-      //     component: LstProveedorComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_proveedor/:id',
-      //     component: AbmProveedorComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_equipamientos',
-      //     component: LstEquipamientosComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_equipamiento/:id',
-      //     component: AbmEquipamientosComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_asignacion/:id',
-      //     component: AbmAsignacionEquipoComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'detalle_entrega/:id',
-      //     component: FrmDetalleEntregaComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_mantenimiento',
-      //     component: LstMantenimientoComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_mantenimiento/:id',
-      //     component: AbmMantenimientoComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'lst_solicitudes',
-      //     component: LstSolicitudesComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'abm_solicitudes/:id',
-      //     component: AbmSolicitudesComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'panel_reportes',
-      //     component: PanelSeleccionReportesComponent,
-      //     canActivate: [AuthGuard],
-      //   },
-      //   {
-      //     path: 'panel_recibo',
-      //     component: AbmGeneracionReciboComponent,
-      //     canActivate: [AuthGuard],
-      //   },
+      //OPERATIVOS
+
+      {
+        path: 'lst_operativos',
+        component: LstOperativoComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'abm_operativos/:id',
+        component: AbmOperativoComponent,
+        canActivate: [AuthGuard],
+      },
+
+      {
+        path: 'abm_detalle_operativo/:id',
+        component: AbmDetalleOperativoComponent,
+        canActivate: [AuthGuard],
+      },
+
+      
     ],
   },
 ];

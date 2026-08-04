@@ -80,7 +80,7 @@
 
         <div class="col-md-6">
           <label class="form-label fw-semibold"> Estado </label>
-            <!-- (ngModelChange)="estadoCambio($event)" -->
+          <!-- (ngModelChange)="estadoCambio($event)" -->
 
           <select
             class="form-select"
@@ -115,10 +115,11 @@
           <label class="form-label fw-semibold"> Nº Serie </label>
 
           <input
-            class="form-control"
-            name="nroSerie"
-            [(ngModel)]="item.nroSerie"
-          />
+  class="form-control"
+  name="nroSerie"
+  [(ngModel)]="item.nroSerie"
+  [disabled]="!tipoSeleccionado() || !esRadio()"
+/>
         </div>
 
         <!-- IMEI -->
@@ -126,7 +127,12 @@
         <div class="col-md-4">
           <label class="form-label fw-semibold"> IMEI </label>
 
-          <input class="form-control" name="imei" [(ngModel)]="item.imei" />
+          <input
+  class="form-control"
+  name="imei"
+  [(ngModel)]="item.imei"
+  [disabled]="!tipoSeleccionado() || !esCelular()"
+/>
         </div>
 
         <!-- UNIDAD -->

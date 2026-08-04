@@ -140,6 +140,36 @@ export class AbmEquipamientoComponent implements OnInit {
     }
   }
 
+  esCelular(): boolean {
+    const tipo = this.tipos.find(
+      (t) => t.idTipoEquipo === this.item.tipoEquipo,
+    );
+
+    return tipo?.nombre?.trim().toUpperCase() === 'CELULARES SMARTPHONE';
+  }
+
+  esRadio(): boolean {
+    const tipo = this.tipos.find(
+      (t) => t.idTipoEquipo === this.item.tipoEquipo,
+    );
+
+    return tipo?.nombre?.trim().toUpperCase() === 'RADIO PORTATIL';
+  }
+
+  tipoSeleccionado(): boolean {
+    return this.item.tipoEquipo != null && this.item.tipoEquipo > 0;
+  }
+
+  tipoEquipoChange(): void {
+    if (this.esCelular()) {
+      this.item.nroSerie = '';
+    }
+
+    if (this.esRadio()) {
+      this.item.imei = '';
+    }
+  }
+
   // estadoCambio(valor: any) {
   //   console.log('Estado seleccionado:', valor);
   // }

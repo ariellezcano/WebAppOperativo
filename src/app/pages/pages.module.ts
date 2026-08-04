@@ -30,6 +30,10 @@ import { LstEquipamientoComponent } from './lst/lst-equipamiento/lst-equipamient
 import { AbmEquipamientoComponent } from './frm-abm/abm-equipamiento/abm-equipamiento.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { FilAutocompletadoUnidadComponent } from './componentes/fil-autocompletado-unidad/fil-autocompletado-unidad.component';
+import { FilOperativoComponent } from './filtros/fil-operativo/fil-operativo.component';
+import { AbmOperativoComponent } from './frm-abm/abm-operativo/abm-operativo.component';
+import { LstOperativoComponent } from './lst/lst-operativo/lst-operativo.component';
+import { AbmDetalleOperativoComponent } from './frm-abm/abm-detalle-operativo/abm-detalle-operativo.component';
 //import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
@@ -58,7 +62,11 @@ import { FilAutocompletadoUnidadComponent } from './componentes/fil-autocompleta
     FilEquipamientoComponent,
     LstEquipamientoComponent,
     AbmEquipamientoComponent,
-    FilAutocompletadoUnidadComponent
+    FilAutocompletadoUnidadComponent,
+    FilOperativoComponent,
+    AbmOperativoComponent,
+    LstOperativoComponent,
+    AbmDetalleOperativoComponent
   ],
   imports: [
     CommonModule,

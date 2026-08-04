@@ -1,0 +1,102 @@
+<div class="container my-5">
+  <div class="card shadow-lg border-0 operativo-card">
+
+    <!-- CABECERA -->
+    <div
+      class="card-header bg-primary text-white d-flex justify-content-between align-items-center px-4 py-3"
+      style="
+        background: linear-gradient(90deg,#0d6efd,#0b5ed7);
+        border-bottom:4px solid #ff9800;
+      "
+    >
+      <h4 class="m-0 fw-bold">
+        <i class="bi bi-broadcast me-2"></i>
+        {{ editando ? 'Editar Operativo' : 'Alta de Operativo' }}
+      </h4>
+    </div>
+
+    <div class="card-body bg-light">
+
+      <form
+        #formOperativo="ngForm"
+        (ngSubmit)="guardar()"
+        class="row g-4"
+      >
+
+        <!-- DENOMINACION -->
+
+        <div class="col-md-12">
+
+          <label class="form-label fw-semibold">
+
+            Denominación
+
+          </label>
+
+          <input
+            type="text"
+            class="form-control"
+            name="denominacion"
+            [(ngModel)]="item.denominacion"
+            placeholder="Ingrese la denominación del operativo"
+            required
+            minlength="3"
+            maxlength="50"
+          />
+
+        </div>
+
+        <!-- ESTADO -->
+
+        <div
+          class="col-md-12"
+          *ngIf="editando"
+        >
+
+          <span
+            class="badge px-4 py-2"
+            [ngClass]="item.activo ? 'bg-success' : 'bg-secondary'"
+          >
+
+            {{ item.activo ? 'Activo' : 'Inactivo' }}
+
+          </span>
+
+        </div>
+
+        <!-- BOTONES -->
+
+        <div class="col-12 text-end mt-4">
+
+          <button
+            type="submit"
+            class="btn btn-success px-4 me-2"
+            [disabled]="!formOperativo.valid"
+          >
+
+            <i class="bi bi-save me-2"></i>
+
+            {{ editando ? 'Actualizar' : 'Guardar' }}
+
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-secondary px-4"
+            (click)="back()"
+          >
+
+            <i class="bi bi-arrow-left me-2"></i>
+
+            Volver
+
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+</div>

@@ -72,7 +72,7 @@ export class PanelSeleccionComponent implements OnInit {
 
   irAOperativos() {
     this.navbarService.setModo('operativo');
-    this.router.navigate(['/pages/lst_novedadesDTI']);
+    this.router.navigate(['/pages/lst_operativos']);
   }
 
   irAReportes() {
