@@ -56,11 +56,22 @@ export class DetalleOperativoService {
   EQUIPOS DISPONIBLES
   ==================================*/
 
-  equiposDisponibles() {
-    return this.http.get<Results<EquipamientoDTO>>(
-      `${this.api}/EquiposDisponibles`,
-    );
-  }
+  equiposDisponibles(
+  pagina: number = 1,
+  tamanoPagina: number = 10,
+  filtro: string = ''
+) {
+  return this.http.get<Results<EquipamientoDTO>>(
+    `${this.api}/EquiposDisponibles`,
+    {
+      params: {
+        pagina: pagina,
+        tamanoPagina: tamanoPagina,
+        filtro: filtro
+      }
+    }
+  );
+}
 
   /*==================================
   OBTENER POR ID

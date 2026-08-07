@@ -120,7 +120,7 @@
           <div class="text-muted">
             <i class="bi bi-calendar3"></i>
 
-           <b> {{ fechaActual | date: "EEEE dd/MM/yyyy" }}</b>
+            <b> {{ fechaActual | date: "EEEE dd/MM/yyyy" }}</b>
           </div>
 
           <div class="text-primary fw-bold">
@@ -135,81 +135,7 @@
 
   <!-- INDICADORES -->
 
-  <div class="row g-4 mb-4">
-    <div class="col-md-3">
-      <div class="card border-0 shadow indicador-card">
-        <div class="card-body">
-          <div class="d-flex justify-content-between">
-            <div>
-              <small class="text-muted"> Equipamientos </small>
-
-              <h2 class="fw-bold">
-                <!-- {{totalEquipamientos}} -->
-              </h2>
-            </div>
-
-            <i class="bi bi-broadcast-pin indicador-icon text-success"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3">
-      <div class="card border-0 shadow indicador-card">
-        <div class="card-body">
-          <div class="d-flex justify-content-between">
-            <div>
-              <small class="text-muted"> Operativos </small>
-
-              <h2 class="fw-bold">
-                <!-- {{totalOperativos}} -->
-              </h2>
-            </div>
-
-            <i class="bi bi-shield-check indicador-icon text-primary"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3">
-      <div class="card border-0 shadow indicador-card">
-        <div class="card-body">
-          <div class="d-flex justify-content-between">
-            <div>
-              <small class="text-muted"> Planillas </small>
-
-              <h2 class="fw-bold">
-                <!-- {{totalPlanillas}} -->
-              </h2>
-            </div>
-
-            <i
-              class="bi bi-file-earmark-text-fill indicador-icon text-warning"
-            ></i>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3">
-      <div class="card border-0 shadow indicador-card">
-        <div class="card-body">
-          <div class="d-flex justify-content-between">
-            <div>
-              <small class="text-muted"> Movimientos </small>
-
-              <h2 class="fw-bold">
-                <!-- {{totalMovimientos}} -->
-              </h2>
-            </div>
-
-            <i class="bi bi-arrow-left-right indicador-icon text-danger"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- MODULOS -->
 
@@ -233,21 +159,6 @@
       </div>
     </div>
 
-    <!-- OPERATIVOS -->
-    <div class="col-lg-4 col-md-6">
-      <div class="dashboard-card" (click)="irAOperativos()">
-        <div class="icon bg-primary">
-          <i class="bi bi-shield-check"></i>
-        </div>
-
-        <h4>Operativos</h4>
-
-        <p>Administración de operativos donde se distribuye el equipamiento.</p>
-
-        <button class="btn btn-outline-primary">Ingresar</button>
-      </div>
-    </div>
-
     <!-- EQUIPAMIENTOS -->
 
     <div class="col-lg-4 col-md-6">
@@ -261,6 +172,21 @@
         <p>Radios, celulares, notebooks y demás equipos registrados.</p>
 
         <button class="btn btn-outline-success">Ingresar</button>
+      </div>
+    </div>
+
+    <!-- OPERATIVOS -->
+    <div class="col-lg-4 col-md-6">
+      <div class="dashboard-card" (click)="irAOperativos()">
+        <div class="icon bg-primary">
+          <i class="bi bi-shield-check"></i>
+        </div>
+
+        <h4>Operativos</h4>
+
+        <p>Administración de operativos donde se distribuye el equipamiento.</p>
+
+        <button class="btn btn-outline-primary">Ingresar</button>
       </div>
     </div>
 

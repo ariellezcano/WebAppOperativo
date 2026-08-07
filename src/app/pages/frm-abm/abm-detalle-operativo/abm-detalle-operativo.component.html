@@ -1,236 +1,692 @@
-<div class="container-fluid my-4">
-  <div class="card shadow border-0 rounded-4">
-    <!-- CABECERA -->
-    <div class="card-header bg-primary text-white py-3">
-      <div class="d-flex justify-content-between align-items-center">
-        <div>
-          <h4 class="mb-1">
-            <i class="bi bi-broadcast-pin me-2"></i>
-            Gestión de Equipamientos
-          </h4>
 
-          <h6 class="mb-0" *ngIf="operativo">
-            Operativo:
-            <strong>{{ operativo.denominacion }}</strong>
-          </h6>
+<div class="detalle-operativo-page">
+
+  <div class="detalle-container">
+
+    <!-- ================================================= -->
+    <!-- ENCABEZADO -->
+    <!-- ================================================= -->
+
+    <div class="operativo-header">
+
+      <div class="operativo-info">
+
+        <div class="operativo-icon">
+          <i class="bi bi-broadcast-pin"></i>
         </div>
 
-        <button class="btn btn-light" (click)="back()">
-          <i class="bi bi-arrow-left"></i>
+        <div>
 
-          Volver
-        </button>
+          <span class="operativo-label">
+            GESTIÓN DE OPERATIVO
+          </span>
+
+          <h5 *ngIf="operativo">
+            {{ operativo.denominacion }}
+          </h5>
+
+          <small>
+            Administración y asignación de equipamientos
+          </small>
+
+        </div>
+
       </div>
+
+      <button
+        class="btn-volver"
+        type="button"
+        (click)="back()"
+      >
+        <i class="bi bi-arrow-left"></i>
+        Volver
+      </button>
+
     </div>
 
-    <div class="card-body">
-      <!-- DATOS -->
 
-      <div class="row mb-4">
-        <div class="row mb-4">
+    <!-- ================================================= -->
+    <!-- CONTENIDO -->
+    <!-- ================================================= -->
+
+    <div class="detalle-content">
+
+
+      <!-- ================================================= -->
+      <!-- DATOS DEL OPERATIVO -->
+      <!-- ================================================= -->
+
+      <div class="datos-operativo">
+
+        <div class="datos-titulo">
+          <i class="bi bi-calendar3"></i>
+
+          <span>
+            Datos de asignación
+          </span>
+        </div>
+
+
+        <div class="row g-3">
+
+
           <!-- TURNO -->
-          <div class="col-md-2">
-            <label class="form-label fw-bold">Turno</label>
 
-            <input
-              class="form-control"
-              list="turnos"
-              [(ngModel)]="turno"
-              name="turno"
-              placeholder="Ej.: Todo el día"
-            />
+          <div class="col-md-3">
+
+            <label class="form-label">
+              Turno
+            </label>
+
+            <div class="input-icon">
+
+              <i class="bi bi-clock"></i>
+
+              <input
+                class="form-control"
+                list="turnos"
+                [(ngModel)]="detalle.turno"
+                name="turno"
+                placeholder="Seleccionar turno"
+              />
+
+            </div>
+
 
             <datalist id="turnos">
+
               <option value="TODO EL DÍA"></option>
+
               <option value="MAÑANA"></option>
+
               <option value="TARDE"></option>
+
               <option value="NOCHE"></option>
+
               <option value="MAÑANA / TARDE"></option>
+
               <option value="TARDE / NOCHE"></option>
+
               <option value="ROTATIVO"></option>
+
             </datalist>
+
           </div>
+
 
           <!-- FECHA INICIO -->
-          <div class="col-md-3">
-            <label class="form-label fw-bold">Fecha Inicio</label>
 
-            <input
-              type="date"
-              class="form-control"
-              [(ngModel)]="detalle.fechaInicio"
-              name="fechaInicio"
-            />
+          <div class="col-md-3">
+
+            <label class="form-label">
+              Fecha Inicio
+            </label>
+
+            <div class="input-icon">
+
+              <i class="bi bi-calendar-check"></i>
+
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="detalle.fechaInicio"
+                name="fechaInicio"
+              />
+
+            </div>
+
           </div>
+
 
           <!-- FECHA FIN -->
-          <div class="col-md-3">
-            <label class="form-label fw-bold">Fecha Fin</label>
 
-            <input
-              type="date"
-              class="form-control"
-              [(ngModel)]="detalle.fechaFin"
-              name="fechaFin"
-            />
+          <div class="col-md-3">
+
+            <label class="form-label">
+              Fecha Fin
+            </label>
+
+            <div class="input-icon">
+
+              <i class="bi bi-calendar-x"></i>
+
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="detalle.fechaFin"
+                name="fechaFin"
+              />
+
+            </div>
+
           </div>
+
 
           <!-- OBSERVACIÓN -->
-          <div class="col-md-4">
-            <label class="form-label fw-bold">Observación</label>
 
-            <input
-              class="form-control"
-              [(ngModel)]="detalle.observacion"
-              name="observacion"
-            />
+          <div class="col-md-3">
+
+            <label class="form-label">
+              Observación
+            </label>
+
+            <div class="input-icon">
+
+              <i class="bi bi-chat-left-text"></i>
+
+              <input
+                class="form-control"
+                [(ngModel)]="detalle.observacion"
+                name="observacion"
+                placeholder="Observación"
+              />
+
+            </div>
+
           </div>
+
         </div>
 
-        
       </div>
 
-      <hr />
 
+      <!-- ================================================= -->
+      <!-- SEPARADOR -->
+      <!-- ================================================= -->
+
+      <div class="section-divider"></div>
+
+
+      <!-- ================================================= -->
       <!-- EQUIPOS DISPONIBLES -->
+      <!-- ================================================= -->
 
-      <h5 class="text-primary mb-3">
-        <i class="bi bi-broadcast me-2"></i>
+      <div class="section-header available-header">
 
-        Equipamientos Disponibles
-      </h5>
+        <div class="section-title">
 
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead class="table-primary">
-            <tr>
-              <th>ID</th>
+          <div class="section-icon">
 
-              <th>Marca</th>
+            <i class="bi bi-broadcast"></i>
 
-              <th>Modelo</th>
+          </div>
 
-              <th>Tipo</th>
+          <div>
 
-              <th>Serie</th>
+            <h5>
+              Equipamientos Disponibles
+            </h5>
 
-              <th>IMEI</th>
+            <span>
+              Seleccione los equipos que desea asignar al operativo
+            </span>
 
-              <th></th>
-            </tr>
-          </thead>
+          </div>
 
-          <tbody>
-            <tr *ngFor="let item of equiposDisponibles">
-              <td>
-                {{ item.idPolicial }}
-              </td>
+        </div>
 
-              <td>
-                {{ item.nombreMarca }}
-              </td>
 
-              <td>
-                {{ item.nombreModelo }}
-              </td>
+        <span
+          class="badge equipos-badge"
+          *ngIf="totalRegistrosEquiposDisponibles > 0"
+        >
 
-              <td>
-                {{ item.nombreTipoEquipo }}
-              </td>
+          <i class="bi bi-box-seam me-1"></i>
 
-              <td>
-                {{ item.nroSerie }}
-              </td>
+          {{ totalRegistrosEquiposDisponibles }}
 
-              <td>
-                {{ item.imei }}
-              </td>
+          equipos
 
-              <td width="80">
-                <button class="btn btn-success btn-sm" (click)="agregar(item)">
-                  <i class="bi bi-plus-circle"></i>
-                </button>
-              </td>
-            </tr>
+        </span>
 
-            <tr *ngIf="equiposDisponibles.length == 0">
-              <td colspan="7" class="text-center">Sin equipos disponibles</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
 
-      <hr class="my-5" />
 
+      <!-- ================================================= -->
+      <!-- BUSCADOR -->
+      <!-- ================================================= -->
+
+      <div class="buscador-container">
+
+        <div class="input-group">
+
+          <span class="input-group-text">
+
+            <i class="bi bi-search"></i>
+
+          </span>
+
+
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="filtroEquipo"
+            name="filtroEquipo"
+            placeholder="Buscar por ID, serie, IMEI, marca, modelo o tipo..."
+            (keyup.enter)="buscarEquiposDisponibles()"
+          />
+
+
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="buscarEquiposDisponibles()"
+          >
+
+            <i class="bi bi-search me-1"></i>
+
+            Buscar
+
+          </button>
+
+
+          <button
+            *ngIf="filtroEquipo"
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="limpiarFiltroEquipo()"
+            title="Limpiar búsqueda"
+          >
+
+            <i class="bi bi-x-lg"></i>
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- TABLA DISPONIBLES -->
+      <!-- ================================================= -->
+
+      <div class="table-card">
+
+        <div class="table-responsive">
+
+          <table class="table table-hover align-middle">
+
+            <thead class="table-primary">
+
+              <tr>
+
+                <th>ID</th>
+
+                <th>Marca</th>
+
+                <th>Modelo</th>
+
+                <th>Tipo</th>
+
+                <th>Serie</th>
+
+                <th>IMEI</th>
+
+                <th class="text-center" width="80">
+                  Acción
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+              <tr
+                *ngFor="let item of equiposDisponibles"
+              >
+
+                <td>
+
+                  <span class="id-equipo">
+                    {{ item.idPolicial }}
+                  </span>
+
+                </td>
+
+
+                <td>
+                  {{ item.nombreMarca }}
+                </td>
+
+
+                <td>
+                  {{ item.nombreModelo }}
+                </td>
+
+
+                <td>
+
+                  <span class="tipo-equipo">
+                    {{ item.nombreTipoEquipo }}
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  <span class="dato-equipo">
+                    {{ item.nroSerie || '-' }}
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  <span class="dato-equipo">
+                    {{ item.imei || '-' }}
+                  </span>
+
+                </td>
+
+
+                <td class="text-center">
+
+                  <button
+                    class="btn btn-success btn-sm btn-asignar"
+                    type="button"
+                    (click)="agregar(item)"
+                    title="Asignar equipo"
+                  >
+
+                    <i class="bi bi-plus-lg"></i>
+
+                  </button>
+
+                </td>
+
+              </tr>
+
+
+              <!-- SIN RESULTADOS -->
+
+              <tr
+                *ngIf="equiposDisponibles.length === 0"
+              >
+
+                <td
+                  colspan="7"
+                  class="empty-state"
+                >
+
+                  <i class="bi bi-inbox"></i>
+
+                  <strong>
+                    No se encontraron equipos disponibles
+                  </strong>
+
+                  <span>
+                    Intente modificar el criterio de búsqueda.
+                  </span>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- PAGINACION -->
+        <!-- ================================================= -->
+
+        <div
+          class="table-footer"
+          *ngIf="totalPaginasEquiposDisponibles > 0"
+        >
+
+          <div class="text-muted small">
+
+            Mostrando página
+
+            <strong>
+              {{ paginaEquiposDisponibles }}
+            </strong>
+
+            de
+
+            <strong>
+              {{ totalPaginasEquiposDisponibles }}
+            </strong>
+
+          </div>
+
+
+          <div class="btn-group">
+
+            <button
+              class="btn btn-outline-primary"
+              type="button"
+              [disabled]="paginaEquiposDisponibles === 1"
+              (click)="paginaAnteriorEquipos()"
+            >
+
+              <i class="bi bi-chevron-left"></i>
+
+              Anterior
+
+            </button>
+
+
+            <button
+              class="btn btn-outline-primary"
+              type="button"
+              [disabled]="
+                paginaEquiposDisponibles ===
+                totalPaginasEquiposDisponibles
+              "
+              (click)="paginaSiguienteEquipos()"
+            >
+
+              Siguiente
+
+              <i class="bi bi-chevron-right"></i>
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- SEPARADOR -->
+      <!-- ================================================= -->
+
+      <div class="section-divider large"></div>
+
+
+      <!-- ================================================= -->
       <!-- EQUIPOS ASIGNADOS -->
+      <!-- ================================================= -->
 
-      <h5 class="text-success mb-3">
-        <i class="bi bi-check2-circle me-2"></i>
+      <div class="section-header assigned-header">
 
-        Equipamientos Asignados
-      </h5>
+        <div class="section-title">
 
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead class="table-success">
-            <tr>
-              <th>ID</th>
+          <div class="section-icon">
 
-              <th>Marca</th>
+            <i class="bi bi-check2-circle"></i>
 
-              <th>Modelo</th>
+          </div>
 
-              <th>Tipo</th>
+          <div>
 
-              <th>Turno</th>
+            <h5>
+              Equipamientos Asignados
+            </h5>
 
-              <th>Inicio</th>
+            <span>
+              Equipos actualmente vinculados al operativo
+            </span>
 
-              <th></th>
-            </tr>
-          </thead>
+          </div>
 
-          <tbody>
-            <tr *ngFor="let item of equiposOperativo">
-              <td>
-                {{ item.idPolicial }}
-              </td>
+        </div>
 
-              <td>
-                {{ item.nombreMarca }}
-              </td>
 
-              <td>
-                {{ item.nombreModelo }}
-              </td>
+        <span class="badge asignados-badge">
 
-              <td>
-                {{ item.nombreTipoEquipo }}
-              </td>
+          <i class="bi bi-check-circle me-1"></i>
 
-              <td>
-                {{ item.turno }}
-              </td>
+          {{ equiposOperativo.length }}
 
-              <td>
-                {{ item.fechaInicio | date: "dd/MM/yyyy HH:mm" }}
-              </td>
+          asignados
 
-              <td width="80">
-                <button class="btn btn-danger btn-sm" (click)="quitar(item)">
-                  <i class="bi bi-trash"></i>
-                </button>
-              </td>
-            </tr>
+        </span>
 
-            <tr *ngIf="equiposOperativo.length == 0">
-              <td colspan="7" class="text-center">
-                No existen equipos asignados
-              </td>
-            </tr>
-          </tbody>
-        </table>
       </div>
+
+
+      <!-- ================================================= -->
+      <!-- TABLA ASIGNADOS -->
+      <!-- ================================================= -->
+
+      <div class="table-card assigned-table">
+
+        <div class="table-responsive">
+
+          <table class="table table-hover align-middle">
+
+            <thead class="table-success">
+
+              <tr>
+
+                <th>ID</th>
+
+                <th>Marca</th>
+
+                <th>Modelo</th>
+
+                <th>Tipo</th>
+
+                <th>Turno</th>
+
+                <th>Inicio</th>
+
+                <th class="text-center" width="80">
+                  Acción
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+
+              <tr
+                *ngFor="let item of equiposOperativo"
+              >
+
+                <td>
+
+                  <span class="id-equipo">
+                    {{ item.idPolicial }}
+                  </span>
+
+                </td>
+
+
+                <td>
+                  {{ item.nombreMarca }}
+                </td>
+
+
+                <td>
+                  {{ item.nombreModelo }}
+                </td>
+
+
+                <td>
+
+                  <span class="tipo-equipo">
+                    {{ item.nombreTipoEquipo }}
+                  </span>
+
+                </td>
+
+
+                <td>
+
+                  <span class="turno-badge">
+                    {{ item.turno }}
+                  </span>
+
+                </td>
+
+
+                <td>
+                  {{ item.fechaInicio | date: 'dd/MM/yyyy' }}
+                </td>
+
+
+                <td class="text-center">
+
+                  <button
+                    class="btn btn-danger btn-sm btn-liberar"
+                    type="button"
+                    (click)="quitar(item)"
+                    title="Liberar equipo"
+                  >
+
+                    <i class="bi bi-trash"></i>
+
+                  </button>
+
+                </td>
+
+              </tr>
+
+
+              <!-- SIN EQUIPOS -->
+
+              <tr
+                *ngIf="equiposOperativo.length === 0"
+              >
+
+                <td
+                  colspan="7"
+                  class="empty-state assigned-empty"
+                >
+
+                  <i class="bi bi-check2-circle"></i>
+
+                  <strong>
+                    No existen equipos asignados
+                  </strong>
+
+                  <span>
+                    Los equipos que asigne aparecerán en esta sección.
+                  </span>
+
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
     </div>
+
   </div>
+
 </div>
+
