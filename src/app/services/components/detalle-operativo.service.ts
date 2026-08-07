@@ -10,10 +10,9 @@ import { EquipamientoDTO } from 'src/app/modelos/relacionModelos/equipamientoDTO
 import { DetalleOperativo } from 'src/app/modelos/components/detalleOperativo';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DetalleOperativoService {
-
   api: string;
 
   constructor(private http: HttpClient) {
@@ -27,22 +26,20 @@ export class DetalleOperativoService {
   listar(
     pagina: number,
     cantidad: number,
-    busqueda?: string
+    busqueda?: string,
   ): Observable<Results<DetalleOperativoDTO>> {
-
     const params: any = {
       pagina: pagina.toString(),
-      tamanoPagina: cantidad.toString()
+      tamanoPagina: cantidad.toString(),
     };
 
     if (busqueda) {
       params.filtro = busqueda;
     }
 
-    return this.http.get<Results<DetalleOperativoDTO>>(
-      `${this.api}/Listar`,
-      { params }
-    );
+    return this.http.get<Results<DetalleOperativoDTO>>(`${this.api}/Listar`, {
+      params,
+    });
   }
 
   /*==================================
@@ -50,36 +47,19 @@ export class DetalleOperativoService {
   ==================================*/
 
   listarPorOperativo(idOperativo: number) {
-
     return this.http.get<Results<DetalleOperativoDTO>>(
-      `${this.api}/Operativo/${idOperativo}`
+      `${this.api}/Operativo/${idOperativo}`,
     );
-
   }
 
   /*==================================
   EQUIPOS DISPONIBLES
   ==================================*/
 
-  equiposDisponibles(
-    pagina: number,
-    cantidad: number,
-    busqueda?: string
-  ) {
-
-    let params = new HttpParams()
-      .set('pagina', pagina)
-      .set('tamanoPagina', cantidad);
-
-    if (busqueda) {
-      params = params.set('filtro', busqueda);
-    }
-
+  equiposDisponibles() {
     return this.http.get<Results<EquipamientoDTO>>(
       `${this.api}/EquiposDisponibles`,
-      { params }
     );
-
   }
 
   /*==================================
@@ -87,11 +67,9 @@ export class DetalleOperativoService {
   ==================================*/
 
   getId(idDetalleOperativo: number) {
-
     return this.http.get<Results<DetalleOperativoDTO>>(
-      `${this.api}/${idDetalleOperativo}`
+      `${this.api}/${idDetalleOperativo}`,
     );
-
   }
 
   /*==================================
@@ -99,12 +77,7 @@ export class DetalleOperativoService {
   ==================================*/
 
   insert(item: DetalleOperativo) {
-
-    return this.http.post<Results<DetalleOperativo>>(
-      `${this.api}`,
-      item
-    );
-
+    return this.http.post<Results<DetalleOperativo>>(`${this.api}`, item);
   }
 
   /*==================================
@@ -112,31 +85,21 @@ export class DetalleOperativoService {
   ==================================*/
 
   update(item: DetalleOperativo) {
-
     return this.http.put<Results<DetalleOperativo>>(
       `${this.api}/${item.idDetalleOperativo}`,
-      item
+      item,
     );
-
   }
 
   /*==================================
   ELIMINAR (BAJA)
   ==================================*/
 
-  delete(
-    idDetalleOperativo: number,
-    usuarioBaja: number
-  ) {
+  delete(idDetalleOperativo: number, usuarioBaja: number) {
+    const params = new HttpParams().set('usuarioBaja', usuarioBaja);
 
-    const params = new HttpParams()
-      .set('usuarioBaja', usuarioBaja);
-
-    return this.http.delete<Results<any>>(
-      `${this.api}/${idDetalleOperativo}`,
-      { params }
-    );
-
+    return this.http.delete<Results<any>>(`${this.api}/${idDetalleOperativo}`, {
+      params,
+    });
   }
-
 }

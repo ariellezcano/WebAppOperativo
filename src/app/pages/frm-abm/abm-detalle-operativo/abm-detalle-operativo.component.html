@@ -27,25 +27,67 @@
       <!-- DATOS -->
 
       <div class="row mb-4">
-        <div class="col-md-4">
-          <label class="form-label fw-bold"> Turno </label>
+        <div class="row mb-4">
+          <!-- TURNO -->
+          <div class="col-md-2">
+            <label class="form-label fw-bold">Turno</label>
 
-          <select class="form-select" [(ngModel)]="turno">
-            <option value="">Seleccione...</option>
+            <input
+              class="form-control"
+              list="turnos"
+              [(ngModel)]="turno"
+              name="turno"
+              placeholder="Ej.: Todo el día"
+            />
 
-            <option value="MAÑANA">MAÑANA</option>
+            <datalist id="turnos">
+              <option value="TODO EL DÍA"></option>
+              <option value="MAÑANA"></option>
+              <option value="TARDE"></option>
+              <option value="NOCHE"></option>
+              <option value="MAÑANA / TARDE"></option>
+              <option value="TARDE / NOCHE"></option>
+              <option value="ROTATIVO"></option>
+            </datalist>
+          </div>
 
-            <option value="TARDE">TARDE</option>
+          <!-- FECHA INICIO -->
+          <div class="col-md-3">
+            <label class="form-label fw-bold">Fecha Inicio</label>
 
-            <option value="NOCHE">NOCHE</option>
-          </select>
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="detalle.fechaInicio"
+              name="fechaInicio"
+            />
+          </div>
+
+          <!-- FECHA FIN -->
+          <div class="col-md-3">
+            <label class="form-label fw-bold">Fecha Fin</label>
+
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="detalle.fechaFin"
+              name="fechaFin"
+            />
+          </div>
+
+          <!-- OBSERVACIÓN -->
+          <div class="col-md-4">
+            <label class="form-label fw-bold">Observación</label>
+
+            <input
+              class="form-control"
+              [(ngModel)]="detalle.observacion"
+              name="observacion"
+            />
+          </div>
         </div>
 
-        <div class="col-md-8">
-          <label class="form-label fw-bold"> Observación </label>
-
-          <input class="form-control" [(ngModel)]="observacion" />
-        </div>
+        
       </div>
 
       <hr />

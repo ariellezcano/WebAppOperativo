@@ -9,9 +9,8 @@ export class DetalleOperativo {
 
   baja!: boolean;
 
-  fechaInicio!: Date | null;
-
-  fechaFin!: Date | null;
+  fechaInicio: any;
+  fechaFin: any;
 
   usuarioAlta!: number;
 
