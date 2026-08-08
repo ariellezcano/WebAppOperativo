@@ -34,7 +34,10 @@ import { FilOperativoComponent } from './filtros/fil-operativo/fil-operativo.com
 import { AbmOperativoComponent } from './frm-abm/abm-operativo/abm-operativo.component';
 import { LstOperativoComponent } from './lst/lst-operativo/lst-operativo.component';
 import { AbmDetalleOperativoComponent } from './frm-abm/abm-detalle-operativo/abm-detalle-operativo.component';
-//import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { AbmEntregaEquipoComponent } from './frm-abm/abm-entrega-equipo/abm-entrega-equipo.component';
+import { FilBusquedaPoliciaComponent } from './componentes/fil-busqueda-policia/fil-busqueda-policia.component';
+import { LstEntregasEquiposComponent } from './lst/lst-entregas-equipos/lst-entregas-equipos.component';
+import { FilEntregasEquiposComponent } from './filtros/fil-entregas-equipos/fil-entregas-equipos.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,11 @@ import { AbmDetalleOperativoComponent } from './frm-abm/abm-detalle-operativo/ab
     FilOperativoComponent,
     AbmOperativoComponent,
     LstOperativoComponent,
-    AbmDetalleOperativoComponent
+    AbmDetalleOperativoComponent,
+    AbmEntregaEquipoComponent,
+    FilBusquedaPoliciaComponent,
+    LstEntregasEquiposComponent,
+    FilEntregasEquiposComponent,
   ],
   imports: [
     CommonModule,

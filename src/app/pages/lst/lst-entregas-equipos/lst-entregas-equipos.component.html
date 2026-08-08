@@ -1,0 +1,279 @@
+<div class="card">
+  <!-- ===================================================== CABECERA ====================================================== -->
+  <div class="card-header bg-white">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h5 class="mb-1 fw-bold">
+          <i class="bi bi-clipboard-check me-2"></i> Entregas de Equipamiento
+        </h5>
+        <small class="text-muted">
+          Gestión de radios y teléfonos entregados
+        </small>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <!-- ===================================================== BUSQUEDA ====================================================== -->
+    <div class="row g-3 mb-4">
+      <app-fil-entregas-equipos
+        (emmit)="doFound($event)"
+      ></app-fil-entregas-equipos>
+    </div>
+  </div>
+  <!-- ===================================================== TABLA ====================================================== -->
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Fecha</th>
+          <th>Persona</th>
+          <th>DNI</th>
+          <th>Unidad</th>
+          <th>Estado</th>
+          <th class="text-center" style="width: 180px">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- ================================================= REGISTROS ================================================== -->
+        <tr *ngFor="let p of entregas">
+          <td>
+            <strong> #{{ p.idDistribucion }} </strong>
+          </td>
+          <td>{{ p.fechaEntrega | date: "dd/MM/yyyy" }}</td>
+          <td>
+            <strong> {{ p.apellido }} {{ p.nombre }} </strong>
+          </td>
+          <td>{{ p.dni }}</td>
+          <td>{{ p.nombreUnidad }}</td>
+          <!-- ================= ESTADO ================= -->
+          <td>
+            <span
+              *ngIf="p.estadoEntrega === 1"
+              class="badge bg-warning text-dark"
+            >
+              Pendiente
+            </span>
+            <span *ngIf="p.estadoEntrega === 2" class="badge bg-success">
+              Recibido
+            </span>
+            <span *ngIf="p.estadoEntrega === 3" class="badge bg-danger">
+              Anulado
+            </span>
+            <span *ngIf="p.estadoEntrega === 4" class="badge bg-primary">
+              Entregado
+            </span>
+            <span
+              *ngIf="
+                p.estadoEntrega !== 1 &&
+                p.estadoEntrega !== 2 &&
+                p.estadoEntrega !== 3 &&
+                p.estadoEntrega !== 4
+              "
+              class="badge bg-secondary"
+            >
+              Desconocido
+            </span>
+          </td>
+          <!-- ================= ACCIONES ================= -->
+          <td class="text-center">
+            <!-- VER -->
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-primary me-1"
+              title="Ver detalle"
+              (click)="verDetalle(p)"
+            >
+              <i class="bi bi-eye"></i>
+            </button>
+            <!-- RECEPCIONAR -->
+            <button
+              *ngIf="p.estadoEntrega === 1"
+              type="button"
+              class="btn btn-sm btn-outline-success me-1"
+              title="Recepcionar"
+              (click)="recepcionar(p)"
+            >
+              <i class="bi bi-check-circle"></i>
+            </button>
+            <!-- ANULAR -->
+            <button
+              *ngIf="p.estadoEntrega === 1"
+              type="button"
+              class="btn btn-sm btn-outline-danger"
+              title="Anular entrega"
+              (click)="anular(p)"
+            >
+              <i class="bi bi-x-circle"></i>
+            </button>
+          </td>
+        </tr>
+        <!-- ================================================= SIN REGISTROS ================================================== -->
+        <tr *ngIf="entregas.length === 0">
+          <td colspan="7" class="text-center py-5 text-muted">
+            <i class="bi bi-inbox fs-1 d-block mb-2"> </i> No existen entregas
+            para mostrar.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- ========================================================= MODAL DETALLE ========================================================== -->
+<div
+  class="modal fade"
+  id="modalDetalleEntrega"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <!-- CABECERA -->
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">
+          <i class="bi bi-clipboard-data me-2"></i> Detalle de entrega
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <!-- CUERPO -->
+      <div class="modal-body" *ngIf="detalleSeleccionado">
+        <!-- ================= PERSONA ================= -->
+        <h6 class="fw-bold mb-3">Persona que recibe</h6>
+        <div class="row g-3 mb-4">
+          <div class="col-md-3">
+            <label class="form-label text-muted"> DNI </label>
+            <div class="fw-bold">{{ detalleSeleccionado.dni }}</div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted"> Apellido </label>
+            <div class="fw-bold">{{ detalleSeleccionado.apellido }}</div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted"> Nombre </label>
+            <div class="fw-bold">{{ detalleSeleccionado.nombre }}</div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted"> Unidad </label>
+            <div class="fw-bold">{{ detalleSeleccionado.nombreUnidad }}</div>
+          </div>
+        </div>
+        <hr />
+        <!-- ================= INFORMACION ================= -->
+        <div class="row g-3 mb-4">
+          <div class="col-md-3">
+            <label class="form-label text-muted"> Fecha entrega </label>
+            <div>
+              {{ detalleSeleccionado.fechaEntrega | date: "dd/MM/yyyy HH:mm" }}
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted"> Estado </label>
+            <div>
+              <span
+                *ngIf="detalleSeleccionado.estadoEntrega === 1"
+                class="badge bg-warning text-dark"
+              >
+                Pendiente
+              </span>
+              <span
+                *ngIf="detalleSeleccionado.estadoEntrega === 2"
+                class="badge bg-success"
+              >
+                Recibido
+              </span>
+              <span
+                *ngIf="detalleSeleccionado.estadoEntrega === 3"
+                class="badge bg-danger"
+              >
+                Anulado
+              </span>
+              <span
+                *ngIf="detalleSeleccionado.estadoEntrega === 4"
+                class="badge bg-primary"
+              >
+                Entregado
+              </span>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-muted"> Usuario entrega </label>
+            <div>{{ detalleSeleccionado.nombreUsuarioEntrega }}</div>
+          </div>
+          <div class="col-md-3" *ngIf="detalleSeleccionado.fechaRecepcion">
+            <label class="form-label text-muted"> Fecha recepción </label>
+            <div>
+              {{
+                detalleSeleccionado.fechaRecepcion | date: "dd/MM/yyyy HH:mm"
+              }}
+            </div>
+          </div>
+        </div>
+        <hr />
+        <!-- ================= EQUIPAMIENTOS ================= -->
+        <h6 class="fw-bold mb-3">Equipamiento entregado</h6>
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Tipo</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Serie</th>
+                <th>IMEI</th>
+                <th>ID Policial</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let e of detalleSeleccionado.detalles">
+                <td>{{ e.tipoEquipo }}</td>
+                <td>{{ e.marca }}</td>
+                <td>{{ e.modelo }}</td>
+                <td>{{ e.nroSerie || "-" }}</td>
+                <td>{{ e.imei || "-" }}</td>
+                <td>{{ e.idPolicial || "-" }}</td>
+              </tr>
+              <tr
+                *ngIf="
+                  !detalleSeleccionado.detalles ||
+                  detalleSeleccionado.detalles.length === 0
+                "
+              >
+                <td colspan="6" class="text-center text-muted">
+                  No existen equipamientos asociados.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- PIE -->
+      <div class="modal-footer">
+        <!-- RECEPCIONAR -->
+        <button
+          *ngIf="detalleSeleccionado && detalleSeleccionado.estadoEntrega === 1"
+          type="button"
+          class="btn btn-success"
+          (click)="recepcionar(detalleSeleccionado)"
+        >
+          <i class="bi bi-check-circle me-1"></i> Recepcionar
+        </button>
+        <!-- ANULAR -->
+        <button
+          *ngIf="detalleSeleccionado && detalleSeleccionado.estadoEntrega === 1"
+          type="button"
+          class="btn btn-danger"
+          (click)="anular(detalleSeleccionado)"
+        >
+          <i class="bi bi-x-circle me-1"></i> Anular entrega
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

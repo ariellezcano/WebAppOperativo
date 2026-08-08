@@ -39,6 +39,14 @@ export const NAVBAR_CONFIG: Record<string, NavbarConfig> = {
     ]
   },
 
+  planillaDistribucion: {
+    titulo: 'DISTRIBUCION DE EQUIPAMIENTO',
+    links: [
+      { label: 'Panel de asignación/devolución', route: '/pages/abm_entrega_equipo' }
+    ]
+  },
+  
+
   
 
   reportes: {

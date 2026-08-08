@@ -62,7 +62,7 @@ export class PanelSeleccionComponent implements OnInit {
 
   irAPlanillas() {
     this.navbarService.setModo('planillaDistribucion');
-    this.router.navigate(['/pages/lst_conexiones']);
+    this.router.navigate(['/pages/abm_entrega_equipo']);
   }
 
   irAEquipamientos() {

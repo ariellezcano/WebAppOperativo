@@ -67,4 +67,8 @@ export class OperativoService {
   eliminar(idOperativo: number): Observable<Results<Operativo>> {
     return this.http.delete<Results<Operativo>>(`${this.api}/${idOperativo}`);
   }
+
+  combo(): Observable<any> {
+    return this.http.get<any>(`${this.api}/Combo`);
+  }
 }

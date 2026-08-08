@@ -18,6 +18,7 @@ import { AbmEquipamientoComponent } from './frm-abm/abm-equipamiento/abm-equipam
 import { LstOperativoComponent } from './lst/lst-operativo/lst-operativo.component';
 import { AbmOperativoComponent } from './frm-abm/abm-operativo/abm-operativo.component';
 import { AbmDetalleOperativoComponent } from './frm-abm/abm-detalle-operativo/abm-detalle-operativo.component';
+import { AbmEntregaEquipoComponent } from './frm-abm/abm-entrega-equipo/abm-entrega-equipo.component';
 
 const routes: Routes = [
   {
@@ -127,7 +128,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
       },
 
-      
+      //PANEL ENTREGA RADIOS
+      {
+        path: 'abm_entrega_equipo',
+        component: AbmEntregaEquipoComponent,
+        canActivate: [AuthGuard],
+      },
     ],
   },
 ];

@@ -1,0 +1,20 @@
+form.shadow-sm {
+  transition: all 0.3s ease;
+}
+
+form.shadow-sm:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.input-group .form-control {
+  box-shadow: none !important;
+}
+
+.input-group .btn {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.input-group .btn:hover {
+  background-color: #0b5ed7;
+  transform: translateY(-1px);
+}
