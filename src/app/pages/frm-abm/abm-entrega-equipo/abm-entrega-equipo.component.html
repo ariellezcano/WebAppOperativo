@@ -19,10 +19,8 @@
       <!-- ================= DATOS PERSONA ================= -->
 
       <div class="row g-3">
-        <!-- DNI -->
-
         <div class="col-md-3">
-          <label class="form-label"> DNI </label>
+          <label class="form-label">DNI</label>
 
           <input
             type="text"
@@ -32,10 +30,8 @@
           />
         </div>
 
-        <!-- APELLIDO -->
-
         <div class="col-md-3">
-          <label class="form-label"> Apellido </label>
+          <label class="form-label">Apellido</label>
 
           <input
             type="text"
@@ -45,10 +41,8 @@
           />
         </div>
 
-        <!-- NOMBRE -->
-
         <div class="col-md-3">
-          <label class="form-label"> Nombre </label>
+          <label class="form-label">Nombre</label>
 
           <input
             type="text"
@@ -58,19 +52,17 @@
           />
         </div>
 
-        <!-- UNIDAD -->
-
         <div class="col-md-3">
-          <label class="form-label fw-bold"> Unidad que recibe </label>
+          <label class="form-label fw-bold">Unidad que recibe</label>
 
           <app-fil-autocompletado-unidad
             (unidadSeleccionada)="unidadSeleccionada($event)"
           >
           </app-fil-autocompletado-unidad>
 
-          <small *ngIf="item.nombreUnidad" class="text-muted fst-italic">
+          <small *ngIf="nombreUnidad" class="text-muted fst-italic">
             Seleccionada:
-            {{ item.nombreUnidad }}
+            {{ nombreUnidad }}
           </small>
         </div>
       </div>
@@ -80,8 +72,6 @@
       <!-- ================= BUSQUEDA ================= -->
 
       <div class="row g-3">
-        <!-- OPERATIVO -->
-
         <div class="col-md-4">
           <label class="form-label">Operativo</label>
 
@@ -97,20 +87,17 @@
           </select>
         </div>
 
-        <!-- BUSCAR EQUIPO -->
-
         <div class="col-md-5">
-          <label class="form-label"> Buscar equipo </label>
+          <label class="form-label">Buscar equipo</label>
 
           <input
             type="text"
             class="form-control"
             [(ngModel)]="filtro"
             placeholder="Serie / IMEI / ID Policial"
+            (keyup.enter)="buscarEquipos()"
           />
         </div>
-
-        <!-- BUSCAR -->
 
         <div class="col-md-3 d-flex align-items-end">
           <button
@@ -118,8 +105,7 @@
             class="btn btn-primary w-100"
             (click)="buscarEquipos()"
           >
-            <i class="bi bi-search"></i>
-
+            <i class="bi bi-search me-1"></i>
             Buscar
           </button>
         </div>
@@ -134,16 +120,10 @@
           <thead class="table-light">
             <tr>
               <th width="50"></th>
-
               <th>Tipo</th>
-
               <th>Marca</th>
-
               <th>Modelo</th>
-
-              <th>Serie</th>
-
-              <th>IMEI</th>
+              <th>Serie / IMEI</th>
             </tr>
           </thead>
 
@@ -173,11 +153,7 @@
               </td>
 
               <td>
-                {{ e.nroSerie || "-" }}
-              </td>
-
-              <td>
-                {{ e.imei || "-" }}
+                {{ e.nroSerie || e.imei || "-" }}
               </td>
             </tr>
           </tbody>
@@ -190,32 +166,117 @@
         No existen equipos disponibles
       </div>
 
+      <!-- ================= EQUIPOS SELECCIONADOS ================= -->
+
+      <div *ngIf="equiposSeleccionados.length > 0" class="mt-3">
+        <h6 class="fw-bold">Equipos seleccionados</h6>
+
+        <div class="table-responsive">
+          <table class="table table-sm table-bordered align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>Tipo</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Serie / IMEI</th>
+                <th width="80">Acción</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let e of equiposSeleccionados">
+                <td>
+                  {{ e.tipoEquipo }}
+                </td>
+
+                <td>
+                  {{ e.marca || "-" }}
+                </td>
+
+                <td>
+                  {{ e.modelo || "-" }}
+                </td>
+
+                <td>
+                  {{ e.nroSerie || e.imei || "-" }}
+                </td>
+
+                <td class="text-center">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="seleccionarEquipo(e)"
+                    title="Quitar"
+                  >
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ================= OBSERVACION ================= -->
+
+      <div class="row mt-3">
+        <div class="col-md-12">
+          <label class="form-label fw-bold"> Observación </label>
+
+          <textarea
+            class="form-control"
+            [(ngModel)]="item.observacion"
+            rows="3"
+            maxlength="100"
+            placeholder="Ingrese una observación sobre la entrega..."
+          ></textarea>
+
+          <div class="form-text">Máximo 100 caracteres.</div>
+        </div>
+      </div>
+
       <hr />
 
       <!-- ================= RESUMEN ================= -->
 
       <div class="d-flex justify-content-between align-items-center">
         <div>
-          <strong> Equipos seleccionados: </strong>
+          <strong>Equipos seleccionados:</strong>
 
+          <span class="badge bg-primary ms-1">
+            {{ equiposSeleccionados.length }}
+          </span>
+        </div>
+        <div class="mt-2 text-muted small">
+          Persona: {{ item.idPersona }} | Unidad: {{ item.unidadRecibe }} |
+          Operativo: {{ idOperativo }} | Equipos:
           {{ equiposSeleccionados.length }}
         </div>
+        <div>
+          <button
+            type="button"
+            class="btn btn-secondary me-2"
+            (click)="limpiar()"
+          >
+            <i class="bi bi-arrow-counterclockwise me-1"></i>
+            Limpiar
+          </button>
 
-        <button
-          type="button"
-          class="btn btn-success"
-          (click)="guardar()"
-          [disabled]="
-            equiposSeleccionados.length === 0 ||
-            item.idPersona === 0 ||
-            item.unidadRecibe === 0 ||
-            idOperativo === 0
-          "
-        >
-          <i class="bi bi-check-circle me-1"></i>
-
-          Generar Planilla
-        </button>
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="guardar()"
+            [disabled]="
+              equiposSeleccionados.length < 1 ||
+              item.idPersona <= 0 ||
+              item.unidadRecibe <= 0 ||
+              idOperativo <= 0
+            "
+          >
+            <i class="bi bi-check-circle me-1"></i>
+            Entregar Equipo
+          </button>
+        </div>
       </div>
     </div>
   </div>

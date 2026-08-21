@@ -1,85 +1,55 @@
-
 <div class="detalle-operativo-page">
-
   <div class="detalle-container">
-
     <!-- ================================================= -->
     <!-- ENCABEZADO -->
     <!-- ================================================= -->
 
     <div class="operativo-header">
-
       <div class="operativo-info">
-
         <div class="operativo-icon">
           <i class="bi bi-broadcast-pin"></i>
         </div>
 
         <div>
-
-          <span class="operativo-label">
-            GESTIÓN DE OPERATIVO
-          </span>
+          <span class="operativo-label"> GESTIÓN DE OPERATIVO </span>
 
           <h5 *ngIf="operativo">
             {{ operativo.denominacion }}
           </h5>
 
-          <small>
-            Administración y asignación de equipamientos
-          </small>
-
+          <small> Administración y asignación de equipamientos </small>
         </div>
-
       </div>
 
-      <button
-        class="btn-volver"
-        type="button"
-        (click)="back()"
-      >
+      <button class="btn-volver" type="button" (click)="back()">
         <i class="bi bi-arrow-left"></i>
         Volver
       </button>
-
     </div>
-
 
     <!-- ================================================= -->
     <!-- CONTENIDO -->
     <!-- ================================================= -->
 
     <div class="detalle-content">
-
-
       <!-- ================================================= -->
       <!-- DATOS DEL OPERATIVO -->
       <!-- ================================================= -->
 
       <div class="datos-operativo">
-
         <div class="datos-titulo">
           <i class="bi bi-calendar3"></i>
 
-          <span>
-            Datos de asignación
-          </span>
+          <span> Datos de asignación </span>
         </div>
 
-
         <div class="row g-3">
-
-
           <!-- TURNO -->
 
           <div class="col-md-3">
-
-            <label class="form-label">
-              Turno
-            </label>
+            <label class="form-label"> Turno </label>
 
             <div class="input-icon">
-
               <i class="bi bi-clock"></i>
 
               <input
@@ -89,12 +59,9 @@
                 name="turno"
                 placeholder="Seleccionar turno"
               />
-
             </div>
 
-
             <datalist id="turnos">
-
               <option value="TODO EL DÍA"></option>
 
               <option value="MAÑANA"></option>
@@ -108,22 +75,15 @@
               <option value="TARDE / NOCHE"></option>
 
               <option value="ROTATIVO"></option>
-
             </datalist>
-
           </div>
-
 
           <!-- FECHA INICIO -->
 
           <div class="col-md-3">
-
-            <label class="form-label">
-              Fecha Inicio
-            </label>
+            <label class="form-label"> Fecha Inicio </label>
 
             <div class="input-icon">
-
               <i class="bi bi-calendar-check"></i>
 
               <input
@@ -132,22 +92,15 @@
                 [(ngModel)]="detalle.fechaInicio"
                 name="fechaInicio"
               />
-
             </div>
-
           </div>
-
 
           <!-- FECHA FIN -->
 
           <div class="col-md-3">
-
-            <label class="form-label">
-              Fecha Fin
-            </label>
+            <label class="form-label"> Fecha Fin </label>
 
             <div class="input-icon">
-
               <i class="bi bi-calendar-x"></i>
 
               <input
@@ -156,22 +109,15 @@
                 [(ngModel)]="detalle.fechaFin"
                 name="fechaFin"
               />
-
             </div>
-
           </div>
-
 
           <!-- OBSERVACIÓN -->
 
           <div class="col-md-3">
-
-            <label class="form-label">
-              Observación
-            </label>
+            <label class="form-label"> Observación </label>
 
             <div class="input-icon">
-
               <i class="bi bi-chat-left-text"></i>
 
               <input
@@ -180,15 +126,10 @@
                 name="observacion"
                 placeholder="Observación"
               />
-
             </div>
-
           </div>
-
         </div>
-
       </div>
-
 
       <!-- ================================================= -->
       <!-- SEPARADOR -->
@@ -196,66 +137,44 @@
 
       <div class="section-divider"></div>
 
-
       <!-- ================================================= -->
       <!-- EQUIPOS DISPONIBLES -->
       <!-- ================================================= -->
 
       <div class="section-header available-header">
-
         <div class="section-title">
-
           <div class="section-icon">
-
             <i class="bi bi-broadcast"></i>
-
           </div>
 
           <div>
+            <h5>Equipamientos Disponibles</h5>
 
-            <h5>
-              Equipamientos Disponibles
-            </h5>
-
-            <span>
-              Seleccione los equipos que desea asignar al operativo
-            </span>
-
+            <span> Seleccione los equipos que desea asignar al operativo </span>
           </div>
-
         </div>
-
 
         <span
           class="badge equipos-badge"
           *ngIf="totalRegistrosEquiposDisponibles > 0"
         >
-
           <i class="bi bi-box-seam me-1"></i>
 
           {{ totalRegistrosEquiposDisponibles }}
 
           equipos
-
         </span>
-
       </div>
-
 
       <!-- ================================================= -->
       <!-- BUSCADOR -->
       <!-- ================================================= -->
 
       <div class="buscador-container">
-
         <div class="input-group">
-
           <span class="input-group-text">
-
             <i class="bi bi-search"></i>
-
           </span>
-
 
           <input
             type="text"
@@ -266,19 +185,15 @@
             (keyup.enter)="buscarEquiposDisponibles()"
           />
 
-
           <button
             class="btn btn-primary"
             type="button"
             (click)="buscarEquiposDisponibles()"
           >
-
             <i class="bi bi-search me-1"></i>
 
             Buscar
-
           </button>
-
 
           <button
             *ngIf="filtroEquipo"
@@ -287,30 +202,20 @@
             (click)="limpiarFiltroEquipo()"
             title="Limpiar búsqueda"
           >
-
             <i class="bi bi-x-lg"></i>
-
           </button>
-
         </div>
-
       </div>
-
 
       <!-- ================================================= -->
       <!-- TABLA DISPONIBLES -->
       <!-- ================================================= -->
 
       <div class="table-card">
-
         <div class="table-responsive">
-
           <table class="table table-hover align-middle">
-
             <thead class="table-primary">
-
               <tr>
-
                 <th>ID</th>
 
                 <th>Marca</th>
@@ -323,129 +228,77 @@
 
                 <th>IMEI</th>
 
-                <th class="text-center" width="80">
-                  Acción
-                </th>
-
+                <th class="text-center" width="80">Acción</th>
               </tr>
-
             </thead>
 
-
             <tbody>
-
-
-              <tr
-                *ngFor="let item of equiposDisponibles"
-              >
-
+              <tr *ngFor="let item of equiposDisponibles">
                 <td>
-
                   <span class="id-equipo">
                     {{ item.idPolicial }}
                   </span>
-
                 </td>
-
 
                 <td>
                   {{ item.nombreMarca }}
                 </td>
 
-
                 <td>
                   {{ item.nombreModelo }}
                 </td>
 
-
                 <td>
-
                   <span class="tipo-equipo">
                     {{ item.nombreTipoEquipo }}
                   </span>
-
                 </td>
-
 
                 <td>
-
                   <span class="dato-equipo">
-                    {{ item.nroSerie || '-' }}
+                    {{ item.nroSerie || "-" }}
                   </span>
-
                 </td>
-
 
                 <td>
-
                   <span class="dato-equipo">
-                    {{ item.imei || '-' }}
+                    {{ item.imei || "-" }}
                   </span>
-
                 </td>
-
 
                 <td class="text-center">
-
                   <button
                     class="btn btn-success btn-sm btn-asignar"
                     type="button"
                     (click)="agregar(item)"
                     title="Asignar equipo"
                   >
-
                     <i class="bi bi-plus-lg"></i>
-
                   </button>
-
                 </td>
-
               </tr>
-
 
               <!-- SIN RESULTADOS -->
 
-              <tr
-                *ngIf="equiposDisponibles.length === 0"
-              >
-
-                <td
-                  colspan="7"
-                  class="empty-state"
-                >
-
+              <tr *ngIf="equiposDisponibles.length === 0">
+                <td colspan="7" class="empty-state">
                   <i class="bi bi-inbox"></i>
 
-                  <strong>
-                    No se encontraron equipos disponibles
-                  </strong>
+                  <strong> No se encontraron equipos disponibles </strong>
 
-                  <span>
-                    Intente modificar el criterio de búsqueda.
-                  </span>
-
+                  <span> Intente modificar el criterio de búsqueda. </span>
                 </td>
-
               </tr>
-
             </tbody>
-
           </table>
-
         </div>
-
 
         <!-- ================================================= -->
         <!-- PAGINACION -->
         <!-- ================================================= -->
 
-        <div
-          class="table-footer"
-          *ngIf="totalPaginasEquiposDisponibles > 0"
-        >
-
+        <div class="table-footer" *ngIf="totalPaginasEquiposDisponibles > 0">
           <div class="text-muted small">
-
             Mostrando página
 
             <strong>
@@ -457,48 +310,35 @@
             <strong>
               {{ totalPaginasEquiposDisponibles }}
             </strong>
-
           </div>
 
-
           <div class="btn-group">
-
             <button
               class="btn btn-outline-primary"
               type="button"
               [disabled]="paginaEquiposDisponibles === 1"
               (click)="paginaAnteriorEquipos()"
             >
-
               <i class="bi bi-chevron-left"></i>
 
               Anterior
-
             </button>
-
 
             <button
               class="btn btn-outline-primary"
               type="button"
               [disabled]="
-                paginaEquiposDisponibles ===
-                totalPaginasEquiposDisponibles
+                paginaEquiposDisponibles === totalPaginasEquiposDisponibles
               "
               (click)="paginaSiguienteEquipos()"
             >
-
               Siguiente
 
               <i class="bi bi-chevron-right"></i>
-
             </button>
-
           </div>
-
         </div>
-
       </div>
-
 
       <!-- ================================================= -->
       <!-- SEPARADOR -->
@@ -506,63 +346,41 @@
 
       <div class="section-divider large"></div>
 
-
       <!-- ================================================= -->
       <!-- EQUIPOS ASIGNADOS -->
       <!-- ================================================= -->
 
       <div class="section-header assigned-header">
-
         <div class="section-title">
-
           <div class="section-icon">
-
             <i class="bi bi-check2-circle"></i>
-
           </div>
 
           <div>
+            <h5>Equipamientos Asignados</h5>
 
-            <h5>
-              Equipamientos Asignados
-            </h5>
-
-            <span>
-              Equipos actualmente vinculados al operativo
-            </span>
-
+            <span> Equipos actualmente vinculados al operativo </span>
           </div>
-
         </div>
 
-
         <span class="badge asignados-badge">
-
           <i class="bi bi-check-circle me-1"></i>
 
           {{ equiposOperativo.length }}
 
           asignados
-
         </span>
-
       </div>
-
 
       <!-- ================================================= -->
       <!-- TABLA ASIGNADOS -->
       <!-- ================================================= -->
 
       <div class="table-card assigned-table">
-
         <div class="table-responsive">
-
           <table class="table table-hover align-middle">
-
             <thead class="table-success">
-
               <tr>
-
                 <th>ID</th>
 
                 <th>Marca</th>
@@ -575,118 +393,71 @@
 
                 <th>Inicio</th>
 
-                <th class="text-center" width="80">
-                  Acción
-                </th>
-
+                <th class="text-center" width="80">Acción</th>
               </tr>
-
             </thead>
 
-
             <tbody>
-
-
-              <tr
-                *ngFor="let item of equiposOperativo"
-              >
-
+              <tr *ngFor="let item of equiposOperativo">
                 <td>
-
                   <span class="id-equipo">
                     {{ item.idPolicial }}
                   </span>
-
                 </td>
-
 
                 <td>
                   {{ item.nombreMarca }}
                 </td>
 
-
                 <td>
                   {{ item.nombreModelo }}
                 </td>
 
-
                 <td>
-
                   <span class="tipo-equipo">
                     {{ item.nombreTipoEquipo }}
                   </span>
-
                 </td>
 
-
                 <td>
-
                   <span class="turno-badge">
                     {{ item.turno }}
                   </span>
-
                 </td>
-
 
                 <td>
-                  {{ item.fechaInicio | date: 'dd/MM/yyyy' }}
+                  {{ item.fechaInicio | date: "dd/MM/yyyy" }}
                 </td>
 
-
                 <td class="text-center">
-
                   <button
                     class="btn btn-danger btn-sm btn-liberar"
                     type="button"
                     (click)="quitar(item)"
                     title="Liberar equipo"
                   >
-
                     <i class="bi bi-trash"></i>
-
                   </button>
-
                 </td>
-
               </tr>
-
 
               <!-- SIN EQUIPOS -->
 
-              <tr
-                *ngIf="equiposOperativo.length === 0"
-              >
-
-                <td
-                  colspan="7"
-                  class="empty-state assigned-empty"
-                >
-
+              <tr *ngIf="equiposOperativo.length === 0">
+                <td colspan="7" class="empty-state assigned-empty">
                   <i class="bi bi-check2-circle"></i>
 
-                  <strong>
-                    No existen equipos asignados
-                  </strong>
+                  <strong> No existen equipos asignados </strong>
 
                   <span>
                     Los equipos que asigne aparecerán en esta sección.
                   </span>
-
                 </td>
-
               </tr>
-
             </tbody>
-
           </table>
-
         </div>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
-

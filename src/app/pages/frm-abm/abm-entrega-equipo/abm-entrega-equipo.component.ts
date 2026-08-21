@@ -7,6 +7,7 @@ import { RadioOperativo } from 'src/app/modelos/relacionModelos/radioOperativo';
 import { OperativoService } from 'src/app/services/components/operativo.service';
 import { PlanillaDistribucionService } from 'src/app/services/components/planilla-distribucion.service';
 import { Utils } from 'src/app/utils/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-abm-entrega-equipo',
@@ -106,6 +107,7 @@ export class AbmEntregaEquipoComponent implements OnInit {
   // =====================================================
 
   doFound(data: any): void {
+    console.log('persona encontrada', data);
     if (data && data.code === '200') {
       this.item.idPersona = data.data.id_persona;
 
@@ -124,9 +126,9 @@ export class AbmEntregaEquipoComponent implements OnInit {
   cargarOperativos(): void {
     this.operativoService.combo().subscribe({
       next: (resp) => {
-        console.log("resp", resp);
+        console.log('resp', resp);
         if (resp) {
-          this.operativos = resp.data;
+          this.operativos = resp;
         } else {
           this.operativos = [];
         }
@@ -147,7 +149,6 @@ export class AbmEntregaEquipoComponent implements OnInit {
   buscarEquipos(): void {
     if (this.idOperativo === 0) {
       alert('Debe seleccionar un operativo');
-
       return;
     }
 
@@ -155,8 +156,9 @@ export class AbmEntregaEquipoComponent implements OnInit {
       .buscarEquipamientoOperativo(this.idOperativo, this.filtro)
       .subscribe({
         next: (resp) => {
+          console.log('equipo', resp);
           if (resp.code === '200') {
-            this.equipos = resp.data;
+            this.equipos = resp.data ?? [];
           } else {
             this.equipos = [];
           }
@@ -164,7 +166,6 @@ export class AbmEntregaEquipoComponent implements OnInit {
 
         error: (error) => {
           console.error('Error al buscar equipos:', error);
-
           this.equipos = [];
         },
       });
@@ -183,9 +184,12 @@ export class AbmEntregaEquipoComponent implements OnInit {
       this.equiposSeleccionados = this.equiposSeleccionados.filter(
         (x) => x.idEquipamiento !== equipo.idEquipamiento,
       );
+      console.log('equipamiento', this.equiposSeleccionados);
     } else {
       this.equiposSeleccionados.push(equipo);
     }
+
+    console.log('equipos seleccionados', this.equiposSeleccionados);
   }
 
   // =====================================================
@@ -203,9 +207,9 @@ export class AbmEntregaEquipoComponent implements OnInit {
   // =====================================================
 
   unidadSeleccionada(data: any): void {
+    // console.log('unidad seleccionada', data);
     if (data) {
-      this.item.unidadRecibe = data.idUnidad;
-
+      this.item.unidadRecibe = data.id;
       this.nombreUnidad = data.nombre;
     }
   }
@@ -292,18 +296,65 @@ export class AbmEntregaEquipoComponent implements OnInit {
     this.service.crear(this.item).subscribe({
       next: (resp) => {
         if (resp.code === '201') {
-          alert('Entrega realizada correctamente');
+          const cantidad = this.equiposSeleccionados.length;
 
-          this.limpiar();
+          Swal.fire({
+            icon: 'success',
+            title: 'Entrega registrada',
+            html: `
+          <div class="text-start">
+            <p class="mb-2">
+              El equipamiento fue entregado correctamente.
+            </p>
+
+            <hr>
+
+            <p class="mb-1">
+              <strong>Receptor:</strong>
+              ${this.item.apellido}, ${this.item.nombre}
+            </p>
+
+            <p class="mb-1">
+              <strong>DNI:</strong>
+              ${this.item.dni}
+            </p>
+
+            <p class="mb-0">
+              <strong>Equipos entregados:</strong>
+              ${cantidad}
+            </p>
+          </div>
+        `,
+            confirmButtonText: 'Aceptar',
+          }).then(() => {
+            this.limpiar();
+          });
         } else {
-          alert(resp.message || 'No se pudo realizar la entrega');
+          Swal.fire({
+            icon: 'warning',
+            title: 'No se pudo realizar la entrega',
+            text:
+              resp.message ||
+              'No se pudo registrar la entrega del equipamiento.',
+            confirmButtonText: 'Aceptar',
+          });
         }
       },
 
       error: (error) => {
         console.error('Error al realizar entrega:', error);
 
-        alert('Error al realizar la entrega');
+        const mensaje =
+          error?.error?.message ||
+          error?.error?.error ||
+          'Ocurrió un error al registrar la entrega del equipamiento.';
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al registrar la entrega',
+          text: mensaje,
+          confirmButtonText: 'Aceptar',
+        });
       },
     });
   }
