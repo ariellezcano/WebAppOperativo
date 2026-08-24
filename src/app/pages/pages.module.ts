@@ -38,6 +38,9 @@ import { AbmEntregaEquipoComponent } from './frm-abm/abm-entrega-equipo/abm-entr
 import { FilBusquedaPoliciaComponent } from './componentes/fil-busqueda-policia/fil-busqueda-policia.component';
 import { LstEntregasEquiposComponent } from './lst/lst-entregas-equipos/lst-entregas-equipos.component';
 import { FilEntregasEquiposComponent } from './filtros/fil-entregas-equipos/fil-entregas-equipos.component';
+import { FilDistribucionComponent } from './filtros/fil-distribucion/fil-distribucion.component';
+import { LstDetalleDistribucionComponent } from './lst/lst-detalle-distribucion/lst-detalle-distribucion.component';
+import { FrmDetalleDistribucionComponent } from './frm-abm/frm-detalle-distribucion/frm-detalle-distribucion.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +77,9 @@ import { FilEntregasEquiposComponent } from './filtros/fil-entregas-equipos/fil-
     FilBusquedaPoliciaComponent,
     LstEntregasEquiposComponent,
     FilEntregasEquiposComponent,
+    FilDistribucionComponent,
+    LstDetalleDistribucionComponent,
+    FrmDetalleDistribucionComponent,
   ],
   imports: [
     CommonModule,

@@ -8,22 +8,46 @@ export interface DetalleDistribucionDTO {
 
   equipamiento: number;
 
-  idPolicial: string | null;
+  idPolicial?: string;
 
-  nroSerie: string | null;
+  nroSerie?: string;
 
-  imei: string | null;
+  imei?: string;
 
-  tipoEquipo: string | null;
+  tipoEquipo?: string;
 
-  modelo: string | null;
+  marca?: string;
 
-  marca: string | null;
+  modelo?: string;
 
-  observacion: string | null;
+  observacion?: string;
 
   baja: boolean;
 
   activo: boolean;
+
+  fechaEntrega?: Date;
+
+  idPersona?: number;
+
+  dni?: number;
+
+  nombre?: string;
+
+  apellido?: string;
+
+  unidadRecibe?: number;
+
+  nombreUnidad?: string;
+
+  estadoEntrega?: number;
+
+  usuarioEntrega?: number;
+
+  usuarioRecibe?: number;
+
+  fechaRecepcion?: Date;
+
+  observacionEntrega?: string;
 
 }

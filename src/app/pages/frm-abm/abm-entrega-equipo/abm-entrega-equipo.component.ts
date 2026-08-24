@@ -27,7 +27,7 @@ export class AbmEntregaEquipoComponent implements OnInit {
   // UNIDAD
   // =====================================================
 
-  nombreUnidad: string = '';
+  //nombreUnidad: string = '';
 
   // =====================================================
   // PLANILLA DE DISTRIBUCIÓN
@@ -84,6 +84,8 @@ export class AbmEntregaEquipoComponent implements OnInit {
 
       unidadRecibe: 0,
 
+      nombreUnidad: '',
+
       estadoEntrega: 1,
 
       usuarioEntrega: 1,
@@ -107,7 +109,7 @@ export class AbmEntregaEquipoComponent implements OnInit {
   // =====================================================
 
   doFound(data: any): void {
-    console.log('persona encontrada', data);
+    //console.log('persona encontrada', data);
     if (data && data.code === '200') {
       this.item.idPersona = data.data.id_persona;
 
@@ -126,7 +128,7 @@ export class AbmEntregaEquipoComponent implements OnInit {
   cargarOperativos(): void {
     this.operativoService.combo().subscribe({
       next: (resp) => {
-        console.log('resp', resp);
+        //console.log('resp', resp);
         if (resp) {
           this.operativos = resp;
         } else {
@@ -184,12 +186,12 @@ export class AbmEntregaEquipoComponent implements OnInit {
       this.equiposSeleccionados = this.equiposSeleccionados.filter(
         (x) => x.idEquipamiento !== equipo.idEquipamiento,
       );
-      console.log('equipamiento', this.equiposSeleccionados);
+      //console.log('equipamiento', this.equiposSeleccionados);
     } else {
       this.equiposSeleccionados.push(equipo);
     }
 
-    console.log('equipos seleccionados', this.equiposSeleccionados);
+    //console.log('equipos seleccionados', this.equiposSeleccionados);
   }
 
   // =====================================================
@@ -210,7 +212,7 @@ export class AbmEntregaEquipoComponent implements OnInit {
     // console.log('unidad seleccionada', data);
     if (data) {
       this.item.unidadRecibe = data.id;
-      this.nombreUnidad = data.nombre;
+      this.item.nombreUnidad = data.nombre;
     }
   }
 
@@ -222,6 +224,7 @@ export class AbmEntregaEquipoComponent implements OnInit {
     // =========================================
     // VALIDAR PERSONA
     // =========================================
+    this.item.usuarioEntrega = Number(Utils.getSession('user'));
 
     if (this.item.idPersona === 0) {
       alert('Debe seleccionar una persona');
@@ -292,7 +295,7 @@ export class AbmEntregaEquipoComponent implements OnInit {
     // =========================================
     // CREAR PLANILLA
     // =========================================
-
+    //console.log("data", this.item)
     this.service.crear(this.item).subscribe({
       next: (resp) => {
         if (resp.code === '201') {
@@ -374,7 +377,7 @@ export class AbmEntregaEquipoComponent implements OnInit {
 
     this.idOperativo = 0;
 
-    this.nombreUnidad = '';
+    //this.nombreUnidad = '';
 
     this.operativo = new Operativo();
   }

@@ -19,6 +19,8 @@ import { LstOperativoComponent } from './lst/lst-operativo/lst-operativo.compone
 import { AbmOperativoComponent } from './frm-abm/abm-operativo/abm-operativo.component';
 import { AbmDetalleOperativoComponent } from './frm-abm/abm-detalle-operativo/abm-detalle-operativo.component';
 import { AbmEntregaEquipoComponent } from './frm-abm/abm-entrega-equipo/abm-entrega-equipo.component';
+import { LstDetalleDistribucionComponent } from './lst/lst-detalle-distribucion/lst-detalle-distribucion.component';
+import { FrmDetalleDistribucionComponent } from './frm-abm/frm-detalle-distribucion/frm-detalle-distribucion.component';
 
 const routes: Routes = [
   {
@@ -132,6 +134,18 @@ const routes: Routes = [
       {
         path: 'abm_entrega_equipo',
         component: AbmEntregaEquipoComponent,
+        canActivate: [AuthGuard],
+      },
+
+      //PANEL EQUIPOS DISTRIBUIDOS
+      {
+        path: 'lst_distribucion',
+        component: LstDetalleDistribucionComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'frm_detalle/:id',
+        component: FrmDetalleDistribucionComponent,
         canActivate: [AuthGuard],
       },
     ],

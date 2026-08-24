@@ -15,6 +15,8 @@ export class PlanillaDistribucion {
 
   unidadRecibe!: number;
 
+  nombreUnidad!: string;
+
   estadoEntrega!: number;
 
   usuarioEntrega!: number;
@@ -31,8 +33,6 @@ export class PlanillaDistribucion {
 
   // Lista de radios entregadas
   detalles: DetalleDistribucion[];
-
-  nombreUnidad?: string;
 
   constructor() {
     this.activo = true;

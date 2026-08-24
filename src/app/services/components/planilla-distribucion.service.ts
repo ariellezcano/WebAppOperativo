@@ -159,5 +159,11 @@ export class PlanillaDistribucionService {
     return this.http.put<any>(`${this.api}/CerrarOperativo`, null, { params });
   }
 
-  
+  anular(idDistribucion: number, usuario: number): Observable<any> {
+    const params = new HttpParams()
+      .set('idDistribucion', idDistribucion.toString())
+      .set('usuario', usuario.toString());
+
+    return this.http.put<any>(`${this.api}/Anular`, null, { params });
+  }
 }
