@@ -16,7 +16,7 @@ export class DetalleDistribucionDTO {
 
   fechaRecepcionDetalle!: Date | null;
 
-  usuarioAnula!: number | null;
+  usuarioAnula!: string | null;
 
   fechaAnulacion!: Date | null;
 
