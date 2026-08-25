@@ -103,12 +103,14 @@ export class PlanillaDistribucionService {
   // =====================================================
 
   recibirEquipamiento(
-    idDistribucion: number,
+    idDetalle: number,
     usuarioRecibe: number,
+    observacionRecepcion: string,
   ): Observable<any> {
-    const params = new HttpParams()
-      .set('idDistribucion', idDistribucion.toString())
-      .set('usuarioRecibe', usuarioRecibe.toString());
+    let params = new HttpParams()
+      .set('idDetalle', idDetalle.toString())
+      .set('usuarioRecibe', usuarioRecibe.toString())
+      .set('observacionRecepcion', observacionRecepcion);
 
     return this.http.put<any>(`${this.api}/RecibirEquipamiento`, null, {
       params,
@@ -159,9 +161,9 @@ export class PlanillaDistribucionService {
     return this.http.put<any>(`${this.api}/CerrarOperativo`, null, { params });
   }
 
-  anular(idDistribucion: number, usuario: number): Observable<any> {
+  anular(idDetalle: number, usuario: number): Observable<any> {
     const params = new HttpParams()
-      .set('idDistribucion', idDistribucion.toString())
+      .set('idDetalle', idDetalle.toString())
       .set('usuario', usuario.toString());
 
     return this.http.put<any>(`${this.api}/Anular`, null, { params });

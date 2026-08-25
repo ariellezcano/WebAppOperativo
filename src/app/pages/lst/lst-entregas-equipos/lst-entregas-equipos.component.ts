@@ -129,76 +129,76 @@ export class LstEntregasEquiposComponent implements OnInit {
   // RECEPCIONAR
   // =====================================================
 
-  recepcionar(
-    entrega: PlanillaDistribucionDTO
-  ): void {
+  // recepcionar(
+  //   entrega: PlanillaDistribucionDTO
+  // ): void {
 
-    if (entrega.estadoEntrega !== 1) {
+  //   if (entrega.estadoEntrega !== 1) {
 
-      alert(
-        'La entrega no se encuentra pendiente'
-      );
+  //     alert(
+  //       'La entrega no se encuentra pendiente'
+  //     );
 
-      return;
+  //     return;
 
-    }
+  //   }
 
-    const confirmar = confirm(
-      '¿Está seguro de recepcionar esta entrega?'
-    );
+  //   const confirmar = confirm(
+  //     '¿Está seguro de recepcionar esta entrega?'
+  //   );
 
-    if (!confirmar) {
-      return;
-    }
+  //   if (!confirmar) {
+  //     return;
+  //   }
 
-    this.wsdl
-      .recibirEquipamiento(
-        entrega.idDistribucion,
-        entrega.usuarioRecibe = Number(Utils.getSession('user'))
-      )
-      .subscribe({
+  //   this.wsdl
+  //     .recibirEquipamiento(
+  //       entrega.idDistribucion,
+  //       entrega.usuarioRecibe = Number(Utils.getSession('user'))
+  //     )
+  //     .subscribe({
 
-        next: (resp) => {
+  //       next: (resp) => {
 
-          if (resp.code === '200') {
+  //         if (resp.code === '200') {
 
-            alert(
-              'Entrega recepcionada correctamente'
-            );
+  //           alert(
+  //             'Entrega recepcionada correctamente'
+  //           );
 
-            this.cerrarModal();
+  //           this.cerrarModal();
 
-            this.recargarDetalle(
-              entrega.idDistribucion
-            );
+  //           this.recargarDetalle(
+  //             entrega.idDistribucion
+  //           );
 
-          } else {
+  //         } else {
 
-            alert(
-              resp.message ||
-              'No se pudo recepcionar la entrega'
-            );
+  //           alert(
+  //             resp.message ||
+  //             'No se pudo recepcionar la entrega'
+  //           );
 
-          }
+  //         }
 
-        },
+  //       },
 
-        error: (error) => {
+  //       error: (error) => {
 
-          console.error(
-            'Error al recepcionar:',
-            error
-          );
+  //         console.error(
+  //           'Error al recepcionar:',
+  //           error
+  //         );
 
-          alert(
-            'Error al recepcionar la entrega'
-          );
+  //         alert(
+  //           'Error al recepcionar la entrega'
+  //         );
 
-        }
+  //       }
 
-      });
+  //     });
 
-  }
+  // }
 
   // =====================================================
   // ANULAR

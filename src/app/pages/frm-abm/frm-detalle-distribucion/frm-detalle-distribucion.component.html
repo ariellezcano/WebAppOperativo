@@ -53,9 +53,7 @@
       >
         <div class="card-body">
 
-          <h5
-            class="detalle-titulo"
-          >
+          <h5 class="detalle-titulo">
             <i class="bi bi-person-badge me-2"></i>
             Persona que recibió
           </h5>
@@ -124,9 +122,7 @@
       >
         <div class="card-body">
 
-          <h5
-            class="detalle-titulo"
-          >
+          <h5 class="detalle-titulo">
             <i class="bi bi-broadcast-pin me-2"></i>
             Equipo entregado
           </h5>
@@ -221,9 +217,7 @@
       >
         <div class="card-body">
 
-          <h5
-            class="detalle-titulo"
-          >
+          <h5 class="detalle-titulo">
             <i class="bi bi-clipboard-check me-2"></i>
             Datos de la entrega
           </h5>
@@ -249,30 +243,41 @@
 
             <div class="col-lg-4 col-md-6">
               <label class="form-label">
-                Estado
+                Estado del equipo
               </label>
 
               <div class="estado-box">
 
                 <span
-                  *ngIf="item.estadoEntrega === 1"
+                  *ngIf="item.estadoDetalle === 1"
                   class="badge bg-warning text-dark"
                 >
                   ENTREGADO
                 </span>
 
                 <span
-                  *ngIf="item.estadoEntrega === 2"
+                  *ngIf="item.estadoDetalle === 2"
                   class="badge bg-success"
                 >
                   RECEPCIONADO
                 </span>
 
                 <span
-                  *ngIf="item.estadoEntrega === 3"
+                  *ngIf="item.estadoDetalle === 3"
                   class="badge bg-danger"
                 >
                   ANULADO
+                </span>
+
+                <span
+                  *ngIf="
+                    item.estadoDetalle !== 1 &&
+                    item.estadoDetalle !== 2 &&
+                    item.estadoDetalle !== 3
+                  "
+                  class="badge bg-secondary"
+                >
+                  SIN ESTADO
                 </span>
 
               </div>
@@ -287,8 +292,80 @@
                 type="text"
                 class="form-control"
                 [value]="
-                  item.fechaRecepcion
-                    ? (item.fechaRecepcion | date:'dd/MM/yyyy HH:mm')
+                  item.fechaRecepcionDetalle
+                    ? (item.fechaRecepcionDetalle | date:'dd/MM/yyyy HH:mm')
+                    : '-'
+                "
+                readonly
+              />
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <label class="form-label">
+                Estado general de la planilla
+              </label>
+
+              <div class="estado-box">
+
+                <span
+                  *ngIf="item.estadoPlanilla === 1"
+                  class="badge bg-warning text-dark"
+                >
+                  ENTREGA PENDIENTE
+                </span>
+
+                <span
+                  *ngIf="item.estadoPlanilla === 2"
+                  class="badge bg-success"
+                >
+                  ENTREGA COMPLETA
+                </span>
+
+                <span
+                  *ngIf="item.estadoPlanilla === 3"
+                  class="badge bg-info text-dark"
+                >
+                  RECEPCIÓN PARCIAL
+                </span>
+
+                <span
+                  *ngIf="item.estadoPlanilla === 4"
+                  class="badge bg-danger"
+                >
+                  ANULADA
+                </span>
+
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <label class="form-label">
+                Fecha recepción planilla
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                [value]="
+                  item.fechaRecepcionPlanilla
+                    ? (item.fechaRecepcionPlanilla | date:'dd/MM/yyyy HH:mm')
+                    : '-'
+                "
+                readonly
+              />
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+              <label class="form-label">
+                Usuario que recepcionó
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                [value]="
+                  item.usuarioRecibeDetalle != null
+                    ? item.usuarioRecibeDetalle
                     : '-'
                 "
                 readonly
@@ -323,6 +400,58 @@
         </div>
       </div>
 
+      <!-- DATOS ANULACION -->
+      <div
+        *ngIf="item.estadoDetalle === 3"
+        class="card detalle-card border-0 shadow-sm mb-4"
+      >
+        <div class="card-body">
+
+          <h5 class="detalle-titulo text-danger">
+            <i class="bi bi-x-octagon me-2"></i>
+            Datos de anulación
+          </h5>
+
+          <div class="row g-3">
+
+            <div class="col-lg-6 col-md-6">
+              <label class="form-label">
+                Usuario que anuló
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                [value]="
+                  item.usuarioAnula != null
+                    ? item.usuarioAnula
+                    : '-'
+                "
+                readonly
+              />
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <label class="form-label">
+                Fecha de anulación
+              </label>
+
+              <input
+                type="text"
+                class="form-control"
+                [value]="
+                  item.fechaAnulacion
+                    ? (item.fechaAnulacion | date:'dd/MM/yyyy HH:mm')
+                    : '-'
+                "
+                readonly
+              />
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <!-- ACCIONES -->
       <div
         class="d-flex justify-content-end gap-3 flex-wrap"
@@ -337,7 +466,7 @@
         </button>
 
         <button
-          *ngIf="item.estadoEntrega === 1"
+          *ngIf="item.estadoDetalle === 1"
           class="btn btn-success px-4"
           (click)="recepcionar()"
         >
@@ -346,7 +475,7 @@
         </button>
 
         <button
-          *ngIf="item.estadoEntrega === 1"
+          *ngIf="item.estadoDetalle === 1"
           class="btn btn-danger px-4"
           (click)="anular()"
         >

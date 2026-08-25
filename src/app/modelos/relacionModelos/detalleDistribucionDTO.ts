@@ -1,13 +1,30 @@
-export interface DetalleDistribucionDTO {
+export class DetalleDistribucionDTO {
+  // DETALLE
+  idDetalle!: number;
 
-  idDetalle: number;
+  distribucion!: number;
 
-  distribucion: number;
+  detalleOperativo!: number;
 
-  detalleOperativo: number;
+  equipamiento!: number;
 
-  equipamiento: number;
+  observacion?: string;
 
+  estadoDetalle!: number;
+
+  usuarioRecibeDetalle!: string | null;
+
+  fechaRecepcionDetalle!: Date | null;
+
+  usuarioAnula!: number | null;
+
+  fechaAnulacion!: Date | null;
+
+  baja!: boolean;
+
+  activo!: boolean;
+
+  // EQUIPAMIENTO
   idPolicial?: string;
 
   nroSerie?: string;
@@ -20,12 +37,7 @@ export interface DetalleDistribucionDTO {
 
   modelo?: string;
 
-  observacion?: string;
-
-  baja: boolean;
-
-  activo: boolean;
-
+  // PLANILLA DISTRIBUCION
   fechaEntrega?: Date;
 
   idPersona?: number;
@@ -40,14 +52,13 @@ export interface DetalleDistribucionDTO {
 
   nombreUnidad?: string;
 
-  estadoEntrega?: number;
+  estadoPlanilla!: number;
 
   usuarioEntrega?: number;
 
-  usuarioRecibe?: number;
+  usuarioRecibePlanilla!: number | null;
 
-  fechaRecepcion?: Date;
+  fechaRecepcionPlanilla!: Date | null;
 
   observacionEntrega?: string;
-
 }

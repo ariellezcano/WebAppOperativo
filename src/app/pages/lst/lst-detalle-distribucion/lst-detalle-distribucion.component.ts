@@ -41,7 +41,7 @@ export class LstDetalleDistribucionComponent implements OnInit {
   }
 
   doFound(event: DetalleDistribucionDTO[]) {
-    console.log("recepcionado", event)
+    console.log('recepcionado', event);
     this.items = event;
   }
 
@@ -113,59 +113,125 @@ export class LstDetalleDistribucionComponent implements OnInit {
     Swal.fire({
       icon: 'question',
       title: 'Recepcionar equipamiento',
+
       html: `
       <div class="text-start">
-        <p>¿Confirma la recepción del equipamiento?</p>
+
+        <p>
+          ¿Confirma la recepción del equipamiento?
+        </p>
 
         <hr>
 
         <p class="mb-1">
+          <strong>Equipo:</strong>
+          ${item.idPolicial ?? '-'}
+        </p>
+
+        <p class="mb-1">
           <strong>Receptor:</strong>
-          ${item.apellido}, ${item.nombre}
+          ${item.apellido ?? ''}, ${item.nombre ?? ''}
         </p>
 
         <p class="mb-1">
           <strong>DNI:</strong>
-          ${item.dni}
+          ${item.dni ?? '-'}
         </p>
 
-        <p class="mb-0">
+        <p class="mb-3">
           <strong>Unidad:</strong>
           ${item.nombreUnidad ?? '-'}
         </p>
+
+        <label class="form-label fw-semibold">
+          Observación de recepción
+        </label>
+
+        <textarea
+          id="observacionRecepcion"
+          class="swal2-textarea"
+          maxlength="200"
+          placeholder="Ingrese una observación..."
+        ></textarea>
+
       </div>
     `,
+
       showCancelButton: true,
+
       confirmButtonText: 'Sí, recepcionar',
+
       cancelButtonText: 'Cancelar',
+
       reverseButtons: true,
+
+      preConfirm: () => {
+        const textarea = document.getElementById(
+          'observacionRecepcion',
+        ) as HTMLTextAreaElement;
+
+        return textarea?.value?.trim() ?? '';
+      },
     }).then((result) => {
       if (!result.isConfirmed) {
         return;
       }
 
-      // Reemplazar por el usuario logueado
-      const usuarioRecibe = 1;
+      // =========================================
+      // USUARIO LOGUEADO
+      // =========================================
+
+      const usuarioRecibe = Number(Utils.getSession('user'));
+
+      if (!usuarioRecibe) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Usuario no válido',
+          text: 'No se pudo identificar al usuario que realiza la recepción.',
+          confirmButtonText: 'Aceptar',
+        });
+
+        return;
+      }
+
+      // =========================================
+      // OBSERVACION
+      // =========================================
+
+      const observacionRecepcion = result.value ?? '';
+
+      // =========================================
+      // RECEPCIONAR EQUIPO
+      // =========================================
 
       this.wsdl
-        .recibirEquipamiento(item.idDistribucion, usuarioRecibe)
+        .recibirEquipamiento(
+          item.idDetalle,
+          usuarioRecibe,
+          observacionRecepcion,
+        )
         .subscribe({
           next: (resp) => {
             if (resp.code === '200') {
               Swal.fire({
                 icon: 'success',
                 title: 'Equipamiento recepcionado',
-                text: 'La recepción fue registrada correctamente.',
-                confirmButtonText: 'Aceptar',
-              });
 
-              // Volver a cargar listado
-              this.fil.filter();
+                text:
+                  resp.message || 'La recepción fue registrada correctamente.',
+
+                confirmButtonText: 'Aceptar',
+              }).then(() => {
+                // Volver a cargar listado
+                this.fil.filter();
+              });
             } else {
               Swal.fire({
                 icon: 'warning',
                 title: 'No se pudo recepcionar',
+
                 text: resp.message || 'No se pudo registrar la recepción.',
+
                 confirmButtonText: 'Aceptar',
               });
             }
@@ -177,9 +243,11 @@ export class LstDetalleDistribucionComponent implements OnInit {
             Swal.fire({
               icon: 'error',
               title: 'Error',
+
               text:
                 error?.error?.message ||
                 'Ocurrió un error al recepcionar el equipamiento.',
+
               confirmButtonText: 'Aceptar',
             });
           },

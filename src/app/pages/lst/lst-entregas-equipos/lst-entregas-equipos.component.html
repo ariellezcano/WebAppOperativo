@@ -87,7 +87,7 @@
               <i class="bi bi-eye"></i>
             </button>
             <!-- RECEPCIONAR -->
-            <button
+            <!-- <button
               *ngIf="p.estadoEntrega === 1"
               type="button"
               class="btn btn-sm btn-outline-success me-1"
@@ -95,7 +95,7 @@
               (click)="recepcionar(p)"
             >
               <i class="bi bi-check-circle"></i>
-            </button>
+            </button> -->
             <!-- ANULAR -->
             <button
               *ngIf="p.estadoEntrega === 1"
@@ -253,23 +253,23 @@
       <!-- PIE -->
       <div class="modal-footer">
         <!-- RECEPCIONAR -->
-        <button
+        <!-- <button
           *ngIf="detalleSeleccionado && detalleSeleccionado.estadoEntrega === 1"
           type="button"
           class="btn btn-success"
           (click)="recepcionar(detalleSeleccionado)"
         >
           <i class="bi bi-check-circle me-1"></i> Recepcionar
-        </button>
+        </button> -->
         <!-- ANULAR -->
-        <button
+        <!-- <button
           *ngIf="detalleSeleccionado && detalleSeleccionado.estadoEntrega === 1"
           type="button"
           class="btn btn-danger"
           (click)="anular(detalleSeleccionado)"
         >
           <i class="bi bi-x-circle me-1"></i> Anular entrega
-        </button>
+        </button> -->
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cerrar
         </button>
