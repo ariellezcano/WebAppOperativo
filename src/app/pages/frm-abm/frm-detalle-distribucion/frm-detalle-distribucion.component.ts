@@ -27,9 +27,7 @@ export class FrmDetalleDistribucionComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.idDetalle = Number(
-      this.route.snapshot.paramMap.get('id')
-    );
+    this.idDetalle = Number(this.route.snapshot.paramMap.get('id'));
 
     if (this.idDetalle > 0) {
       await this.cargar();
@@ -40,17 +38,11 @@ export class FrmDetalleDistribucionComponent implements OnInit {
     try {
       this.cargando = true;
 
-      const re = await firstValueFrom(
-        this.wsdl.obtenerPorId(this.idDetalle)
-      );
+      const re = await firstValueFrom(this.wsdl.obtenerPorId(this.idDetalle));
 
       const result = JSON.parse(JSON.stringify(re));
 
-      if (
-        result.code === '200' &&
-        result.data &&
-        result.data.length > 0
-      ) {
+      if (result.code === '200' && result.data && result.data.length > 0) {
         this.item = result.data[0];
       } else {
         this.item = null;
@@ -58,7 +50,7 @@ export class FrmDetalleDistribucionComponent implements OnInit {
         Swal.fire(
           'Atención',
           'No se encontró el detalle de la entrega.',
-          'warning'
+          'warning',
         );
       }
     } catch (error) {
@@ -66,20 +58,14 @@ export class FrmDetalleDistribucionComponent implements OnInit {
 
       this.item = null;
 
-      Swal.fire(
-        'Error',
-        'Ocurrió un error al cargar la entrega.',
-        'error'
-      );
+      Swal.fire('Error', 'Ocurrió un error al cargar la entrega.', 'error');
     } finally {
       this.cargando = false;
     }
   }
 
   back() {
-    this.router.navigate([
-      'pages/lst_detalle_distribucion',
-    ]);
+    this.router.navigate(['pages/lst_detalle_distribucion']);
   }
 
   recepcionar() {
@@ -95,13 +81,19 @@ export class FrmDetalleDistribucionComponent implements OnInit {
       confirmButtonText: 'Recepcionar',
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#198754',
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        // Acá después llamamos al endpoint Recepcionar
-        console.log(
-          'Recepcionar detalle:',
-          this.item?.idDetalle
-        );
+        try {
+          // Acá después llamamos al endpoint Recepcionar
+          const consulta = await firstValueFrom(this.wsdlPlanillaDistribucion.crear(id));
+
+          const result = JSON.parse(JSON.stringify(consulta));
+
+          if (result.code == '200') {
+            this.item = result.dato;
+          }
+        } catch (error) {}
+        console.log('Recepcionar detalle:', this.item?.idDetalle);
       }
     });
   }
@@ -122,10 +114,7 @@ export class FrmDetalleDistribucionComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         // Acá después llamamos al endpoint Anular
-        console.log(
-          'Anular detalle:',
-          this.item?.idDetalle
-        );
+        console.log('Anular detalle:', this.item?.idDetalle);
       }
     });
   }
