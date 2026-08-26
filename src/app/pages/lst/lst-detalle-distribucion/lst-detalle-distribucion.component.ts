@@ -40,9 +40,8 @@ export class LstDetalleDistribucionComponent implements OnInit {
     this.cargar();
   }
 
-  doFound(event: DetalleDistribucionDTO[]) {
-    console.log('recepcionado', event);
-    this.items = event;
+  doFound(event: DetalleDistribucionDTO[]): void {
+    this.items = [...event];
   }
 
   async cargar() {

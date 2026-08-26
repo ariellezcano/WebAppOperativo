@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+
+import { firstValueFrom } from 'rxjs';
 
 import { DetalleDistribucionDTO } from 'src/app/modelos/relacionModelos/detalleDistribucionDTO';
+
 import { DetalleDistribucionService } from 'src/app/services/components/detalle-distribucion.service';
 
 @Component({
@@ -18,76 +20,129 @@ export class FilDistribucionComponent implements OnInit {
   busqueda = '';
 
   paginaActual = 1;
+
   totalPaginas = 1;
+
   totalRegistros = 0;
 
   limit = 10;
+
   limits = [10, 20, 30, 40, 50];
 
-  constructor(
-    private wsdl: DetalleDistribucionService,
-  ) {}
+  cargando = false;
 
-  ngOnInit() {
+  /*
+   * Sirve para evitar que una petición vieja
+   * pise el resultado de una petición nueva.
+   */
+  private numeroConsulta = 0;
+
+  constructor(private wsdl: DetalleDistribucionService) {}
+
+  ngOnInit(): void {
     this.filter();
   }
 
-  setPage(page: number, accion: string) {
-    this.paginaActual = page;
+  // =========================================
+  // PAGINACION
+  // =========================================
 
-    if (accion === 'siguiente') {
-      this.paginaActual++;
-    }
-
-    if (accion === 'anterior') {
+  setPage(accion: 'anterior' | 'siguiente'): void {
+    if (accion === 'anterior' && this.paginaActual > 1) {
       this.paginaActual--;
     }
 
+    if (accion === 'siguiente' && this.paginaActual < this.totalPaginas) {
+      this.paginaActual++;
+    }
+
     this.filter();
   }
 
-  cambioCantidad() {
+  // =========================================
+  // CAMBIO CANTIDAD
+  // =========================================
+
+  cambioCantidad(): void {
     this.paginaActual = 1;
+
     this.filter();
   }
 
-  cambioBusqueda() {
+  // =========================================
+  // CAMBIO BUSQUEDA
+  // =========================================
+
+  cambioBusqueda(): void {
     this.paginaActual = 1;
+
     this.filter();
   }
 
-  async filter() {
+  // =========================================
+  // FILTRAR
+  // =========================================
+
+  async filter(): Promise<void> {
+    const consultaActual = ++this.numeroConsulta;
+
     try {
-      const data = await lastValueFrom(
-        this.wsdl.listar(
-          this.paginaActual,
-          this.limit,
-          this.busqueda,
-        ),
+      this.cargando = true;
+
+      const result = await firstValueFrom(
+        this.wsdl.listar(this.paginaActual, this.limit, this.busqueda),
       );
 
-      const result = JSON.parse(JSON.stringify(data));
-      console.log("result", result)
-      if (result.code === '200') {
-        this.items = result.data ?? [];
+      /*
+       * Si mientras esperaba esta respuesta
+       * se hizo otra consulta, ignoramos esta.
+       */
+      if (consultaActual !== this.numeroConsulta) {
+        return;
+      }
 
-        this.totalPaginas = result.totalPaginas ?? 1;
+      console.log('LISTAR DETALLE DISTRIBUCION:', result);
+
+      if (result && result.code === '200') {
+        this.items = [...(result.data ?? [])];
+
+        this.totalPaginas = result.totalPaginas > 0 ? result.totalPaginas : 1;
+
         this.totalRegistros = result.totalRegistros ?? 0;
       } else {
         this.items = [];
+
+        this.paginaActual = 1;
+
         this.totalPaginas = 1;
+
         this.totalRegistros = 0;
       }
 
-      this.emmit.emit(this.items);
+      /*
+       * Emitimos un array nuevo.
+       */
+      this.emmit.emit([...this.items]);
     } catch (error) {
-      console.error(error);
+      console.error('Error Listar DetalleDistribucion:', error);
+
+      if (consultaActual !== this.numeroConsulta) {
+        return;
+      }
 
       this.items = [];
+
+      this.paginaActual = 1;
+
       this.totalPaginas = 1;
+
       this.totalRegistros = 0;
 
-      this.emmit.emit(this.items);
+      this.emmit.emit([]);
+    } finally {
+      if (consultaActual === this.numeroConsulta) {
+        this.cargando = false;
+      }
     }
   }
 }
