@@ -67,7 +67,7 @@ export class PanelSeleccionComponent implements OnInit {
 
   irAEquipamientos() {
     this.navbarService.setModo('equipamiento');
-    this.router.navigate(['/pages/lst_marcas']);
+    this.router.navigate(['/pages/lst_equipos']);
   }
 
   irAOperativos() {

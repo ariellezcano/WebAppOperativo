@@ -6,6 +6,7 @@ import { OperativoService } from 'src/app/services/components/operativo.service'
 import { Utils } from 'src/app/utils/utils';
 import Swal from 'sweetalert2';
 import { FilOperativoComponent } from '../../filtros/fil-operativo/fil-operativo.component';
+import { PlanillaDistribucionService } from 'src/app/services/components/planilla-distribucion.service';
 
 @Component({
   selector: 'app-lst-operativo',
@@ -22,6 +23,7 @@ export class LstOperativoComponent implements OnInit {
 
   constructor(
     private wsdl: OperativoService,
+    private wsdlPlanilla: PlanillaDistribucionService,
     private router: Router,
   ) {}
 
@@ -102,6 +104,139 @@ export class LstOperativoComponent implements OnInit {
       });
     }
   }
+
+  async cerrarOperativo(item: Operativo): Promise<void> {
+  const usuarioBaja = Number(Utils.getSession('user'));
+
+  if (!usuarioBaja) {
+    Swal.fire({
+      icon: 'warning',
+      title: 'Usuario no válido',
+      text: 'No se pudo identificar al usuario.',
+      confirmButtonText: 'Aceptar',
+    });
+
+    return;
+  }
+
+  const confirmacion = await Swal.fire({
+    title: '¿Cerrar operativo?',
+
+    html: `
+      <div class="text-start">
+
+        <p>
+          Se cerrará el operativo:
+        </p>
+
+        <p class="fw-bold">
+          ${item.denominacion}
+        </p>
+
+        <div class="alert alert-warning">
+          El sistema verificará que no existan
+          equipos pendientes de recepción.
+        </div>
+
+        <div class="alert alert-info mb-0">
+          Los equipos afectados al operativo
+          volverán al estado
+          <strong>DISPONIBLE</strong>.
+        </div>
+
+      </div>
+    `,
+
+    icon: 'warning',
+
+    showCancelButton: true,
+
+    confirmButtonText: 'Sí, cerrar',
+
+    cancelButtonText: 'Cancelar',
+
+    confirmButtonColor: '#fd7e14',
+
+    reverseButtons: true,
+  });
+
+  if (!confirmacion.isConfirmed) {
+    return;
+  }
+
+  try {
+    const re = await firstValueFrom(
+      this.wsdlPlanilla.cerrarOperativo(
+        item.idOperativo!,
+        usuarioBaja,
+      ),
+    );
+
+    const result = JSON.parse(JSON.stringify(re));
+
+    if (result.code === '200') {
+      await Swal.fire({
+        icon: 'success',
+        title: 'Operativo cerrado',
+        text:
+          result.message ||
+          'Operativo cerrado correctamente.',
+        confirmButtonText: 'Aceptar',
+      });
+
+      // =====================================
+      // RECARGAR FILTRO / LISTADO
+      // SIN HACER F5
+      // =====================================
+
+      await this.fil.filter();
+
+      return;
+    }
+
+    Swal.fire({
+      icon: 'warning',
+      title: 'No se puede cerrar',
+      text:
+        result.message ||
+        'No se pudo cerrar el operativo.',
+      confirmButtonText: 'Aceptar',
+    });
+  } catch (error: any) {
+    console.error(
+      'Error cerrando operativo:',
+      error,
+    );
+
+    let mensaje =
+      'No se pudo cerrar el operativo.';
+
+    if (error?.error) {
+      try {
+        const err =
+          typeof error.error === 'string'
+            ? JSON.parse(error.error)
+            : error.error;
+
+        mensaje =
+          err?.message ||
+          mensaje;
+      } catch {
+        mensaje =
+          error.error?.message ||
+          mensaje;
+      }
+    }
+
+    Swal.fire({
+      icon: 'warning',
+      title:
+        'No se puede cerrar el operativo',
+      text: mensaje,
+      confirmButtonText: 'Aceptar',
+    });
+  }
+}
 
   /* ===============================
             PERMISOS

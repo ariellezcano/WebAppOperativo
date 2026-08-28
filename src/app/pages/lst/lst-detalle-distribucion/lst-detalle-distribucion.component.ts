@@ -37,29 +37,29 @@ export class LstDetalleDistribucionComponent implements OnInit {
       this.rol = obj.rol;
     }
 
-    this.cargar();
+    //this.cargar();
   }
 
   doFound(event: DetalleDistribucionDTO[]): void {
     this.items = [...event];
   }
 
-  async cargar() {
-    try {
-      const re = await firstValueFrom(this.wsdl.listar());
+  // async cargar() {
+  //   try {
+  //     const re = await firstValueFrom(this.wsdl.listar());
 
-      const result = JSON.parse(JSON.stringify(re));
+  //     const result = JSON.parse(JSON.stringify(re));
 
-      if (result.code == '200') {
-        this.items = result.data;
-      } else {
-        this.items = [];
-      }
-    } catch (error) {
-      console.error(error);
-      this.items = [];
-    }
-  }
+  //     if (result.code == '200') {
+  //       this.items = result.data;
+  //     } else {
+  //       this.items = [];
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //     this.items = [];
+  //   }
+  // }
 
   linkear(id: number) {
     this.router.navigateByUrl('pages/frm_detalle/' + id);
