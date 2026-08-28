@@ -21,6 +21,7 @@ import { AbmDetalleOperativoComponent } from './frm-abm/abm-detalle-operativo/ab
 import { AbmEntregaEquipoComponent } from './frm-abm/abm-entrega-equipo/abm-entrega-equipo.component';
 import { LstDetalleDistribucionComponent } from './lst/lst-detalle-distribucion/lst-detalle-distribucion.component';
 import { FrmDetalleDistribucionComponent } from './frm-abm/frm-detalle-distribucion/frm-detalle-distribucion.component';
+import { LstMovimientosComponent } from './lst/lst-movimientos/lst-movimientos.component';
 
 const routes: Routes = [
   {
@@ -151,6 +152,13 @@ const routes: Routes = [
       {
         path: 'frm_detalle',
         component: FrmDetalleDistribucionComponent,
+        canActivate: [AuthGuard],
+      },
+
+      //PANEL MOVIMIENTOS
+      {
+        path: 'lst_movimientos',
+        component: LstMovimientosComponent,
         canActivate: [AuthGuard],
       },
     ],

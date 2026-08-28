@@ -1,0 +1,104 @@
+<div class="card filtro-panel shadow-sm my-4">
+  <div class="row g-3 align-items-end">
+    <!-- OPERATIVO -->
+    <div class="col-lg-4 col-md-6">
+      <label class="form-label filtro-label"> Operativo </label>
+
+      <select
+        class="form-select filtro-input"
+        [(ngModel)]="idOperativo"
+        (ngModelChange)="cambioOperativo()"
+      >
+        <option [ngValue]="null">Todos los operativos</option>
+
+        <option
+          *ngFor="let operativo of operativos"
+          [ngValue]="operativo.idOperativo"
+        >
+          {{ operativo.denominacion }}
+        </option>
+      </select>
+    </div>
+
+    <!-- TIPO MOVIMIENTO -->
+    <div class="col-lg-3 col-md-6">
+      <label class="form-label filtro-label"> Movimiento </label>
+
+      <select
+        class="form-select filtro-input"
+        [(ngModel)]="tipoMovimiento"
+        (ngModelChange)="cambioTipoMovimiento()"
+      >
+        <option [ngValue]="null">Todos</option>
+
+        <option *ngFor="let tipo of tiposMovimiento" [ngValue]="tipo">
+          {{ tipo }}
+        </option>
+      </select>
+    </div>
+
+    <!-- REGISTROS -->
+    <div class="col-lg-2 col-md-4">
+      <label class="form-label filtro-label"> Registros </label>
+
+      <select
+        class="form-select filtro-input"
+        [(ngModel)]="limit"
+        (change)="cambioCantidad()"
+      >
+        <option *ngFor="let c of limits" [ngValue]="c">
+          {{ c }}
+        </option>
+      </select>
+    </div>
+
+    <!-- BUSCAR -->
+    <div class="col-lg-3 col-md-8">
+      <label class="form-label filtro-label"> Buscar </label>
+
+      <div class="input-group">
+        <input
+          class="form-control filtro-input"
+          placeholder="Radio, serie, IMEI..."
+          [(ngModel)]="busqueda"
+          (ngModelChange)="cambioBusqueda()"
+        />
+
+        <span class="input-group-text filtro-buscar-icon">
+          <i class="bi bi-search"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="d-flex justify-content-center align-items-center gap-3">
+    <button
+      class="btn btn-outline-primary filtro-nav-btn"
+      [disabled]="paginaActual <= 1 || cargando"
+      (click)="setPage('anterior')"
+    >
+      <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <div class="filtro-nav-info">
+      Página
+      {{ paginaActual }}
+
+      de
+
+      {{ totalPaginas }}
+
+      <span> {{ totalRegistros }} registros </span>
+    </div>
+
+    <button
+      class="btn btn-outline-primary filtro-nav-btn"
+      [disabled]="paginaActual >= totalPaginas || cargando"
+      (click)="setPage('siguiente')"
+    >
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
+</div>

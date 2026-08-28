@@ -439,6 +439,6 @@ export class AbmDetalleOperativoComponent implements OnInit {
   // =====================================================
 
   back(): void {
-    this.router.navigate(['/operativos']);
+    this.router.navigate(['pages/lst_operativos']);
   }
 }

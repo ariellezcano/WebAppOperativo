@@ -6,11 +6,11 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class DetalleDistribucionService {
+export class MovimientosService {
   api: string;
 
   constructor(private http: HttpClient) {
-    this.api = environment.URL + 'DetalleDistribucion';
+    this.api = environment.URL + 'Movimiento';
   }
 
   listar(
@@ -18,6 +18,7 @@ export class DetalleDistribucionService {
     tamanoPagina: number,
     filtro: string,
     idOperativo: number | null,
+    tipoMovimiento: string | null,
   ): Observable<any> {
     let params = new HttpParams()
       .set('pagina', pagina.toString())
@@ -31,18 +32,10 @@ export class DetalleDistribucionService {
       params = params.set('idOperativo', idOperativo.toString());
     }
 
+    if (tipoMovimiento && tipoMovimiento.trim() !== '') {
+      params = params.set('tipoMovimiento', tipoMovimiento.trim());
+    }
+
     return this.http.get<any>(`${this.api}/Listar`, { params });
-  }
-
-  obtenerPorId(idDetalle: number): Observable<any> {
-    const params = new HttpParams().set('idDetalle', idDetalle.toString());
-
-    return this.http.get<any>(`${this.api}/ObtenerPorId`, { params });
-  }
-
-  buscarPendiente(filtro: string): Observable<any> {
-    const params = new HttpParams().set('filtro', filtro.trim());
-
-    return this.http.get<any>(`${this.api}/BuscarPendiente`, { params });
   }
 }

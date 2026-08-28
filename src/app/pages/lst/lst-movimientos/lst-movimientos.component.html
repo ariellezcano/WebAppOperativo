@@ -1,0 +1,185 @@
+<br />
+
+<div class="container-fluid">
+  <!-- ===================================== -->
+  <!-- TITULO -->
+  <!-- ===================================== -->
+
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+      <h4 class="mb-1">Movimientos de equipamiento</h4>
+
+      <small class="text-muted">
+        Historial de entregas, recepciones y anulaciones
+      </small>
+    </div>
+  </div>
+
+  <!-- ===================================== -->
+  <!-- FILTRO -->
+  <!-- ===================================== -->
+
+  <app-fil-movimientos (emmit)="doFound($event)"> </app-fil-movimientos>
+
+  <!-- ===================================== -->
+  <!-- SIN RESULTADOS -->
+  <!-- ===================================== -->
+
+  <div
+    *ngIf="items.length === 0"
+    class="alert alert-light border text-center py-4"
+  >
+    <i class="bi bi-info-circle me-2"></i>
+
+    No existen movimientos para mostrar.
+  </div>
+
+  <!-- ===================================== -->
+  <!-- TABLA -->
+  <!-- ===================================== -->
+
+  <div *ngIf="items.length > 0" class="card shadow-sm border-0">
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <!-- CABECERA -->
+
+          <thead class="table-light">
+            <tr>
+              <th>Fecha</th>
+
+              <th>Operativo</th>
+
+              <th>Equipo</th>
+
+              <th>Serie / IMEI</th>
+
+              <th>Tipo</th>
+
+              <th>Movimiento</th>
+
+              <th>Usuario</th>
+
+              <th>Observación</th>
+            </tr>
+          </thead>
+
+          <!-- CUERPO -->
+
+          <tbody>
+            <tr *ngFor="let item of items">
+              <!-- FECHA -->
+
+              <td class="text-nowrap">
+                <div class="fw-semibold">
+                  {{ item.fechaMovimiento | date: "dd/MM/yyyy" }}
+                </div>
+
+                <small class="text-muted">
+                  {{ item.fechaMovimiento | date: "HH:mm:ss" }}
+                </small>
+              </td>
+
+              <!-- OPERATIVO -->
+
+              <td>
+                <div class="fw-semibold" *ngIf="item.denominacionOperativo">
+                  {{ item.denominacionOperativo }}
+                </div>
+
+                <span *ngIf="!item.denominacionOperativo" class="text-muted">
+                  -
+                </span>
+              </td>
+
+              <!-- EQUIPO -->
+
+              <td>
+                <div class="fw-semibold">
+                  {{ item.idPolicial || "-" }}
+                </div>
+
+                <small class="text-muted">
+                  <span *ngIf="item.marca">
+                    {{ item.marca }}
+                  </span>
+
+                  <span *ngIf="item.marca && item.modelo"> · </span>
+
+                  <span *ngIf="item.modelo">
+                    {{ item.modelo }}
+                  </span>
+                </small>
+              </td>
+
+              <!-- SERIE / IMEI -->
+
+              <td>
+                <div *ngIf="item.nroSerie">
+                  <small class="text-muted"> Serie: </small>
+
+                  <span class="fw-semibold">
+                    {{ item.nroSerie }}
+                  </span>
+                </div>
+
+                <div *ngIf="item.imei">
+                  <small class="text-muted"> IMEI: </small>
+
+                  <span class="fw-semibold">
+                    {{ item.imei }}
+                  </span>
+                </div>
+
+                <span *ngIf="!item.nroSerie && !item.imei" class="text-muted">
+                  -
+                </span>
+              </td>
+
+              <!-- TIPO EQUIPO -->
+
+              <td>
+                <span class="badge bg-light text-dark border">
+                  {{ item.tipoEquipo || "-" }}
+                </span>
+              </td>
+
+              <!-- MOVIMIENTO -->
+
+              <td>
+                <span
+                  class="badge px-3 py-2"
+                  [ngClass]="claseMovimiento(item.tipoMovimiento)"
+                >
+                  {{ textoMovimiento(item.tipoMovimiento) }}
+                </span>
+              </td>
+
+              <!-- USUARIO -->
+
+              <td>
+                <span *ngIf="item.nombreUsuario" class="fw-semibold">
+                  {{ item.nombreUsuario }}
+                </span>
+
+                <span *ngIf="!item.nombreUsuario" class="text-muted"> - </span>
+              </td>
+
+              <!-- OBSERVACION -->
+
+              <td>
+                <span *ngIf="item.observacion">
+                  {{ item.observacion }}
+                </span>
+
+                <span *ngIf="!item.observacion" class="text-muted"> - </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />

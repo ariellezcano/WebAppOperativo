@@ -43,6 +43,11 @@ export const NAVBAR_CONFIG: Record<string, NavbarConfig> = {
     ],
   },
 
+  movimientos: {
+    titulo: 'MOVIMIENTOS DE LA DISTRIBUCION',
+    links: [{ label: 'Listado', route: '/pages/lst_movimientos' }],
+  },
+
   reportes: {
     titulo: 'REPORTES DEL SISTEMA',
     links: [

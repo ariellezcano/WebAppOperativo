@@ -2,9 +2,43 @@
 
   <div class="row g-3 align-items-end">
 
-    <!-- REGISTROS -->
+    <!-- ======================================= -->
+    <!-- OPERATIVO -->
+    <!-- ======================================= -->
 
-    <div class="col-lg-2 col-md-3">
+    <div class="col-lg-8 col-md-8">
+
+      <label class="form-label filtro-label">
+        Operativo
+      </label>
+
+      <select
+        class="form-select filtro-input"
+        [(ngModel)]="idOperativo"
+        (ngModelChange)="cambioOperativo()"
+      >
+
+        <option [ngValue]="null">
+          Todos los operativos
+        </option>
+
+        <option
+          *ngFor="let operativo of operativos"
+          [ngValue]="operativo.idOperativo"
+        >
+          {{ operativo.denominacion }}
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- ======================================= -->
+    <!-- REGISTROS -->
+    <!-- ======================================= -->
+
+    <div class="col-lg-4 col-md-4">
 
       <label class="form-label filtro-label">
         Registros
@@ -28,19 +62,21 @@
     </div>
 
 
+    <!-- ======================================= -->
     <!-- BUSCAR -->
+    <!-- ======================================= -->
 
-    <div class="col-lg-10 col-md-9">
+    <div class="col-12">
 
       <label class="form-label filtro-label">
-        Buscar
+        Buscar equipamiento
       </label>
 
       <div class="input-group">
 
         <input
           class="form-control filtro-input"
-          placeholder="ID policial, serie, IMEI, tipo, modelo..."
+          placeholder="ID policial, serie, IMEI, tipo, marca, modelo..."
           [(ngModel)]="busqueda"
           (ngModelChange)="cambioBusqueda()"
         />
@@ -61,7 +97,9 @@
   <hr />
 
 
+  <!-- ======================================= -->
   <!-- PAGINACION -->
+  <!-- ======================================= -->
 
   <div
     class="d-flex justify-content-center align-items-center gap-3"

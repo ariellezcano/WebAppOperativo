@@ -2,28 +2,23 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 import { firstValueFrom } from 'rxjs';
 
-import { DetalleDistribucionDTO } from 'src/app/modelos/relacionModelos/detalleDistribucionDTO';
-
-import { DetalleDistribucionService } from 'src/app/services/components/detalle-distribucion.service';
+import { MovimientoDTO } from 'src/app/modelos/relacionModelos/movimientoDTO';
 
 import { Operativo } from 'src/app/modelos/components/operativo';
 
 import { OperativoService } from 'src/app/services/components/operativo.service';
+import { MovimientosService } from 'src/app/services/components/movimientos.service';
 
 @Component({
-  selector: 'app-fil-distribucion',
-  templateUrl: './fil-distribucion.component.html',
-  styleUrls: ['./fil-distribucion.component.scss'],
+  selector: 'app-fil-movimientos',
+  templateUrl: './fil-movimientos.component.html',
+  styleUrls: ['./fil-movimientos.component.scss'],
 })
-export class FilDistribucionComponent implements OnInit {
+export class FilMovimientosComponent implements OnInit {
   @Output()
-  emmit = new EventEmitter<DetalleDistribucionDTO[]>();
+  emmit = new EventEmitter<MovimientoDTO[]>();
 
-  // =========================================
-  // LISTADO
-  // =========================================
-
-  items: DetalleDistribucionDTO[] = [];
+  items: MovimientoDTO[] = [];
 
   // =========================================
   // OPERATIVOS
@@ -34,7 +29,15 @@ export class FilDistribucionComponent implements OnInit {
   idOperativo: number | null = null;
 
   // =========================================
-  // FILTRO
+  // MOVIMIENTO
+  // =========================================
+
+  tipoMovimiento: string | null = null;
+
+  tiposMovimiento = ['ENTREGA', 'RECEPCION', 'ANULACION'];
+
+  // =========================================
+  // BUSQUEDA
   // =========================================
 
   busqueda = '';
@@ -55,36 +58,29 @@ export class FilDistribucionComponent implements OnInit {
 
   cargando = false;
 
-  /*
-   * Sirve para evitar que una petición vieja
-   * pise el resultado de una petición nueva.
-   */
   private numeroConsulta = 0;
 
   constructor(
-    private wsdl: DetalleDistribucionService,
+    private wsdl: MovimientosService,
 
     private wsdlOperativo: OperativoService,
   ) {}
 
   async ngOnInit(): Promise<void> {
-    // Primero cargamos los operativos
     await this.cargarOperativos();
 
-    // Después cargamos el listado
     await this.filter();
   }
 
   // =========================================
-  // CARGAR OPERATIVOS
+  // OPERATIVOS
   // =========================================
 
   async cargarOperativos(): Promise<void> {
     try {
       const result = await firstValueFrom(this.wsdlOperativo.combo());
-      // console.log("operativos", result)
+
       if (result && result.code === '200') {
-        console.log("operativos", result)
         this.operativos = [...(result.data ?? [])];
       } else {
         this.operativos = [];
@@ -96,19 +92,29 @@ export class FilDistribucionComponent implements OnInit {
     }
   }
 
-  // =========================================
-  // CAMBIO OPERATIVO
-  // =========================================
-
   cambioOperativo(): void {
     this.paginaActual = 1;
 
     this.filter();
   }
 
-  // =========================================
-  // PAGINACION
-  // =========================================
+  cambioTipoMovimiento(): void {
+    this.paginaActual = 1;
+
+    this.filter();
+  }
+
+  cambioBusqueda(): void {
+    this.paginaActual = 1;
+
+    this.filter();
+  }
+
+  cambioCantidad(): void {
+    this.paginaActual = 1;
+
+    this.filter();
+  }
 
   setPage(accion: 'anterior' | 'siguiente'): void {
     if (accion === 'anterior' && this.paginaActual > 1) {
@@ -122,30 +128,6 @@ export class FilDistribucionComponent implements OnInit {
     this.filter();
   }
 
-  // =========================================
-  // CAMBIO CANTIDAD
-  // =========================================
-
-  cambioCantidad(): void {
-    this.paginaActual = 1;
-
-    this.filter();
-  }
-
-  // =========================================
-  // CAMBIO BUSQUEDA
-  // =========================================
-
-  cambioBusqueda(): void {
-    this.paginaActual = 1;
-
-    this.filter();
-  }
-
-  // =========================================
-  // FILTRAR
-  // =========================================
-
   async filter(): Promise<void> {
     const consultaActual = ++this.numeroConsulta;
 
@@ -158,41 +140,31 @@ export class FilDistribucionComponent implements OnInit {
           this.limit,
           this.busqueda,
           this.idOperativo,
+          this.tipoMovimiento,
         ),
       );
 
-      /*
-       * Si mientras esperaba esta respuesta
-       * se hizo otra consulta, ignoramos esta.
-       */
       if (consultaActual !== this.numeroConsulta) {
         return;
       }
 
-      // console.log('LISTAR DETALLE DISTRIBUCION:', result);
-
       if (result && result.code === '200') {
         this.items = [...(result.data ?? [])];
 
-        this.totalPaginas = result.totalPaginas > 0 ? result.totalPaginas : 1;
-
         this.totalRegistros = result.totalRegistros ?? 0;
+
+        this.totalPaginas = result.totalPaginas > 0 ? result.totalPaginas : 1;
       } else {
         this.items = [];
 
-        this.paginaActual = 1;
+        this.totalRegistros = 0;
 
         this.totalPaginas = 1;
-
-        this.totalRegistros = 0;
       }
 
-      /*
-       * Emitimos un array nuevo.
-       */
       this.emmit.emit([...this.items]);
     } catch (error) {
-      console.error('Error Listar DetalleDistribucion:', error);
+      console.error('Error listando movimientos:', error);
 
       if (consultaActual !== this.numeroConsulta) {
         return;
@@ -200,11 +172,9 @@ export class FilDistribucionComponent implements OnInit {
 
       this.items = [];
 
-      this.paginaActual = 1;
+      this.totalRegistros = 0;
 
       this.totalPaginas = 1;
-
-      this.totalRegistros = 0;
 
       this.emmit.emit([]);
     } finally {

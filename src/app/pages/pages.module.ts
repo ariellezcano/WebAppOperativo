@@ -41,6 +41,8 @@ import { FilEntregasEquiposComponent } from './filtros/fil-entregas-equipos/fil-
 import { FilDistribucionComponent } from './filtros/fil-distribucion/fil-distribucion.component';
 import { LstDetalleDistribucionComponent } from './lst/lst-detalle-distribucion/lst-detalle-distribucion.component';
 import { FrmDetalleDistribucionComponent } from './frm-abm/frm-detalle-distribucion/frm-detalle-distribucion.component';
+import { FilMovimientosComponent } from './filtros/fil-movimientos/fil-movimientos.component';
+import { LstMovimientosComponent } from './lst/lst-movimientos/lst-movimientos.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +82,8 @@ import { FrmDetalleDistribucionComponent } from './frm-abm/frm-detalle-distribuc
     FilDistribucionComponent,
     LstDetalleDistribucionComponent,
     FrmDetalleDistribucionComponent,
+    FilMovimientosComponent,
+    LstMovimientosComponent,
   ],
   imports: [
     CommonModule,

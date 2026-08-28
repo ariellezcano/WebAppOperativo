@@ -1,0 +1,238 @@
+/* =========================================================
+   LISTADO MOVIMIENTOS
+   lst-movimiento.component.scss
+   ========================================================= */
+
+:host {
+  display: block;
+}
+
+/* CABECERA */
+
+h4 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #273444;
+}
+
+small.text-muted {
+  color: #8a9199 !important;
+}
+
+/* CARD */
+
+.card {
+  border: 1px solid #edf0f2 !important;
+  border-radius: 16px;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.card.shadow-sm {
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* TABLA */
+
+.table {
+  margin-bottom: 0;
+  font-size: 0.88rem;
+}
+
+.table thead th {
+  padding: 15px 14px;
+  background-color: #f7f9fb;
+  border-bottom: 1px solid #e9ecef;
+  color: #67717c;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  white-space: nowrap;
+}
+
+.table tbody td {
+  padding: 15px 14px;
+  vertical-align: middle;
+  border-color: #f0f2f4;
+  color: #343a40;
+}
+
+.table tbody tr {
+  transition:
+    background-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #fafbfc;
+}
+
+/* FECHA */
+
+td:first-child {
+  min-width: 120px;
+}
+
+td:first-child .fw-semibold {
+  color: #273444;
+}
+
+td:first-child small {
+  font-size: 0.75rem;
+}
+
+/* OPERATIVO */
+
+td:nth-child(2) {
+  min-width: 180px;
+  max-width: 260px;
+}
+
+td:nth-child(2) .fw-semibold {
+  color: #343a40;
+}
+
+/* EQUIPO */
+
+td:nth-child(3) {
+  min-width: 180px;
+}
+
+td:nth-child(3) .fw-semibold {
+  color: #1f2937;
+}
+
+td:nth-child(3) small {
+  display: block;
+  margin-top: 3px;
+}
+
+/* SERIE / IMEI */
+
+td:nth-child(4) {
+  min-width: 190px;
+}
+
+td:nth-child(4) > div {
+  margin-bottom: 3px;
+}
+
+/* TIPO EQUIPO */
+
+td:nth-child(5) {
+  min-width: 110px;
+}
+
+/* MOVIMIENTO */
+
+td:nth-child(6) {
+  min-width: 135px;
+}
+
+/* USUARIO */
+
+td:nth-child(7) {
+  min-width: 170px;
+}
+
+/* OBSERVACION */
+
+td:nth-child(8) {
+  min-width: 220px;
+  max-width: 350px;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* BADGES */
+
+.badge {
+  border-radius: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02rem;
+}
+
+.badge.bg-light {
+  padding: 7px 10px;
+  background-color: #f4f6f8 !important;
+  border: 1px solid #e1e5e9 !important;
+  color: #495057 !important;
+}
+
+.badge.bg-primary,
+.badge.bg-success,
+.badge.bg-danger,
+.badge.bg-secondary {
+  min-width: 105px;
+  padding: 8px 12px !important;
+}
+
+/* SIN RESULTADOS */
+
+.alert-light {
+  border: 1px dashed #dfe3e7 !important;
+  border-radius: 14px;
+  background-color: #fbfcfd;
+  color: #7b848d;
+}
+
+.alert-light i {
+  font-size: 1.15rem;
+}
+
+/* SCROLL */
+
+.table-responsive {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #f5f6f7;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: #cfd4da;
+  border-radius: 20px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 992px) {
+  .table {
+    font-size: 0.82rem;
+  }
+
+  .table thead th {
+    padding: 12px 10px;
+    font-size: 0.68rem;
+  }
+
+  .table tbody td {
+    padding: 12px 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  h4 {
+    font-size: 1.15rem;
+  }
+
+  .card {
+    border-radius: 12px;
+  }
+
+  .badge.bg-primary,
+  .badge.bg-success,
+  .badge.bg-danger,
+  .badge.bg-secondary {
+    min-width: 90px;
+  }
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 
 import { Operativo } from 'src/app/modelos/components/operativo';
 import { PlanillaDistribucion } from 'src/app/modelos/components/planilla-distribucion';
@@ -125,23 +126,21 @@ export class AbmEntregaEquipoComponent implements OnInit {
   // CARGAR OPERATIVOS
   // =====================================================
 
-  cargarOperativos(): void {
-    this.operativoService.combo().subscribe({
-      next: (resp) => {
-        //console.log('resp', resp);
-        if (resp) {
-          this.operativos = resp;
-        } else {
-          this.operativos = [];
-        }
-      },
-
-      error: (error) => {
-        console.error('Error al cargar operativos:', error);
-
+  async cargarOperativos(): Promise<void> {
+    try {
+      const result = await firstValueFrom(this.operativoService.combo());
+      // console.log("operativos", result)
+      if (result && result.code === '200') {
+        console.log('operativos', result);
+        this.operativos = [...(result.data ?? [])];
+      } else {
         this.operativos = [];
-      },
-    });
+      }
+    } catch (error) {
+      console.error('Error cargando operativos:', error);
+
+      this.operativos = [];
+    }
   }
 
   // =====================================================

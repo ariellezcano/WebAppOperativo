@@ -52,7 +52,7 @@ export class PanelSeleccionComponent implements OnInit {
 
   irAMovimientos() {
     this.navbarService.setModo('movimientos');
-    this.router.navigate(['/pages/lst_sistemas']);
+    this.router.navigate(['/pages/lst_movimientos']);
   }
 
   volverAlPanel() {
