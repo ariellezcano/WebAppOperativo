@@ -1,2 +1,170 @@
 /* You can add global styles to this file, and also import other style files */
 @import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* =========================================================
+   IMPRESION - REPORTE PLANILLA EQUIPOS
+   ========================================================= */
+
+@media print {
+
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+
+  /* =====================================================
+     OCULTAR TODO EL SISTEMA
+     ===================================================== */
+
+  body * {
+    visibility: hidden !important;
+  }
+
+
+  /* =====================================================
+     MOSTRAR SOLAMENTE EL REPORTE
+     ===================================================== */
+
+  app-frm-planilla-equipos,
+  app-frm-planilla-equipos * {
+    visibility: visible !important;
+  }
+
+
+  /* =====================================================
+     POSICIONAR EL REPORTE DESDE ARRIBA
+     ===================================================== */
+
+  app-frm-planilla-equipos {
+    position: absolute !important;
+
+    top: 0 !important;
+    left: 0 !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background: #ffffff !important;
+  }
+
+
+  /* =====================================================
+     ELEMENTOS QUE NO DEBEN IMPRIMIRSE
+     ===================================================== */
+
+  app-frm-planilla-equipos .no-print {
+    display: none !important;
+  }
+
+
+  /* =====================================================
+     HOJA
+     ===================================================== */
+
+  app-frm-planilla-equipos .hoja-reporte {
+    width: 100% !important;
+    max-width: none !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+
+    box-shadow: none !important;
+
+    background: #ffffff !important;
+  }
+
+
+  /* =====================================================
+     TABLA
+     ===================================================== */
+
+  app-frm-planilla-equipos .tabla-planilla {
+    width: 100% !important;
+
+    border-collapse: collapse !important;
+
+    table-layout: fixed !important;
+
+    font-size: 9px !important;
+  }
+
+
+  app-frm-planilla-equipos .tabla-planilla th,
+  app-frm-planilla-equipos .tabla-planilla td {
+    border: 1px solid #000 !important;
+
+    padding: 4px !important;
+
+    color: #000 !important;
+  }
+
+
+  /* =====================================================
+     REPETIR ENCABEZADO SI HAY VARIAS PAGINAS
+     ===================================================== */
+
+  app-frm-planilla-equipos .tabla-planilla thead {
+    display: table-header-group !important;
+  }
+
+
+  /* =====================================================
+     EVITAR CORTAR FILAS
+     ===================================================== */
+
+  app-frm-planilla-equipos .tabla-planilla tr {
+    page-break-inside: avoid !important;
+
+    break-inside: avoid !important;
+  }
+
+
+  /* =====================================================
+     TITULO
+     ===================================================== */
+
+  app-frm-planilla-equipos .titulo-planilla {
+    font-size: 12px !important;
+
+    font-weight: 800 !important;
+
+    color: #000 !important;
+  }
+
+
+  app-frm-planilla-equipos .datos-encabezado {
+    font-size: 9px !important;
+
+    color: #000 !important;
+  }
+
+
+  /* =====================================================
+     PIE DEL REPORTE
+     ===================================================== */
+
+  app-frm-planilla-equipos .pie-planilla {
+    margin-top: 12px !important;
+
+    font-size: 8px !important;
+
+    color: #000 !important;
+
+    page-break-inside: avoid !important;
+  }
+
+}
