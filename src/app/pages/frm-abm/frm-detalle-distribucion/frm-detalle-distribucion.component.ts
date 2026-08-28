@@ -15,6 +15,7 @@ import { Utils } from 'src/app/utils/utils';
 })
 export class FrmDetalleDistribucionComponent implements OnInit {
   idDetalle = 0;
+  busqueda = '';
 
   item: DetalleDistribucionDTO | null = null;
 
@@ -151,7 +152,6 @@ export class FrmDetalleDistribucionComponent implements OnInit {
     }
   }
 
-  
   anular() {
     if (!this.item) {
       return;
@@ -294,5 +294,72 @@ export class FrmDetalleDistribucionComponent implements OnInit {
         },
       });
     });
+  }
+
+  async buscarEquipo(): Promise<void> {
+    const filtro = this.busqueda?.trim();
+
+    if (!filtro) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Ingrese un dato',
+        text: 'Ingrese ID policial, número de serie o IMEI.',
+        confirmButtonText: 'Aceptar',
+      });
+
+      return;
+    }
+
+    try {
+      this.cargando = true;
+
+      const re = await firstValueFrom(this.wsdl.buscarPendiente(filtro));
+
+      const result = JSON.parse(JSON.stringify(re));
+
+      if (result.code === '200' && result.data && result.data.length > 0) {
+        this.item = result.data[0];
+
+        this.idDetalle = this.item!.idDetalle;
+
+        return;
+      }
+
+      this.item = null;
+
+      Swal.fire({
+        icon: 'warning',
+
+        title: 'Equipo no encontrado',
+
+        text:
+          result.message ||
+          'No existe un equipo pendiente de recepción con ese identificador.',
+
+        confirmButtonText: 'Aceptar',
+      });
+    } catch (error: any) {
+      console.error('Error buscando equipo:', error);
+
+      this.item = null;
+
+      Swal.fire({
+        icon: 'warning',
+
+        title: 'Equipo no encontrado',
+
+        text: 'No existe un equipo pendiente de recepción con ese identificador.',
+
+        confirmButtonText: 'Aceptar',
+      });
+    } finally {
+      this.cargando = false;
+    }
+  }
+
+  buscarEnter(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.buscarEquipo();
+    }
   }
 }

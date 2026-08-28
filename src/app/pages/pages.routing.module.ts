@@ -148,6 +148,11 @@ const routes: Routes = [
         component: FrmDetalleDistribucionComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path: 'frm_detalle',
+        component: FrmDetalleDistribucionComponent,
+        canActivate: [AuthGuard],
+      },
     ],
   },
 ];

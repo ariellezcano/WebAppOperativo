@@ -10,15 +10,12 @@ export interface NavbarConfig {
 export const NAVBAR_CONFIG: Record<string, NavbarConfig> = {
   principal: {
     titulo: 'PANEL PRINCIPAL',
-    links: []
+    links: [],
   },
-
 
   usuarios: {
     titulo: 'USUARIOS PARA USO DEL SISTEMA',
-    links: [
-      { label: 'Usuarios', route: '/pages/lst_usuario' },
-    ]
+    links: [{ label: 'Usuarios', route: '/pages/lst_usuario' }],
   },
 
   equipamiento: {
@@ -29,33 +26,28 @@ export const NAVBAR_CONFIG: Record<string, NavbarConfig> = {
       { label: 'Tipos de equipos', route: '/pages/lst_tipoEquipo' },
       { label: 'Estados', route: '/pages/lst_estados' },
       { label: 'Equipos', route: '/pages/lst_equipos' },
-    ]
+    ],
   },
 
   operativo: {
     titulo: 'OPERATIVOS',
-    links: [
-      { label: 'Servicios', route: '/pages/lst_operativos' }
-    ]
+    links: [{ label: 'Servicios', route: '/pages/lst_operativos' }],
   },
 
   planillaDistribucion: {
     titulo: 'DISTRIBUCION DE EQUIPAMIENTO',
     links: [
-      { label: 'Listado de equipos entregados', route: '/pages/lst_distribucion' },
-      { label: 'Panel de asignación', route: '/pages/abm_entrega_equipo' }
-    ]
+      { label: 'Pendientes de Recepción', route: '/pages/lst_distribucion' },
+      { label: 'Recepcionar', route: '/pages/frm_detalle' },
+      { label: 'Entregar equipo', route: '/pages/abm_entrega_equipo' },
+    ],
   },
-  
-
-  
 
   reportes: {
     titulo: 'REPORTES DEL SISTEMA',
     links: [
       //{ label: 'Reporte de Prendas', route: '/pages/lst_reporte_entrega' },
       // { label: 'Solicitudes / Reclamos', route: '/pages/lst_solicitudReclamo' }
-    ]
+    ],
   },
-
 };

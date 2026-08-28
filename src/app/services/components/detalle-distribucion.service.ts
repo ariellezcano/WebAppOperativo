@@ -29,19 +29,15 @@ export class DetalleDistribucionService {
     return this.http.get<any>(`${this.api}/Listar`, { params });
   }
 
-  obtenerPorId(
-  idDetalle: number,
-): Observable<any> {
-  const params =
-    new HttpParams()
-      .set(
-        'idDetalle',
-        idDetalle.toString(),
-      );
+  obtenerPorId(idDetalle: number): Observable<any> {
+    const params = new HttpParams().set('idDetalle', idDetalle.toString());
 
-  return this.http.get<any>(
-    `${this.api}/ObtenerPorId`,
-    { params },
-  );
-}
+    return this.http.get<any>(`${this.api}/ObtenerPorId`, { params });
+  }
+
+  buscarPendiente(filtro: string): Observable<any> {
+    const params = new HttpParams().set('filtro', filtro.trim());
+
+    return this.http.get<any>(`${this.api}/BuscarPendiente`, { params });
+  }
 }

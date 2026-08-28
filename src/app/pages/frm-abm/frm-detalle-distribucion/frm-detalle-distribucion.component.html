@@ -1,26 +1,6 @@
 <div class="container-fluid my-5 px-5">
-
-  <!-- CARGANDO -->
-  <div
-    *ngIf="cargando"
-    class="text-center py-5"
-  >
-    <div
-      class="spinner-border text-primary"
-      role="status"
-    >
-      <span class="visually-hidden">
-        Cargando...
-      </span>
-    </div>
-  </div>
-
-  <!-- CONTENIDO -->
-  <div
-    *ngIf="!cargando && item"
-    class="card shadow-lg border-0 rounded-4 overflow-hidden"
-  >
-
+  <!-- CARD PRINCIPAL -->
+  <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
     <!-- CABECERA -->
     <div
       class="card-header d-flex justify-content-between align-items-center py-3"
@@ -35,10 +15,7 @@
         Detalle de Entrega
       </h3>
 
-      <button
-        class="btn btn-light rounded-pill px-4"
-        (click)="back()"
-      >
+      <button class="btn btn-light rounded-pill px-4" (click)="back()">
         <i class="bi bi-arrow-left me-2"></i>
         Volver
       </button>
@@ -46,467 +23,446 @@
 
     <!-- CUERPO -->
     <div class="card-body bg-light">
+      <!-- ===================================== -->
+      <!-- BUSCADOR -->
+      <!-- ===================================== -->
 
-      <!-- PERSONA -->
-      <div
-        class="card detalle-card border-0 shadow-sm mb-4"
-      >
+      <div class="card detalle-card border-0 shadow-sm mb-4">
         <div class="card-body">
-
           <h5 class="detalle-titulo">
-            <i class="bi bi-person-badge me-2"></i>
-            Persona que recibió
+            <i class="bi bi-search me-2"></i>
+            Buscar equipo pendiente de recepción
           </h5>
 
-          <div class="row g-3">
-
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">
-                DNI
-              </label>
+          <div class="row g-3 align-items-end">
+            <div class="col-lg-10 col-md-9">
+              <label class="form-label"> ID Policial / Serie / IMEI </label>
 
               <input
                 type="text"
                 class="form-control"
-                [value]="item.dni || '-'"
-                readonly
+                placeholder="Ingrese ID policial, número de serie o IMEI..."
+                [(ngModel)]="busqueda"
+                (keydown.enter)="buscarEquipo()"
               />
             </div>
 
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">
-                Apellido
-              </label>
+            <div class="col-lg-2 col-md-3">
+              <button
+                type="button"
+                class="btn btn-primary w-100"
+                (click)="buscarEquipo()"
+                [disabled]="cargando"
+              >
+                <span *ngIf="!cargando">
+                  <i class="bi bi-search me-2"></i>
+                  Buscar
+                </span>
 
-              <input
-                type="text"
-                class="form-control"
-                [value]="item.apellido || '-'"
-                readonly
-              />
+                <span *ngIf="cargando">
+                  <span class="spinner-border spinner-border-sm me-2"></span>
+
+                  Buscando
+                </span>
+              </button>
             </div>
-
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">
-                Nombre
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="item.nombre || '-'"
-                readonly
-              />
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">
-                Unidad
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="item.nombreUnidad || '-'"
-                readonly
-              />
-            </div>
-
           </div>
         </div>
       </div>
 
-      <!-- EQUIPO -->
-      <div
-        class="card detalle-card border-0 shadow-sm mb-4"
-      >
-        <div class="card-body">
+      <!-- ===================================== -->
+      <!-- CARGANDO -->
+      <!-- ===================================== -->
 
-          <h5 class="detalle-titulo">
-            <i class="bi bi-broadcast-pin me-2"></i>
-            Equipo entregado
-          </h5>
-
-          <div class="row g-3">
-
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">
-                ID Policial
-              </label>
-
-              <input
-                type="text"
-                class="form-control equipo-principal"
-                [value]="item.idPolicial || '-'"
-                readonly
-              />
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">
-                Tipo
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="item.tipoEquipo || '-'"
-                readonly
-              />
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">
-                Marca
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="item.marca || '-'"
-                readonly
-              />
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-              <label class="form-label">
-                Modelo
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="item.modelo || '-'"
-                readonly
-              />
-            </div>
-
-            <div class="col-lg-6 col-md-6">
-              <label class="form-label">
-                Número de serie
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="item.nroSerie || '-'"
-                readonly
-              />
-            </div>
-
-            <div class="col-lg-6 col-md-6">
-              <label class="form-label">
-                IMEI
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="item.imei || '-'"
-                readonly
-              />
-            </div>
-
-          </div>
+      <div *ngIf="cargando" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden"> Cargando... </span>
         </div>
       </div>
 
-      <!-- ENTREGA -->
-      <div
-        class="card detalle-card border-0 shadow-sm mb-4"
-      >
-        <div class="card-body">
+      <!-- ===================================== -->
+      <!-- TODAVIA NO SE BUSCO EQUIPO -->
+      <!-- ===================================== -->
 
-          <h5 class="detalle-titulo">
-            <i class="bi bi-clipboard-check me-2"></i>
-            Datos de la entrega
-          </h5>
+      <div *ngIf="!item && !cargando" class="text-center py-5">
+        <i class="bi bi-broadcast-pin fs-1 text-secondary"></i>
 
-          <div class="row g-3">
+        <h5 class="mt-3">Buscar equipamiento</h5>
 
-            <div class="col-lg-4 col-md-6">
-              <label class="form-label">
-                Fecha de entrega
-              </label>
+        <p class="text-muted">
+          Ingrese el ID policial, número de serie o IMEI de un equipo pendiente
+          de recepción.
+        </p>
+      </div>
 
-              <input
-                type="text"
-                class="form-control"
-                [value]="
-                  item.fechaEntrega
-                    ? (item.fechaEntrega | date:'dd/MM/yyyy HH:mm')
-                    : '-'
-                "
-                readonly
-              />
+      <!-- ===================================== -->
+      <!-- DETALLE ENCONTRADO -->
+      <!-- ===================================== -->
+
+      <ng-container *ngIf="item && !cargando">
+        <!-- PERSONA -->
+        <div class="card detalle-card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="detalle-titulo">
+              <i class="bi bi-person-badge me-2"></i>
+              Persona que recibió
+            </h5>
+
+            <div class="row g-3">
+              <div class="col-lg-3 col-md-6">
+                <label class="form-label"> DNI </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="item.dni || '-'"
+                  readonly
+                />
+              </div>
+
+              <div class="col-lg-3 col-md-6">
+                <label class="form-label"> Apellido </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="item.apellido || '-'"
+                  readonly
+                />
+              </div>
+
+              <div class="col-lg-3 col-md-6">
+                <label class="form-label"> Nombre </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="item.nombre || '-'"
+                  readonly
+                />
+              </div>
+
+              <div class="col-lg-3 col-md-6">
+                <label class="form-label"> Unidad </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="item.nombreUnidad || '-'"
+                  readonly
+                />
+              </div>
             </div>
+          </div>
+        </div>
 
-            <div class="col-lg-4 col-md-6">
-              <label class="form-label">
-                Estado del equipo
-              </label>
+        <!-- EQUIPO -->
+        <div class="card detalle-card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="detalle-titulo">
+              <i class="bi bi-broadcast-pin me-2"></i>
+              Equipo entregado
+            </h5>
 
-              <div class="estado-box">
+            <div class="row g-3">
+              <div class="col-lg-3 col-md-6">
+                <label class="form-label"> ID Policial </label>
 
-                <span
-                  *ngIf="item.estadoDetalle === 1"
-                  class="badge bg-warning text-dark"
-                >
-                  ENTREGADO
-                </span>
+                <input
+                  type="text"
+                  class="form-control equipo-principal"
+                  [value]="item.idPolicial || '-'"
+                  readonly
+                />
+              </div>
 
-                <span
-                  *ngIf="item.estadoDetalle === 2"
-                  class="badge bg-success"
-                >
-                  RECEPCIONADO
-                </span>
+              <div class="col-lg-3 col-md-6">
+                <label class="form-label"> Tipo </label>
 
-                <span
-                  *ngIf="item.estadoDetalle === 3"
-                  class="badge bg-danger"
-                >
-                  ANULADO
-                </span>
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="item.tipoEquipo || '-'"
+                  readonly
+                />
+              </div>
 
-                <span
-                  *ngIf="
-                    item.estadoDetalle !== 1 &&
-                    item.estadoDetalle !== 2 &&
-                    item.estadoDetalle !== 3
+              <div class="col-lg-3 col-md-6">
+                <label class="form-label"> Marca </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="item.marca || '-'"
+                  readonly
+                />
+              </div>
+
+              <div class="col-lg-3 col-md-6">
+                <label class="form-label"> Modelo </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="item.modelo || '-'"
+                  readonly
+                />
+              </div>
+
+              <div class="col-lg-6 col-md-6">
+                <label class="form-label"> Número de serie </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="item.nroSerie || '-'"
+                  readonly
+                />
+              </div>
+
+              <div class="col-lg-6 col-md-6">
+                <label class="form-label"> IMEI </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="item.imei || '-'"
+                  readonly
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ENTREGA -->
+        <div class="card detalle-card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="detalle-titulo">
+              <i class="bi bi-clipboard-check me-2"></i>
+              Datos de la entrega
+            </h5>
+
+            <div class="row g-3">
+              <div class="col-lg-4 col-md-6">
+                <label class="form-label"> Fecha de entrega </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="
+                    item.fechaEntrega
+                      ? (item.fechaEntrega | date: 'dd/MM/yyyy HH:mm')
+                      : '-'
                   "
-                  class="badge bg-secondary"
-                >
-                  SIN ESTADO
-                </span>
+                  readonly
+                />
+              </div>
 
+              <div class="col-lg-4 col-md-6">
+                <label class="form-label"> Estado del equipo </label>
+
+                <div class="estado-box">
+                  <span
+                    *ngIf="item.estadoDetalle === 1"
+                    class="badge bg-warning text-dark"
+                  >
+                    ENTREGADO
+                  </span>
+
+                  <span
+                    *ngIf="item.estadoDetalle === 2"
+                    class="badge bg-success"
+                  >
+                    RECEPCIONADO
+                  </span>
+
+                  <span
+                    *ngIf="item.estadoDetalle === 3"
+                    class="badge bg-danger"
+                  >
+                    ANULADO
+                  </span>
+
+                  <span
+                    *ngIf="
+                      item.estadoDetalle !== 1 &&
+                      item.estadoDetalle !== 2 &&
+                      item.estadoDetalle !== 3
+                    "
+                    class="badge bg-secondary"
+                  >
+                    SIN ESTADO
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6">
+                <label class="form-label"> Fecha de recepción </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="
+                    item.fechaRecepcionDetalle
+                      ? (item.fechaRecepcionDetalle | date: 'dd/MM/yyyy HH:mm')
+                      : '-'
+                  "
+                  readonly
+                />
+              </div>
+
+              <div class="col-lg-4 col-md-6">
+                <label class="form-label">
+                  Estado general de la planilla
+                </label>
+
+                <div class="estado-box">
+                  <span
+                    *ngIf="item.estadoPlanilla === 1"
+                    class="badge bg-warning text-dark"
+                  >
+                    ENTREGA PENDIENTE
+                  </span>
+
+                  <span
+                    *ngIf="item.estadoPlanilla === 2"
+                    class="badge bg-success"
+                  >
+                    ENTREGA COMPLETA
+                  </span>
+
+                  <span
+                    *ngIf="item.estadoPlanilla === 3"
+                    class="badge bg-info text-dark"
+                  >
+                    RECEPCIÓN PARCIAL
+                  </span>
+
+                  <span
+                    *ngIf="item.estadoPlanilla === 4"
+                    class="badge bg-danger"
+                  >
+                    ANULADA
+                  </span>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-md-6">
+                <label class="form-label"> Fecha recepción planilla </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="
+                    item.fechaRecepcionPlanilla
+                      ? (item.fechaRecepcionPlanilla | date: 'dd/MM/yyyy HH:mm')
+                      : '-'
+                  "
+                  readonly
+                />
+              </div>
+
+              <div class="col-lg-4 col-md-6">
+                <label class="form-label"> Usuario que recepcionó </label>
+
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="
+                    item.usuarioRecibeDetalle != null
+                      ? item.usuarioRecibeDetalle
+                      : '-'
+                  "
+                  readonly
+                />
+              </div>
+
+              <div class="col-12">
+                <label class="form-label"> Observación de entrega </label>
+
+                <textarea class="form-control" rows="3" readonly>{{
+                  item.observacionEntrega || "-"
+                }}</textarea>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label"> Observación del equipo </label>
+
+                <textarea class="form-control" rows="3" readonly>{{
+                  item.observacion || "-"
+                }}</textarea>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="col-lg-4 col-md-6">
-              <label class="form-label">
-                Fecha de recepción
-              </label>
+        <!-- DATOS ANULACION -->
+        <div
+          *ngIf="item.estadoDetalle === 3"
+          class="card detalle-card border-0 shadow-sm mb-4"
+        >
+          <div class="card-body">
+            <h5 class="detalle-titulo text-danger">
+              <i class="bi bi-x-octagon me-2"></i>
+              Datos de anulación
+            </h5>
 
-              <input
-                type="text"
-                class="form-control"
-                [value]="
-                  item.fechaRecepcionDetalle
-                    ? (item.fechaRecepcionDetalle | date:'dd/MM/yyyy HH:mm')
-                    : '-'
-                "
-                readonly
-              />
-            </div>
+            <div class="row g-3">
+              <div class="col-lg-6 col-md-6">
+                <label class="form-label"> Usuario que anuló </label>
 
-            <div class="col-lg-4 col-md-6">
-              <label class="form-label">
-                Estado general de la planilla
-              </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="item.usuarioAnula != null ? item.usuarioAnula : '-'"
+                  readonly
+                />
+              </div>
 
-              <div class="estado-box">
+              <div class="col-lg-6 col-md-6">
+                <label class="form-label"> Fecha de anulación </label>
 
-                <span
-                  *ngIf="item.estadoPlanilla === 1"
-                  class="badge bg-warning text-dark"
-                >
-                  ENTREGA PENDIENTE
-                </span>
-
-                <span
-                  *ngIf="item.estadoPlanilla === 2"
-                  class="badge bg-success"
-                >
-                  ENTREGA COMPLETA
-                </span>
-
-                <span
-                  *ngIf="item.estadoPlanilla === 3"
-                  class="badge bg-info text-dark"
-                >
-                  RECEPCIÓN PARCIAL
-                </span>
-
-                <span
-                  *ngIf="item.estadoPlanilla === 4"
-                  class="badge bg-danger"
-                >
-                  ANULADA
-                </span>
-
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="
+                    item.fechaAnulacion
+                      ? (item.fechaAnulacion | date: 'dd/MM/yyyy HH:mm')
+                      : '-'
+                  "
+                  readonly
+                />
               </div>
             </div>
-
-            <div class="col-lg-4 col-md-6">
-              <label class="form-label">
-                Fecha recepción planilla
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="
-                  item.fechaRecepcionPlanilla
-                    ? (item.fechaRecepcionPlanilla | date:'dd/MM/yyyy HH:mm')
-                    : '-'
-                "
-                readonly
-              />
-            </div>
-
-            <div class="col-lg-4 col-md-6">
-              <label class="form-label">
-                Usuario que recepcionó
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="
-                  item.usuarioRecibeDetalle != null
-                    ? item.usuarioRecibeDetalle
-                    : '-'
-                "
-                readonly
-              />
-            </div>
-
-            <div class="col-12">
-              <label class="form-label">
-                Observación de entrega
-              </label>
-
-              <textarea
-                class="form-control"
-                rows="3"
-                readonly
-              >{{ item.observacionEntrega || '-' }}</textarea>
-            </div>
-
-            <div class="col-12">
-              <label class="form-label">
-                Observación del equipo
-              </label>
-
-              <textarea
-                class="form-control"
-                rows="3"
-                readonly
-              >{{ item.observacion || '-' }}</textarea>
-            </div>
-
           </div>
         </div>
-      </div>
 
-      <!-- DATOS ANULACION -->
-      <div
-        *ngIf="item.estadoDetalle === 3"
-        class="card detalle-card border-0 shadow-sm mb-4"
-      >
-        <div class="card-body">
+        <!-- ACCIONES -->
+        <div class="d-flex justify-content-end gap-3 flex-wrap">
+          <button class="btn btn-secondary px-4" (click)="back()">
+            <i class="bi bi-arrow-left me-2"></i>
+            Volver
+          </button>
 
-          <h5 class="detalle-titulo text-danger">
-            <i class="bi bi-x-octagon me-2"></i>
-            Datos de anulación
-          </h5>
+          <button
+            *ngIf="item.estadoDetalle === 1"
+            class="btn btn-success px-4"
+            (click)="recepcionar()"
+          >
+            <i class="bi bi-check-circle me-2"></i>
+            Recepcionar
+          </button>
 
-          <div class="row g-3">
-
-            <div class="col-lg-6 col-md-6">
-              <label class="form-label">
-                Usuario que anuló
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="
-                  item.usuarioAnula != null
-                    ? item.usuarioAnula
-                    : '-'
-                "
-                readonly
-              />
-            </div>
-
-            <div class="col-lg-6 col-md-6">
-              <label class="form-label">
-                Fecha de anulación
-              </label>
-
-              <input
-                type="text"
-                class="form-control"
-                [value]="
-                  item.fechaAnulacion
-                    ? (item.fechaAnulacion | date:'dd/MM/yyyy HH:mm')
-                    : '-'
-                "
-                readonly
-              />
-            </div>
-
-          </div>
+          <button
+            *ngIf="item.estadoDetalle === 1"
+            class="btn btn-danger px-4"
+            (click)="anular()"
+          >
+            <i class="bi bi-x-circle me-2"></i>
+            Anular entrega
+          </button>
         </div>
-      </div>
-
-      <!-- ACCIONES -->
-      <div
-        class="d-flex justify-content-end gap-3 flex-wrap"
-      >
-
-        <button
-          class="btn btn-secondary px-4"
-          (click)="back()"
-        >
-          <i class="bi bi-arrow-left me-2"></i>
-          Volver
-        </button>
-
-        <button
-          *ngIf="item.estadoDetalle === 1"
-          class="btn btn-success px-4"
-          (click)="recepcionar()"
-        >
-          <i class="bi bi-check-circle me-2"></i>
-          Recepcionar
-        </button>
-
-        <button
-          *ngIf="item.estadoDetalle === 1"
-          class="btn btn-danger px-4"
-          (click)="anular()"
-        >
-          <i class="bi bi-x-circle me-2"></i>
-          Anular entrega
-        </button>
-
-      </div>
-
+      </ng-container>
     </div>
   </div>
-
-  <!-- NO ENCONTRADO -->
-  <div
-    *ngIf="!cargando && !item"
-    class="text-center py-5"
-  >
-    <i
-      class="bi bi-exclamation-circle fs-1 text-secondary"
-    ></i>
-
-    <h5 class="mt-3">
-      No se encontró la entrega
-    </h5>
-
-    <button
-      class="btn btn-primary mt-3 px-4"
-      (click)="back()"
-    >
-      Volver
-    </button>
-  </div>
-
 </div>
