@@ -22,6 +22,8 @@ import { AbmEntregaEquipoComponent } from './frm-abm/abm-entrega-equipo/abm-entr
 import { LstDetalleDistribucionComponent } from './lst/lst-detalle-distribucion/lst-detalle-distribucion.component';
 import { FrmDetalleDistribucionComponent } from './frm-abm/frm-detalle-distribucion/frm-detalle-distribucion.component';
 import { LstMovimientosComponent } from './lst/lst-movimientos/lst-movimientos.component';
+import { PanelSeleccionReportesComponent } from './componentes/panel-seleccion-reportes/panel-seleccion-reportes.component';
+import { FrmPlanillaEquiposComponent } from './frm-abm/frm-planilla-equipos/frm-planilla-equipos.component';
 
 const routes: Routes = [
   {
@@ -161,6 +163,25 @@ const routes: Routes = [
         component: LstMovimientosComponent,
         canActivate: [AuthGuard],
       },
+
+      //PANEL REPORTES
+      {
+        path: 'panel_reportes',
+        component: PanelSeleccionReportesComponent,
+        canActivate: [AuthGuard],
+      },
+
+      {
+        path: 'reporte_radios_entregadas',
+        component: FrmPlanillaEquiposComponent,
+        canActivate: [AuthGuard],
+      },
+
+      // {
+      //   path: 'reporte_equipo',
+      //   component: ReporteEquipoComponent,
+      //   canActivate: [AuthGuard],
+      // },
     ],
   },
 ];

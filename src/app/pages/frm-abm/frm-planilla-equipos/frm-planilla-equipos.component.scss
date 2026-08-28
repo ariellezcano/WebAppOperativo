@@ -1,0 +1,241 @@
+:host {
+  display: block;
+
+  background: #f4f6f8;
+
+  min-height: 100vh;
+}
+
+/* =====================================================
+   ACCIONES
+   ===================================================== */
+
+.acciones-reporte {
+  max-width: 1450px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+/* =====================================================
+   HOJA
+   ===================================================== */
+
+.hoja-reporte {
+  max-width: 1450px;
+
+  margin: 0 auto;
+
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #d9dde2;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+/* =====================================================
+   ENCABEZADO
+   ===================================================== */
+
+.encabezado-planilla {
+  margin-bottom: 12px;
+
+  text-align: center;
+}
+
+.titulo-planilla {
+  padding: 8px 10px;
+
+  font-size: 1rem;
+
+  font-weight: 800;
+
+  text-transform: uppercase;
+
+  color: #000;
+
+  letter-spacing: 0.02rem;
+}
+
+.datos-encabezado {
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 25px;
+
+  padding: 6px;
+
+  font-size: 0.78rem;
+
+  color: #000;
+}
+
+/* =====================================================
+   TABLA
+   ===================================================== */
+
+.tabla-planilla {
+  width: 100%;
+
+  border-collapse: collapse;
+
+  table-layout: fixed;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  font-size: 0.76rem;
+
+  color: #000;
+}
+
+.tabla-planilla th,
+.tabla-planilla td {
+  border: 1px solid #000;
+
+  padding: 6px 5px;
+
+  vertical-align: middle;
+}
+
+.tabla-planilla thead th {
+  min-height: 42px;
+
+  background: #ffffff;
+
+  text-align: center;
+
+  font-size: 0.72rem;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+}
+
+.tabla-planilla tbody td {
+  height: 34px;
+}
+
+/* =====================================================
+   ANCHOS
+   ===================================================== */
+
+.col-numero {
+  width: 5%;
+}
+
+.col-marca {
+  width: 17%;
+}
+
+.col-serie {
+  width: 15%;
+}
+
+.col-denominacion {
+  width: 13%;
+}
+
+.col-aclaracion {
+  width: 18%;
+}
+
+.col-unidad {
+  width: 20%;
+}
+
+.col-observacion {
+  width: 12%;
+}
+
+/* =====================================================
+   PIE
+   ===================================================== */
+
+.pie-planilla {
+  margin-top: 16px;
+
+  padding: 8px 4px;
+
+  font-size: 0.7rem;
+
+  font-weight: 600;
+
+  text-align: center;
+
+  text-transform: uppercase;
+
+  line-height: 1.5;
+}
+
+/* =====================================================
+   IMPRESION
+   ===================================================== */
+
+@media print {
+  @page {
+    size: landscape;
+
+    margin: 8mm;
+  }
+
+  :host {
+    background: #fff;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .container-fluid {
+    padding: 0 !important;
+  }
+
+  .hoja-reporte {
+    width: 100%;
+
+    max-width: none;
+
+    margin: 0;
+
+    padding: 0;
+
+    border: 0;
+
+    box-shadow: none;
+  }
+
+  .tabla-planilla {
+    font-size: 9px;
+  }
+
+  .tabla-planilla th,
+  .tabla-planilla td {
+    padding: 4px;
+  }
+
+  .tabla-planilla tbody tr {
+    page-break-inside: avoid;
+  }
+
+  .tabla-planilla thead {
+    display: table-header-group;
+  }
+
+  .titulo-planilla {
+    font-size: 12px;
+  }
+
+  .pie-planilla {
+    font-size: 8px;
+  }
+}

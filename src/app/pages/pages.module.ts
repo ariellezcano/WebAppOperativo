@@ -43,6 +43,8 @@ import { LstDetalleDistribucionComponent } from './lst/lst-detalle-distribucion/
 import { FrmDetalleDistribucionComponent } from './frm-abm/frm-detalle-distribucion/frm-detalle-distribucion.component';
 import { FilMovimientosComponent } from './filtros/fil-movimientos/fil-movimientos.component';
 import { LstMovimientosComponent } from './lst/lst-movimientos/lst-movimientos.component';
+import { PanelSeleccionReportesComponent } from './componentes/panel-seleccion-reportes/panel-seleccion-reportes.component';
+import { FrmPlanillaEquiposComponent } from './frm-abm/frm-planilla-equipos/frm-planilla-equipos.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +86,8 @@ import { LstMovimientosComponent } from './lst/lst-movimientos/lst-movimientos.c
     FrmDetalleDistribucionComponent,
     FilMovimientosComponent,
     LstMovimientosComponent,
+    PanelSeleccionReportesComponent,
+    FrmPlanillaEquiposComponent,
   ],
   imports: [
     CommonModule,

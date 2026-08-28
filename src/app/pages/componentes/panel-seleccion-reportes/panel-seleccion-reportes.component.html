@@ -1,0 +1,111 @@
+<div class="container-fluid py-4">
+
+  <div class="mb-4">
+
+    <h3 class="titulo-principal">
+      Panel de reportes
+    </h3>
+
+    <p class="subtitulo">
+      Seleccione el tipo de reporte que desea consultar.
+    </p>
+
+  </div>
+
+
+  <div class="row g-4">
+
+    <!-- REPORTE GENERAL -->
+
+    <div class="col-xl-6 col-lg-6 col-md-6">
+
+      <div
+        class="reporte-card h-100"
+        (click)="irReporteGeneral()"
+      >
+
+        <div class="reporte-icono reporte-icono-general">
+          <i class="bi bi-file-earmark-bar-graph"></i>
+        </div>
+
+        <div class="reporte-contenido">
+
+          <small class="text-uppercase fw-bold text-primary mb-2">
+            Reporte general
+          </small>
+
+          <h5>
+            Radios entregadas
+          </h5>
+
+          <p>
+            Consulte todas las radios entregadas,
+            incluyendo operativo, destinatario,
+            fecha de entrega y estado actual.
+          </p>
+
+          <div class="reporte-footer">
+
+            <span>
+              Consultar reporte
+            </span>
+
+            <i class="bi bi-arrow-right"></i>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- REPORTE INDIVIDUAL -->
+
+    <div class="col-xl-6 col-lg-6 col-md-6">
+
+      <div
+        class="reporte-card h-100"
+        (click)="irReporteIndividual()"
+      >
+
+        <div class="reporte-icono reporte-icono-individual">
+          <i class="bi bi-broadcast-pin"></i>
+        </div>
+
+        <div class="reporte-contenido">
+
+          <small class="text-uppercase fw-bold text-success mb-2">
+            Trazabilidad
+          </small>
+
+          <h5>
+            Reporte individual de equipo
+          </h5>
+
+          <p>
+            Consulte el historial completo de una radio
+            o celular por ID policial, número de serie
+            o IMEI.
+          </p>
+
+          <div class="reporte-footer">
+
+            <span>
+              Buscar equipo
+            </span>
+
+            <i class="bi bi-arrow-right"></i>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

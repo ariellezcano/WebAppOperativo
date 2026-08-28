@@ -1,0 +1,415 @@
+<div class="container-fluid py-4">
+
+  <!-- ================================================= -->
+  <!-- CABECERA -->
+  <!-- ================================================= -->
+
+  <div class="d-flex justify-content-between align-items-center mb-4 no-print">
+    <div>
+      <h4 class="mb-1 fw-bold">
+        Reporte general de radios entregadas
+      </h4>
+
+      <small class="text-muted">
+        Seleccione los filtros y genere la planilla.
+      </small>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-outline-secondary"
+      (click)="volver()"
+    >
+      <i class="bi bi-arrow-left me-2"></i>
+      Volver
+    </button>
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- FILTROS -->
+  <!-- ================================================= -->
+
+  <div class="card shadow-sm border-0 mb-4 no-print">
+    <div class="card-body p-4">
+
+      <div class="row g-3">
+
+        <!-- OPERATIVO -->
+
+        <div class="col-xl-4 col-lg-4 col-md-6">
+          <label class="form-label fw-semibold">
+            Operativo
+          </label>
+
+          <select
+            class="form-select"
+            [(ngModel)]="idOperativo"
+          >
+            <option [ngValue]="null">
+              Todos los operativos
+            </option>
+
+            <option
+              *ngFor="let operativo of operativos"
+              [ngValue]="operativo.idOperativo"
+            >
+              {{ operativo.denominacion }}
+            </option>
+          </select>
+        </div>
+
+
+        <!-- FECHA DESDE -->
+
+        <div class="col-xl-2 col-lg-2 col-md-6">
+          <label class="form-label fw-semibold">
+            Fecha desde
+          </label>
+
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="fechaDesde"
+          />
+        </div>
+
+
+        <!-- FECHA HASTA -->
+
+        <div class="col-xl-2 col-lg-2 col-md-6">
+          <label class="form-label fw-semibold">
+            Fecha hasta
+          </label>
+
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="fechaHasta"
+          />
+        </div>
+
+
+        <!-- ESTADO -->
+
+        <div class="col-xl-4 col-lg-4 col-md-6">
+          <label class="form-label fw-semibold">
+            Estado
+          </label>
+
+          <select
+            class="form-select"
+            [(ngModel)]="estadoEntrega"
+          >
+            <option [ngValue]="null">
+              Todas las entregas
+            </option>
+
+            <option [ngValue]="1">
+              Actualmente entregadas
+            </option>
+
+            <option [ngValue]="2">
+              Recepcionadas
+            </option>
+
+            <option [ngValue]="3">
+              Anuladas
+            </option>
+          </select>
+        </div>
+
+
+        <!-- EQUIPO -->
+
+        <div class="col-xl-6 col-lg-6 col-md-6">
+          <label class="form-label fw-semibold">
+            Equipo
+          </label>
+
+          <input
+            type="text"
+            class="form-control"
+            placeholder="ID policial, número de serie o IMEI"
+            [(ngModel)]="filtroEquipo"
+            (keyup.enter)="consultar()"
+          />
+        </div>
+
+
+        <!-- PERSONA -->
+
+        <div class="col-xl-6 col-lg-6 col-md-6">
+          <label class="form-label fw-semibold">
+            Persona
+          </label>
+
+          <input
+            type="text"
+            class="form-control"
+            placeholder="DNI, apellido o nombre"
+            [(ngModel)]="filtroPersona"
+            (keyup.enter)="consultar()"
+          />
+        </div>
+
+      </div>
+
+
+      <hr class="my-4" />
+
+
+      <!-- BOTONES FILTRO -->
+
+      <div class="d-flex justify-content-end gap-2">
+
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          (click)="limpiarFiltros()"
+          [disabled]="cargando"
+        >
+          <i class="bi bi-eraser me-2"></i>
+          Limpiar
+        </button>
+
+
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="consultar()"
+          [disabled]="cargando"
+        >
+          <span
+            *ngIf="cargando"
+            class="spinner-border spinner-border-sm me-2"
+          ></span>
+
+          <i
+            *ngIf="!cargando"
+            class="bi bi-search me-2"
+          ></i>
+
+          Consultar
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- ACCIONES DEL REPORTE -->
+  <!-- ================================================= -->
+
+  <div
+    *ngIf="items.length > 0"
+    class="acciones-reporte no-print"
+  >
+    <div class="text-muted">
+      <strong>{{ items.length }}</strong>
+      registro(s) encontrados
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-success"
+      (click)="imprimir()"
+    >
+      <i class="bi bi-printer me-2"></i>
+      Imprimir
+    </button>
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- CARGANDO -->
+  <!-- ================================================= -->
+
+  <div
+    *ngIf="cargando"
+    class="text-center py-5 no-print"
+  >
+    <div
+      class="spinner-border text-primary"
+      role="status"
+    ></div>
+
+    <div class="mt-3 text-muted">
+      Generando reporte...
+    </div>
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- PLANILLA -->
+  <!-- ================================================= -->
+
+  <div
+    *ngIf="!cargando && items.length > 0"
+    class="hoja-reporte"
+  >
+
+    <!-- ENCABEZADO -->
+
+    <div class="encabezado-planilla">
+
+      <div class="titulo-planilla">
+        RADIOS PORTÁTILES VHF
+
+        <span *ngIf="nombreOperativo">
+          - {{ nombreOperativo | uppercase }}
+        </span>
+      </div>
+
+
+      <div class="datos-encabezado">
+
+        <span>
+          OPERATIVO:
+          <strong>
+            {{ nombreOperativo ? nombreOperativo : "TODOS" }}
+          </strong>
+        </span>
+
+
+        <span *ngIf="fechaDesde">
+          DESDE:
+          <strong>
+            {{ fechaDesde | date: "dd/MM/yyyy" }}
+          </strong>
+        </span>
+
+
+        <span *ngIf="fechaHasta">
+          HASTA:
+          <strong>
+            {{ fechaHasta | date: "dd/MM/yyyy" }}
+          </strong>
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <!-- TABLA -->
+
+    <table class="tabla-planilla">
+
+      <thead>
+        <tr>
+          <th class="col-numero">
+            Nº
+          </th>
+
+          <th class="col-marca">
+            MARCA / MOD.
+          </th>
+
+          <th class="col-serie">
+            Nº SERIE
+          </th>
+
+          <th class="col-denominacion">
+            DENOMINACIÓN
+          </th>
+
+          <th class="col-aclaracion">
+            ACLARACIÓN
+          </th>
+
+          <th class="col-unidad">
+            UNIDAD DE REVISTA
+          </th>
+
+          <th class="col-observacion">
+            OBSERVACIONES
+          </th>
+        </tr>
+      </thead>
+
+
+      <tbody>
+
+        <tr
+          *ngFor="
+            let item of items;
+            let i = index
+          "
+        >
+
+          <td class="text-center">
+            {{ i + 1 }}
+          </td>
+
+
+          <td>
+            {{ marcaModelo(item) }}
+          </td>
+
+
+          <td>
+            {{ item.nroSerie || "-" }}
+          </td>
+
+
+          <td class="text-center fw-semibold">
+            {{ denominacion(item) }}
+          </td>
+
+
+          <td>
+            {{ persona(item) || "-" }}
+          </td>
+
+
+          <td>
+            {{ item.nombreUnidad || "-" }}
+          </td>
+
+
+          <td>
+            {{ item.observacion || "" }}
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+
+    <!-- PIE -->
+
+    <div class="pie-planilla">
+      LAS RADIOS PORTÁTILES SE ENTREGAN CON SUS RESPECTIVOS
+      ACCESORIOS EN CALIDAD DE PRÉSTAMO PROVISORIO.
+    </div>
+
+  </div>
+
+
+  <!-- ================================================= -->
+  <!-- SIN RESULTADOS -->
+  <!-- ================================================= -->
+
+  <div
+    *ngIf="
+      !cargando &&
+      consultaRealizada &&
+      items.length === 0
+    "
+    class="alert alert-light border text-center py-5 no-print"
+  >
+
+    <i
+      class="bi bi-file-earmark-x fs-2 d-block mb-2"
+    ></i>
+
+    No existen registros para los filtros seleccionados.
+
+  </div>
+
+</div>
