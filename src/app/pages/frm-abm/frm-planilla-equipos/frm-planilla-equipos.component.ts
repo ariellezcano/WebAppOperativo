@@ -18,6 +18,8 @@ export class FrmPlanillaEquiposComponent implements OnInit {
 
   operativos: any[] = [];
 
+  tipoPlanilla: 'ENTREGADAS' | 'AFECTADAS' = 'ENTREGADAS';
+
   // =====================================================
   // FILTROS
   // =====================================================
@@ -89,11 +91,18 @@ export class FrmPlanillaEquiposComponent implements OnInit {
   // =====================================================
 
   async consultar(): Promise<void> {
-    // =========================================
-    // VALIDAR FECHAS
-    // =========================================
+    if (this.tipoPlanilla === 'AFECTADAS' && !this.idOperativo) {
+      await Swal.fire(
+        'Atención',
+        'Debe seleccionar un operativo para generar la planilla en blanco.',
+        'warning',
+      );
+
+      return;
+    }
 
     if (
+      this.tipoPlanilla === 'ENTREGADAS' &&
       this.fechaDesde &&
       this.fechaHasta &&
       this.fechaDesde > this.fechaHasta
@@ -114,28 +123,44 @@ export class FrmPlanillaEquiposComponent implements OnInit {
 
       this.items = [];
 
-      this.nombreOperativo = '';
+      // ==========================================
+      // NOMBRE OPERATIVO
+      // ==========================================
 
-      // =========================================
-      // CONSULTAR API
-      // =========================================
+      this.actualizarNombreOperativo();
 
-      const re = await firstValueFrom(
-        this.wsdlReporte.radiosEntregadas(
-          this.idOperativo,
-          this.fechaDesde,
-          this.fechaHasta,
-          this.estadoEntrega,
-          this.filtroEquipo,
-          this.filtroPersona,
-        ),
-      );
+      let re: any;
+
+      // ==========================================
+      // PLANILLA DE RADIOS ENTREGADAS
+      // ==========================================
+
+      if (this.tipoPlanilla === 'ENTREGADAS') {
+        re = await firstValueFrom(
+          this.wsdlReporte.radiosEntregadas(
+            this.idOperativo,
+            this.fechaDesde,
+            this.fechaHasta,
+            this.estadoEntrega,
+            this.filtroEquipo,
+            this.filtroPersona,
+          ),
+        );
+      }
+
+      // ==========================================
+      // PLANILLA EN BLANCO
+      // ==========================================
+      else {
+        re = await firstValueFrom(
+          this.wsdlReporte.radiosAfectadasOperativo(
+            Number(this.idOperativo),
+            this.filtroEquipo,
+          ),
+        );
+      }
 
       const resultado = JSON.parse(JSON.stringify(re));
-
-      // =========================================
-      // RESULTADO CORRECTO
-      // =========================================
 
       if (
         resultado.code === '200' &&
@@ -144,35 +169,8 @@ export class FrmPlanillaEquiposComponent implements OnInit {
       ) {
         this.items = resultado.data;
 
-        // =====================================
-        // NOMBRE OPERATIVO
-        // =====================================
-
-        if (this.idOperativo) {
-          // Primero intentamos tomarlo
-          // desde el resultado.
-
-          this.nombreOperativo = this.items[0]?.operativo ?? '';
-
-          // Si por algún motivo no vino
-          // desde backend, lo buscamos
-          // en el combo.
-
-          if (!this.nombreOperativo) {
-            const operativo = this.operativos.find(
-              (x) => Number(x.idOperativo) === Number(this.idOperativo),
-            );
-
-            this.nombreOperativo = operativo?.denominacion ?? '';
-          }
-        }
-
         return;
       }
-
-      // =========================================
-      // SIN RESULTADOS
-      // =========================================
 
       this.items = [];
     } catch (error: any) {
@@ -192,14 +190,42 @@ export class FrmPlanillaEquiposComponent implements OnInit {
           if (respuesta?.message) {
             mensaje = respuesta.message;
           }
-        } catch {
-          // Dejamos mensaje genérico.
-        }
+        } catch {}
       }
 
       await Swal.fire('Error', mensaje, 'error');
     } finally {
       this.cargando = false;
+    }
+  }
+
+  actualizarNombreOperativo(): void {
+    this.nombreOperativo = '';
+
+    if (!this.idOperativo) {
+      return;
+    }
+
+    const operativo = this.operativos.find(
+      (x) => Number(x.idOperativo) === Number(this.idOperativo),
+    );
+
+    this.nombreOperativo = operativo?.denominacion ?? '';
+  }
+
+  cambioTipoPlanilla(): void {
+    this.items = [];
+
+    this.consultaRealizada = false;
+
+    if (this.tipoPlanilla === 'AFECTADAS') {
+      this.fechaDesde = null;
+
+      this.fechaHasta = null;
+
+      this.estadoEntrega = null;
+
+      this.filtroPersona = '';
     }
   }
 

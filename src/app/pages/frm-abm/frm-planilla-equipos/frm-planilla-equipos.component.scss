@@ -1,88 +1,93 @@
-:host {
-  display: block;
+/* =========================================================
+   CONTENEDOR
+   ========================================================= */
 
-  background: #f4f6f8;
-
-  min-height: 100vh;
+.reporte-container {
+  width: 100%;
 }
 
-/* =====================================================
+
+/* =========================================================
    ACCIONES
-   ===================================================== */
+   ========================================================= */
 
 .acciones-reporte {
-  max-width: 1450px;
-
-  margin: 0 auto 20px;
-
   display: flex;
-
   justify-content: space-between;
-
   align-items: center;
+
+  margin-bottom: 20px;
+
+  gap: 15px;
 }
 
-/* =====================================================
+
+/* =========================================================
    HOJA
-   ===================================================== */
+   ========================================================= */
 
 .hoja-reporte {
-  max-width: 1450px;
-
-  margin: 0 auto;
-
-  padding: 22px;
+  width: 100%;
 
   background: #ffffff;
 
-  border: 1px solid #d9dde2;
+  padding: 20px;
 
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  border: 1px solid #dee2e6;
+
+  border-radius: 6px;
+
+  box-shadow:
+    0 2px 10px
+    rgba(0, 0, 0, 0.05);
 }
 
-/* =====================================================
+
+/* =========================================================
    ENCABEZADO
-   ===================================================== */
+   ========================================================= */
 
 .encabezado-planilla {
-  margin-bottom: 12px;
-
-  text-align: center;
+  margin-bottom: 15px;
 }
 
-.titulo-planilla {
-  padding: 8px 10px;
 
-  font-size: 1rem;
+.titulo-planilla {
+  text-align: center;
+
+  font-size: 16px;
 
   font-weight: 800;
 
+  margin-bottom: 10px;
+
   text-transform: uppercase;
-
-  color: #000;
-
-  letter-spacing: 0.02rem;
 }
+
 
 .datos-encabezado {
   display: flex;
 
   justify-content: center;
 
+  align-items: center;
+
   flex-wrap: wrap;
 
   gap: 25px;
 
-  padding: 6px;
-
-  font-size: 0.78rem;
-
-  color: #000;
+  font-size: 13px;
 }
 
-/* =====================================================
+
+.datos-planilla-blanco {
+  margin-top: 5px;
+}
+
+
+/* =========================================================
    TABLA
-   ===================================================== */
+   ========================================================= */
 
 .tabla-planilla {
   width: 100%;
@@ -91,92 +96,121 @@
 
   table-layout: fixed;
 
-  font-family: Arial, Helvetica, sans-serif;
-
-  font-size: 0.76rem;
-
-  color: #000;
+  font-size: 12px;
 }
+
 
 .tabla-planilla th,
 .tabla-planilla td {
   border: 1px solid #000;
 
-  padding: 6px 5px;
+  padding: 7px;
 
   vertical-align: middle;
 }
 
-.tabla-planilla thead th {
-  min-height: 42px;
 
-  background: #ffffff;
+.tabla-planilla th {
+  background: #f5f5f5;
 
   text-align: center;
 
-  font-size: 0.72rem;
-
   font-weight: 700;
-
-  text-transform: uppercase;
 }
 
-.tabla-planilla tbody td {
-  height: 34px;
-}
 
-/* =====================================================
-   ANCHOS
-   ===================================================== */
+/* =========================================================
+   ANCHO DE COLUMNAS
+   ========================================================= */
 
 .col-numero {
   width: 5%;
 }
 
+
 .col-marca {
   width: 17%;
 }
+
 
 .col-serie {
   width: 15%;
 }
 
+
 .col-denominacion {
   width: 13%;
 }
+
 
 .col-aclaracion {
   width: 18%;
 }
 
+
 .col-unidad {
   width: 20%;
 }
+
 
 .col-observacion {
   width: 12%;
 }
 
-/* =====================================================
+
+/* =========================================================
+   PLANILLA EN BLANCO
+   ========================================================= */
+
+.tabla-planilla.planilla-en-blanco tbody tr {
+  height: 42px;
+}
+
+
+.tabla-planilla.planilla-en-blanco tbody td {
+  vertical-align: middle;
+}
+
+
+/* =========================================================
    PIE
-   ===================================================== */
+   ========================================================= */
 
 .pie-planilla {
-  margin-top: 16px;
-
-  padding: 8px 4px;
-
-  font-size: 0.7rem;
-
-  font-weight: 600;
+  margin-top: 15px;
 
   text-align: center;
 
-  text-transform: uppercase;
+  font-size: 10px;
 
-  line-height: 1.5;
+  font-weight: 600;
 }
 
-/* =====================================================
-   IMPRESION
-   ===================================================== */
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media screen and (max-width: 768px) {
+
+  .acciones-reporte {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+
+  .datos-encabezado {
+    flex-direction: column;
+
+    gap: 5px;
+
+    align-items: flex-start;
+  }
+
+
+  .hoja-reporte {
+    overflow-x: auto;
+  }
+
+}

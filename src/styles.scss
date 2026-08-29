@@ -5,22 +5,41 @@
    IMPRESION - REPORTE PLANILLA EQUIPOS
    ========================================================= */
 
+/* =========================================================
+   IMPRESION - REPORTE DE RADIOS
+   ========================================================= */
+
 @media print {
+  /* =====================================================
+     CONFIGURACION DE PAGINA
+     ===================================================== */
 
   @page {
     size: A4 landscape;
-    margin: 8mm;
+
+    margin: 8mm 8mm 8mm 8mm;
   }
+
+  /* =====================================================
+     HTML / BODY
+     ===================================================== */
 
   html,
   body {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+
+    height: auto !important;
+
+    min-height: 0 !important;
+
     margin: 0 !important;
+
     padding: 0 !important;
+
+    overflow: visible !important;
+
     background: #ffffff !important;
   }
-
 
   /* =====================================================
      OCULTAR TODO EL SISTEMA
@@ -30,9 +49,8 @@
     visibility: hidden !important;
   }
 
-
   /* =====================================================
-     MOSTRAR SOLAMENTE EL REPORTE
+     MOSTRAR SOLO EL COMPONENTE DEL REPORTE
      ===================================================== */
 
   app-frm-planilla-equipos,
@@ -40,53 +58,148 @@
     visibility: visible !important;
   }
 
-
   /* =====================================================
-     POSICIONAR EL REPORTE DESDE ARRIBA
+     COMPONENTE
      ===================================================== */
 
   app-frm-planilla-equipos {
     position: absolute !important;
 
     top: 0 !important;
+
     left: 0 !important;
 
     width: 100% !important;
 
+    height: auto !important;
+
+    min-height: 0 !important;
+
     margin: 0 !important;
+
     padding: 0 !important;
+
+    overflow: visible !important;
 
     background: #ffffff !important;
   }
 
+  /* =====================================================
+     CONTAINER
+     ===================================================== */
+
+  app-frm-planilla-equipos .reporte-container,
+  app-frm-planilla-equipos .container-fluid {
+    width: 100% !important;
+
+    height: auto !important;
+
+    min-height: 0 !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    overflow: visible !important;
+  }
 
   /* =====================================================
-     ELEMENTOS QUE NO DEBEN IMPRIMIRSE
+     ELEMENTOS QUE NO SE IMPRIMEN
      ===================================================== */
 
   app-frm-planilla-equipos .no-print {
     display: none !important;
-  }
 
+    visibility: hidden !important;
+  }
 
   /* =====================================================
      HOJA
      ===================================================== */
 
   app-frm-planilla-equipos .hoja-reporte {
+    display: block !important;
+
+    position: relative !important;
+
     width: 100% !important;
+
     max-width: none !important;
 
+    height: auto !important;
+
+    min-height: 0 !important;
+
     margin: 0 !important;
+
     padding: 0 !important;
 
     border: 0 !important;
 
+    border-radius: 0 !important;
+
     box-shadow: none !important;
+
+    overflow: visible !important;
 
     background: #ffffff !important;
   }
 
+  /* =====================================================
+     ENCABEZADO
+     ===================================================== */
+
+  app-frm-planilla-equipos .encabezado-planilla {
+    width: 100% !important;
+
+    margin: 0 0 4mm 0 !important;
+
+    padding: 0 !important;
+
+    break-inside: avoid !important;
+
+    page-break-inside: avoid !important;
+  }
+
+  app-frm-planilla-equipos .titulo-planilla {
+    margin: 0 0 2.5mm 0 !important;
+
+    padding: 0 !important;
+
+    text-align: center !important;
+
+    font-size: 12px !important;
+
+    font-weight: 800 !important;
+
+    line-height: 1.2 !important;
+
+    color: #000 !important;
+  }
+
+  app-frm-planilla-equipos .datos-encabezado {
+    display: flex !important;
+
+    justify-content: center !important;
+
+    align-items: center !important;
+
+    flex-wrap: wrap !important;
+
+    gap: 6mm !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
+    font-size: 8px !important;
+
+    line-height: 1.2 !important;
+
+    color: #000 !important;
+  }
 
   /* =====================================================
      TABLA
@@ -95,76 +208,135 @@
   app-frm-planilla-equipos .tabla-planilla {
     width: 100% !important;
 
+    max-width: 100% !important;
+
+    margin: 0 !important;
+
+    padding: 0 !important;
+
     border-collapse: collapse !important;
+
+    border-spacing: 0 !important;
 
     table-layout: fixed !important;
 
-    font-size: 9px !important;
-  }
+    font-size: 8px !important;
 
-
-  app-frm-planilla-equipos .tabla-planilla th,
-  app-frm-planilla-equipos .tabla-planilla td {
-    border: 1px solid #000 !important;
-
-    padding: 4px !important;
+    line-height: 1.15 !important;
 
     color: #000 !important;
   }
-
-
-  /* =====================================================
-     REPETIR ENCABEZADO SI HAY VARIAS PAGINAS
-     ===================================================== */
 
   app-frm-planilla-equipos .tabla-planilla thead {
     display: table-header-group !important;
   }
 
+  app-frm-planilla-equipos .tabla-planilla tbody {
+    display: table-row-group !important;
+  }
 
-  /* =====================================================
-     EVITAR CORTAR FILAS
-     ===================================================== */
+  app-frm-planilla-equipos .tabla-planilla th,
+  app-frm-planilla-equipos .tabla-planilla td {
+    border: 1px solid #000 !important;
+
+    padding: 1.5mm 1mm !important;
+
+    vertical-align: middle !important;
+
+    color: #000 !important;
+
+    background: #ffffff !important;
+
+    word-wrap: break-word !important;
+
+    overflow-wrap: break-word !important;
+  }
+
+  app-frm-planilla-equipos .tabla-planilla th {
+    text-align: center !important;
+
+    font-weight: 700 !important;
+  }
 
   app-frm-planilla-equipos .tabla-planilla tr {
-    page-break-inside: avoid !important;
-
     break-inside: avoid !important;
+
+    page-break-inside: avoid !important;
   }
 
-
   /* =====================================================
-     TITULO
+     ANCHOS DE COLUMNAS
      ===================================================== */
 
-  app-frm-planilla-equipos .titulo-planilla {
-    font-size: 12px !important;
-
-    font-weight: 800 !important;
-
-    color: #000 !important;
+  app-frm-planilla-equipos .col-numero {
+    width: 5% !important;
   }
 
-
-  app-frm-planilla-equipos .datos-encabezado {
-    font-size: 9px !important;
-
-    color: #000 !important;
+  app-frm-planilla-equipos .col-marca {
+    width: 17% !important;
   }
 
+  app-frm-planilla-equipos .col-serie {
+    width: 15% !important;
+  }
+
+  app-frm-planilla-equipos .col-denominacion {
+    width: 13% !important;
+  }
+
+  app-frm-planilla-equipos .col-aclaracion {
+    width: 18% !important;
+  }
+
+  app-frm-planilla-equipos .col-unidad {
+    width: 20% !important;
+  }
+
+  app-frm-planilla-equipos .col-observacion {
+    width: 12% !important;
+  }
 
   /* =====================================================
-     PIE DEL REPORTE
+     PLANILLA EN BLANCO
+     ===================================================== */
+
+  app-frm-planilla-equipos .tabla-planilla.planilla-en-blanco tbody tr {
+    height: 9mm !important;
+
+    min-height: 9mm !important;
+  }
+
+  app-frm-planilla-equipos .tabla-planilla.planilla-en-blanco tbody td {
+    height: 9mm !important;
+
+    padding: 1mm 1.5mm !important;
+
+    vertical-align: middle !important;
+  }
+
+  /* =====================================================
+     PIE DE LA PLANILLA
      ===================================================== */
 
   app-frm-planilla-equipos .pie-planilla {
-    margin-top: 12px !important;
+    width: 100% !important;
 
-    font-size: 8px !important;
+    margin: 3mm 0 0 0 !important;
+
+    padding: 0 !important;
+
+    text-align: center !important;
+
+    font-size: 7px !important;
+
+    font-weight: 600 !important;
+
+    line-height: 1.2 !important;
 
     color: #000 !important;
 
+    break-inside: avoid !important;
+
     page-break-inside: avoid !important;
   }
-
 }

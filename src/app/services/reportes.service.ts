@@ -83,4 +83,19 @@ export class ReportesService {
       params,
     });
   }
+
+  radiosAfectadasOperativo(
+    idOperativo: number,
+    filtroEquipo: string | null,
+  ): Observable<any> {
+    let params = new HttpParams().set('idOperativo', idOperativo.toString());
+
+    if (filtroEquipo && filtroEquipo.trim() !== '') {
+      params = params.set('filtroEquipo', filtroEquipo.trim());
+    }
+
+    return this.http.get<any>(`${this.api}/RadiosAfectadasOperativo`, {
+      params,
+    });
+  }
 }

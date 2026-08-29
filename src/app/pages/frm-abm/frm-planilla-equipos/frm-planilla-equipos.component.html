@@ -1,17 +1,19 @@
-<div class="container-fluid py-4">
+<div class="container-fluid py-4 reporte-container">
 
   <!-- ================================================= -->
   <!-- CABECERA -->
   <!-- ================================================= -->
 
-  <div class="d-flex justify-content-between align-items-center mb-4 no-print">
+  <div
+    class="d-flex justify-content-between align-items-center mb-4 no-print"
+  >
     <div>
       <h4 class="mb-1 fw-bold">
-        Reporte general de radios entregadas
+        Reporte general de radios
       </h4>
 
       <small class="text-muted">
-        Seleccione los filtros y genere la planilla.
+        Seleccione el tipo de planilla y los filtros.
       </small>
     </div>
 
@@ -30,14 +32,46 @@
   <!-- FILTROS -->
   <!-- ================================================= -->
 
-  <div class="card shadow-sm border-0 mb-4 no-print">
+  <div
+    class="card shadow-sm border-0 mb-4 no-print"
+  >
     <div class="card-body p-4">
 
       <div class="row g-3">
 
-        <!-- OPERATIVO -->
+        <!-- ================================================= -->
+        <!-- TIPO DE PLANILLA -->
+        <!-- ================================================= -->
 
         <div class="col-xl-4 col-lg-4 col-md-6">
+
+          <label class="form-label fw-semibold">
+            Tipo de planilla
+          </label>
+
+          <select
+            class="form-select"
+            [(ngModel)]="tipoPlanilla"
+            (ngModelChange)="cambioTipoPlanilla()"
+          >
+            <option value="ENTREGADAS">
+              Radios entregadas
+            </option>
+
+            <option value="AFECTADAS">
+              Planilla en blanco - radios afectadas
+            </option>
+          </select>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- OPERATIVO -->
+        <!-- ================================================= -->
+
+        <div class="col-xl-4 col-lg-4 col-md-6">
+
           <label class="form-label fw-semibold">
             Operativo
           </label>
@@ -45,9 +79,21 @@
           <select
             class="form-select"
             [(ngModel)]="idOperativo"
+            (ngModelChange)="cambioOperativo()"
           >
-            <option [ngValue]="null">
+
+            <option
+              *ngIf="tipoPlanilla === 'ENTREGADAS'"
+              [ngValue]="null"
+            >
               Todos los operativos
+            </option>
+
+            <option
+              *ngIf="tipoPlanilla === 'AFECTADAS'"
+              [ngValue]="null"
+            >
+              Seleccione un operativo
             </option>
 
             <option
@@ -56,73 +102,18 @@
             >
               {{ operativo.denominacion }}
             </option>
+
           </select>
+
         </div>
 
 
-        <!-- FECHA DESDE -->
-
-        <div class="col-xl-2 col-lg-2 col-md-6">
-          <label class="form-label fw-semibold">
-            Fecha desde
-          </label>
-
-          <input
-            type="date"
-            class="form-control"
-            [(ngModel)]="fechaDesde"
-          />
-        </div>
-
-
-        <!-- FECHA HASTA -->
-
-        <div class="col-xl-2 col-lg-2 col-md-6">
-          <label class="form-label fw-semibold">
-            Fecha hasta
-          </label>
-
-          <input
-            type="date"
-            class="form-control"
-            [(ngModel)]="fechaHasta"
-          />
-        </div>
-
-
-        <!-- ESTADO -->
-
-        <div class="col-xl-4 col-lg-4 col-md-6">
-          <label class="form-label fw-semibold">
-            Estado
-          </label>
-
-          <select
-            class="form-select"
-            [(ngModel)]="estadoEntrega"
-          >
-            <option [ngValue]="null">
-              Todas las entregas
-            </option>
-
-            <option [ngValue]="1">
-              Actualmente entregadas
-            </option>
-
-            <option [ngValue]="2">
-              Recepcionadas
-            </option>
-
-            <option [ngValue]="3">
-              Anuladas
-            </option>
-          </select>
-        </div>
-
-
+        <!-- ================================================= -->
         <!-- EQUIPO -->
+        <!-- ================================================= -->
 
-        <div class="col-xl-6 col-lg-6 col-md-6">
+        <div class="col-xl-4 col-lg-4 col-md-12">
+
           <label class="form-label fw-semibold">
             Equipo
           </label>
@@ -130,28 +121,107 @@
           <input
             type="text"
             class="form-control"
-            placeholder="ID policial, número de serie o IMEI"
+            placeholder="ID policial, número de serie, marca o modelo"
             [(ngModel)]="filtroEquipo"
             (keyup.enter)="consultar()"
           />
+
         </div>
 
 
-        <!-- PERSONA -->
+        <!-- ================================================= -->
+        <!-- FILTROS SOLO PARA ENTREGADAS -->
+        <!-- ================================================= -->
 
-        <div class="col-xl-6 col-lg-6 col-md-6">
-          <label class="form-label fw-semibold">
-            Persona
-          </label>
+        <ng-container
+          *ngIf="tipoPlanilla === 'ENTREGADAS'"
+        >
 
-          <input
-            type="text"
-            class="form-control"
-            placeholder="DNI, apellido o nombre"
-            [(ngModel)]="filtroPersona"
-            (keyup.enter)="consultar()"
-          />
-        </div>
+          <!-- FECHA DESDE -->
+
+          <div class="col-xl-2 col-lg-2 col-md-6">
+
+            <label class="form-label fw-semibold">
+              Fecha desde
+            </label>
+
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="fechaDesde"
+            />
+
+          </div>
+
+
+          <!-- FECHA HASTA -->
+
+          <div class="col-xl-2 col-lg-2 col-md-6">
+
+            <label class="form-label fw-semibold">
+              Fecha hasta
+            </label>
+
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="fechaHasta"
+            />
+
+          </div>
+
+
+          <!-- ESTADO -->
+
+          <div class="col-xl-4 col-lg-4 col-md-6">
+
+            <label class="form-label fw-semibold">
+              Estado
+            </label>
+
+            <select
+              class="form-select"
+              [(ngModel)]="estadoEntrega"
+            >
+              <option [ngValue]="null">
+                Todas las entregas
+              </option>
+
+              <option [ngValue]="1">
+                Actualmente entregadas
+              </option>
+
+              <option [ngValue]="2">
+                Recepcionadas
+              </option>
+
+              <option [ngValue]="3">
+                Anuladas
+              </option>
+            </select>
+
+          </div>
+
+
+          <!-- PERSONA -->
+
+          <div class="col-xl-4 col-lg-4 col-md-6">
+
+            <label class="form-label fw-semibold">
+              Persona
+            </label>
+
+            <input
+              type="text"
+              class="form-control"
+              placeholder="DNI, apellido o nombre"
+              [(ngModel)]="filtroPersona"
+              (keyup.enter)="consultar()"
+            />
+
+          </div>
+
+        </ng-container>
 
       </div>
 
@@ -159,7 +229,9 @@
       <hr class="my-4" />
 
 
-      <!-- BOTONES FILTRO -->
+      <!-- ================================================= -->
+      <!-- BOTONES -->
+      <!-- ================================================= -->
 
       <div class="d-flex justify-content-end gap-2">
 
@@ -180,6 +252,7 @@
           (click)="consultar()"
           [disabled]="cargando"
         >
+
           <span
             *ngIf="cargando"
             class="spinner-border spinner-border-sm me-2"
@@ -191,6 +264,7 @@
           ></i>
 
           Consultar
+
         </button>
 
       </div>
@@ -200,17 +274,34 @@
 
 
   <!-- ================================================= -->
-  <!-- ACCIONES DEL REPORTE -->
+  <!-- ACCIONES -->
   <!-- ================================================= -->
 
   <div
     *ngIf="items.length > 0"
     class="acciones-reporte no-print"
   >
+
     <div class="text-muted">
-      <strong>{{ items.length }}</strong>
-      registro(s) encontrados
+
+      <strong>
+        {{ items.length }}
+      </strong>
+
+      <span
+        *ngIf="tipoPlanilla === 'ENTREGADAS'"
+      >
+        radio(s) encontrada(s)
+      </span>
+
+      <span
+        *ngIf="tipoPlanilla === 'AFECTADAS'"
+      >
+        radio(s) afectada(s) al operativo
+      </span>
+
     </div>
+
 
     <button
       type="button"
@@ -220,6 +311,7 @@
       <i class="bi bi-printer me-2"></i>
       Imprimir
     </button>
+
   </div>
 
 
@@ -231,14 +323,28 @@
     *ngIf="cargando"
     class="text-center py-5 no-print"
   >
+
     <div
       class="spinner-border text-primary"
       role="status"
     ></div>
 
     <div class="mt-3 text-muted">
-      Generando reporte...
+
+      <span
+        *ngIf="tipoPlanilla === 'ENTREGADAS'"
+      >
+        Generando reporte de radios entregadas...
+      </span>
+
+      <span
+        *ngIf="tipoPlanilla === 'AFECTADAS'"
+      >
+        Generando planilla de radios afectadas...
+      </span>
+
     </div>
+
   </div>
 
 
@@ -251,42 +357,119 @@
     class="hoja-reporte"
   >
 
+    <!-- ================================================= -->
     <!-- ENCABEZADO -->
+    <!-- ================================================= -->
 
     <div class="encabezado-planilla">
 
-      <div class="titulo-planilla">
-        RADIOS PORTÁTILES VHF
+      <!-- TITULO -->
 
-        <span *ngIf="nombreOperativo">
-          - {{ nombreOperativo | uppercase }}
-        </span>
+      <div class="titulo-planilla">
+
+        <ng-container
+          *ngIf="tipoPlanilla === 'ENTREGADAS'"
+        >
+          RADIOS PORTÁTILES VHF ENTREGADAS
+        </ng-container>
+
+        <ng-container
+          *ngIf="tipoPlanilla === 'AFECTADAS'"
+        >
+          PLANILLA DE RADIOS PORTÁTILES VHF
+        </ng-container>
+
       </div>
 
 
-      <div class="datos-encabezado">
+      <!-- ================================================= -->
+      <!-- DATOS ENTREGADAS -->
+      <!-- ================================================= -->
+
+      <div
+        *ngIf="tipoPlanilla === 'ENTREGADAS'"
+        class="datos-encabezado"
+      >
 
         <span>
+
           OPERATIVO:
+
           <strong>
-            {{ nombreOperativo ? nombreOperativo : "TODOS" }}
+            {{
+              nombreOperativo
+                ? (nombreOperativo | uppercase)
+                : "TODOS"
+            }}
           </strong>
+
         </span>
 
 
         <span *ngIf="fechaDesde">
+
           DESDE:
+
           <strong>
             {{ fechaDesde | date: "dd/MM/yyyy" }}
           </strong>
+
         </span>
 
 
         <span *ngIf="fechaHasta">
+
           HASTA:
+
           <strong>
             {{ fechaHasta | date: "dd/MM/yyyy" }}
           </strong>
+
+        </span>
+
+
+        <span>
+
+          ESTADO:
+
+          <strong>
+            {{ estadoTexto() }}
+          </strong>
+
+        </span>
+
+      </div>
+
+
+      <!-- ================================================= -->
+      <!-- DATOS PLANILLA EN BLANCO -->
+      <!-- ================================================= -->
+
+      <div
+        *ngIf="tipoPlanilla === 'AFECTADAS'"
+        class="datos-encabezado datos-planilla-blanco"
+      >
+
+        <span>
+
+          OPERATIVO:
+
+          <strong>
+            {{ nombreOperativo | uppercase }}
+          </strong>
+
+        </span>
+
+
+        <span>
+          TURNO:
+          ______________________
+        </span>
+
+
+        <span>
+          FECHA:
+          ____ / ____ / ______
         </span>
 
       </div>
@@ -294,12 +477,21 @@
     </div>
 
 
+    <!-- ================================================= -->
     <!-- TABLA -->
+    <!-- ================================================= -->
 
-    <table class="tabla-planilla">
+    <table
+      class="tabla-planilla"
+      [class.planilla-en-blanco]="
+        tipoPlanilla === 'AFECTADAS'
+      "
+    >
 
       <thead>
+
         <tr>
+
           <th class="col-numero">
             Nº
           </th>
@@ -327,7 +519,9 @@
           <th class="col-observacion">
             OBSERVACIONES
           </th>
+
         </tr>
+
       </thead>
 
 
@@ -340,38 +534,76 @@
           "
         >
 
+          <!-- Nº -->
+
           <td class="text-center">
             {{ i + 1 }}
           </td>
 
+
+          <!-- MARCA / MODELO -->
 
           <td>
             {{ marcaModelo(item) }}
           </td>
 
 
+          <!-- SERIE -->
+
           <td>
             {{ item.nroSerie || "-" }}
           </td>
 
+
+          <!-- DENOMINACION -->
 
           <td class="text-center fw-semibold">
             {{ denominacion(item) }}
           </td>
 
 
+          <!-- ================================================= -->
+          <!-- ACLARACION -->
+          <!-- ================================================= -->
+
           <td>
-            {{ persona(item) || "-" }}
+
+            <ng-container
+              *ngIf="tipoPlanilla === 'ENTREGADAS'"
+            >
+              {{ persona(item) || "-" }}
+            </ng-container>
+
           </td>
 
 
+          <!-- ================================================= -->
+          <!-- UNIDAD -->
+          <!-- ================================================= -->
+
           <td>
-            {{ item.nombreUnidad || "-" }}
+
+            <ng-container
+              *ngIf="tipoPlanilla === 'ENTREGADAS'"
+            >
+              {{ item.nombreUnidad || "-" }}
+            </ng-container>
+
           </td>
 
 
+          <!-- ================================================= -->
+          <!-- OBSERVACIONES -->
+          <!-- ================================================= -->
+
           <td>
-            {{ item.observacion || "" }}
+
+            <ng-container
+              *ngIf="tipoPlanilla === 'ENTREGADAS'"
+            >
+              {{ item.observacion || "" }}
+            </ng-container>
+
           </td>
 
         </tr>
@@ -381,11 +613,15 @@
     </table>
 
 
+    <!-- ================================================= -->
     <!-- PIE -->
+    <!-- ================================================= -->
 
     <div class="pie-planilla">
+
       LAS RADIOS PORTÁTILES SE ENTREGAN CON SUS RESPECTIVOS
       ACCESORIOS EN CALIDAD DE PRÉSTAMO PROVISORIO.
+
     </div>
 
   </div>
@@ -408,7 +644,19 @@
       class="bi bi-file-earmark-x fs-2 d-block mb-2"
     ></i>
 
-    No existen registros para los filtros seleccionados.
+
+    <ng-container
+      *ngIf="tipoPlanilla === 'ENTREGADAS'"
+    >
+      No existen radios entregadas para los filtros seleccionados.
+    </ng-container>
+
+
+    <ng-container
+      *ngIf="tipoPlanilla === 'AFECTADAS'"
+    >
+      No existen radios afectadas al operativo seleccionado.
+    </ng-container>
 
   </div>
 
