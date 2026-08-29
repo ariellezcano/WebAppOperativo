@@ -1,50 +1,420 @@
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+
+.detalle-container {
+  padding: 2rem 3rem;
+}
+
+.detalle-principal {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* ============================================================
+   CABECERA
+   ============================================================ */
+
+.detalle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 1rem 1.5rem;
+
+  color: #fff;
+
+  background: linear-gradient(90deg, #0d6efd, #0b5ed7);
+
+  border-bottom: 4px solid #ff9800;
+}
+
+.detalle-header-titulo {
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+.detalle-btn-volver {
+  border-radius: 30px;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   CUERPO
+   ============================================================ */
+
+.detalle-body {
+  padding: 1.5rem;
+}
+
+/* ============================================================
+   CARDS INTERNAS
+   ============================================================ */
+
 .detalle-card {
   border-radius: 1rem;
+  overflow: hidden;
 }
+
+.detalle-card .card-body {
+  padding: 1.5rem;
+}
+
+/* ============================================================
+   TÍTULOS
+   ============================================================ */
 
 .detalle-titulo {
   color: #0d6efd;
+
   font-weight: 700;
+
+  font-size: 1.1rem;
+
   margin-bottom: 1.5rem;
+
+  line-height: 1.4;
 }
+
+/* ============================================================
+   LABELS
+   ============================================================ */
 
 .form-label {
+  display: block;
+
   font-size: 0.78rem;
+
   font-weight: 600;
+
   color: #6c757d;
+
+  margin-bottom: 0.4rem;
 }
 
+/* ============================================================
+   CONTROLES
+   ============================================================ */
+
 .form-control {
+  width: 100%;
+
+  min-height: 40px;
+
   border-radius: 0.8rem;
+
   background: #fff;
 }
 
 .form-control[readonly] {
   background: #f8f9fa;
+
   cursor: default;
+
+  color: #495057;
 }
+
+textarea.form-control {
+  min-height: 80px;
+
+  resize: none;
+}
+
+/* ============================================================
+   EQUIPO PRINCIPAL
+   ============================================================ */
 
 .equipo-principal {
   font-weight: 700;
-  color: #0d6efd;
+
+  color: #0d6efd !important;
 }
 
+/* ============================================================
+   ESTADOS
+   ============================================================ */
+
 .estado-box {
-  min-height: 38px;
+  min-height: 40px;
+
   display: flex;
+
   align-items: center;
 }
 
 .badge {
   font-size: 0.85rem;
+
   padding: 0.55rem 0.9rem;
+
   border-radius: 30px;
+
+  white-space: normal;
+
+  line-height: 1.2;
 }
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
 
 .btn {
   border-radius: 30px;
 }
 
-textarea {
-  resize: none;
+.btn-buscar {
+  min-height: 40px;
+}
+
+/* ============================================================
+   ESTADO VACÍO
+   ============================================================ */
+
+.estado-vacio {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.estado-vacio-icono {
+  font-size: 3rem;
+
+  color: #6c757d;
+}
+
+/* ============================================================
+   ACCIONES
+   ============================================================ */
+
+.detalle-acciones {
+  display: flex;
+
+  justify-content: flex-end;
+
+  align-items: center;
+
+  gap: 0.75rem;
+
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   MONITORES GRANDES
+   ============================================================ */
+
+@media (min-width: 1600px) {
+  .detalle-principal {
+    max-width: 1700px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+  }
+}
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 991.98px) {
+  .detalle-container {
+    padding: 1.5rem;
+  }
+
+  .detalle-header-titulo {
+    font-size: 1.3rem;
+  }
+}
+
+/* ============================================================
+   CELULAR
+   ============================================================ */
+
+@media (max-width: 767.98px) {
+  /* CONTENEDOR */
+
+  .detalle-container {
+    padding: 0.75rem;
+  }
+
+  /* CARD PRINCIPAL */
+
+  .detalle-principal {
+    border-radius: 0.8rem;
+  }
+
+  /* HEADER */
+
+  .detalle-header {
+    padding: 0.9rem;
+
+    gap: 0.75rem;
+  }
+
+  .detalle-header-titulo {
+    font-size: 1.05rem;
+
+    flex: 1;
+  }
+
+  .detalle-btn-volver {
+    padding: 0.55rem 0.9rem;
+
+    font-size: 0.85rem;
+  }
+
+  /* CUERPO */
+
+  .detalle-body {
+    padding: 0.75rem;
+  }
+
+  /* CARDS */
+
+  .detalle-card {
+    border-radius: 0.8rem;
+  }
+
+  .detalle-card .card-body {
+    padding: 1rem;
+  }
+
+  /* TÍTULOS */
+
+  .detalle-titulo {
+    font-size: 1rem;
+
+    margin-bottom: 1rem;
+  }
+
+  /* LABEL */
+
+  .form-label {
+    font-size: 0.76rem;
+  }
+
+  /* INPUTS */
+
+  .form-control {
+    min-height: 44px;
+
+    font-size: 0.95rem;
+  }
+
+  /* BOTONES */
+
+  .btn {
+    min-height: 44px;
+  }
+
+  .btn-buscar {
+    width: 100%;
+  }
+
+  /* BADGES */
+
+  .estado-box {
+    min-height: 44px;
+  }
+
+  .badge {
+    font-size: 0.8rem;
+
+    padding: 0.55rem 0.8rem;
+  }
+
+  /* ACCIONES */
+
+  .detalle-acciones {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 0.75rem;
+  }
+
+  .detalle-acciones .btn {
+    width: 100%;
+
+    margin: 0;
+
+    padding-left: 0.75rem !important;
+
+    padding-right: 0.75rem !important;
+  }
+}
+
+/* ============================================================
+   CELULARES PEQUEÑOS
+   ============================================================ */
+
+@media (max-width: 575.98px) {
+  .detalle-container {
+    padding: 0.4rem;
+  }
+
+  /* HEADER APILADO */
+
+  .detalle-header {
+    align-items: center;
+  }
+
+  .detalle-header-titulo {
+    font-size: 0.95rem;
+  }
+
+  .detalle-header-titulo i {
+    margin-right: 0.3rem !important;
+  }
+
+  .detalle-btn-volver {
+    min-height: 38px;
+
+    padding: 0.4rem 0.7rem;
+
+    font-size: 0.8rem;
+  }
+
+  .detalle-btn-volver i {
+    margin-right: 0.25rem !important;
+  }
+
+  /* CUERPO */
+
+  .detalle-body {
+    padding: 0.5rem;
+  }
+
+  /* CARD */
+
+  .detalle-card .card-body {
+    padding: 0.85rem;
+  }
+
+  /* ACCIONES UNA DEBAJO DE OTRA */
+
+  .detalle-acciones {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================================
+   CELULARES MUY PEQUEÑOS
+   ============================================================ */
+
+@media (max-width: 380px) {
+  .detalle-header {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .detalle-header-titulo {
+    text-align: center;
+  }
+
+  .detalle-btn-volver {
+    width: 100%;
+  }
 }

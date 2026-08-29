@@ -1,32 +1,522 @@
-.table-hover tbody tr:hover {
-  background: #f8f9fa;
+
+/* ============================================================
+   CONTENEDOR PRINCIPAL
+   ============================================================ */
+
+.distribucion-container {
+  padding: 2rem 3rem;
 }
 
-.table th {
+.distribucion-principal {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+
+/* ============================================================
+   CABECERA
+   ============================================================ */
+
+.distribucion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1rem 1.5rem;
+
+  color: #fff;
+
+  background: linear-gradient(
+    90deg,
+    #0d6efd,
+    #0b5ed7
+  );
+
+  border-bottom: 4px solid #ff9800;
+}
+
+.distribucion-header-titulo {
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+
+/* ============================================================
+   CUERPO
+   ============================================================ */
+
+.distribucion-body {
+  padding: 1.5rem;
+}
+
+
+/* ============================================================
+   FILTRO
+   ============================================================ */
+
+.distribucion-filtro {
+  display: flex;
+  align-items: flex-end;
+
+  width: 100%;
+}
+
+
+/* ============================================================
+   TABLA
+   ============================================================ */
+
+.distribucion-tabla-container {
+  width: 100%;
+
+  border-radius: 15px;
+
+  overflow-x: auto;
+
+  -webkit-overflow-scrolling: touch;
+}
+
+.distribucion-tabla {
+  width: 100%;
+
+  min-width: 900px;
+}
+
+.distribucion-tabla th {
   color: #0d47a1;
-  white-space: nowrap;
-}
 
-.table td {
+  font-weight: 700;
+
+  white-space: nowrap;
+
   vertical-align: middle;
 }
 
-.card {
-  border-radius: 18px;
+.distribucion-tabla td {
+  vertical-align: middle;
 }
+
+.distribucion-tabla tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.distribucion-tabla tbody tr:hover {
+  background: #f8f9fa;
+}
+
+
+/* ============================================================
+   COLUMNAS
+   ============================================================ */
+
+.col-acciones {
+  width: 120px;
+}
+
+.id-policial {
+  color: #0d6efd;
+
+  white-space: nowrap;
+}
+
+.identificador {
+  white-space: nowrap;
+}
+
+.observacion-columna {
+  min-width: 180px;
+
+  max-width: 350px;
+
+  white-space: normal;
+
+  word-break: break-word;
+}
+
+
+/* ============================================================
+   BOTONES
+   ============================================================ */
 
 .btn {
   border-radius: 30px;
 }
 
-.badge {
+.btn-editar {
+  min-width: 38px;
+
+  min-height: 34px;
+}
+
+.texto-editar {
+  display: none;
+
+  margin-left: 0.25rem;
+}
+
+
+/* ============================================================
+   SIN RESULTADOS
+   ============================================================ */
+
+.sin-resultados {
+  padding: 3rem 1rem !important;
+}
+
+.sin-resultados-icono {
+  font-size: 3rem;
+
+  color: #6c757d;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.distribucion-footer {
+  background: #fff;
+
+  padding: 0.9rem 1.5rem;
+}
+
+.footer-contenido {
+  display: flex;
+
+  justify-content: flex-end;
+
+  align-items: center;
+
+  gap: 0.4rem;
+
+  font-weight: 600;
+}
+
+.footer-badge {
   font-size: 0.85rem;
+
+  padding: 0.45rem 0.7rem;
+
+  border-radius: 30px;
 }
 
-.table-responsive {
-  border-radius: 15px;
+
+/* ============================================================
+   PANTALLAS GRANDES
+   1600px EN ADELANTE
+   ============================================================ */
+
+@media (min-width: 1600px) {
+
+  .distribucion-principal {
+    max-width: 1700px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+  }
+
 }
 
-.card-footer {
-  background: white;
+
+/* ============================================================
+   TABLET
+   HASTA 991px
+   ============================================================ */
+
+@media (max-width: 991.98px) {
+
+  .distribucion-container {
+    padding: 1.5rem;
+  }
+
+  .distribucion-header-titulo {
+    font-size: 1.3rem;
+  }
+
+  .distribucion-tabla {
+    min-width: 850px;
+  }
+
+}
+
+
+/* ============================================================
+   CELULAR
+   HASTA 767px
+   ============================================================ */
+
+@media (max-width: 767.98px) {
+
+  /* ================= CONTENEDOR ================= */
+
+  .distribucion-container {
+    padding: 0.75rem;
+  }
+
+
+  /* ================= CARD ================= */
+
+  .distribucion-principal {
+    border-radius: 0.8rem;
+  }
+
+
+  /* ================= HEADER ================= */
+
+  .distribucion-header {
+    padding: 0.9rem 1rem;
+  }
+
+  .distribucion-header-titulo {
+    font-size: 1.05rem;
+  }
+
+
+  /* ================= CUERPO ================= */
+
+  .distribucion-body {
+    padding: 0.75rem;
+  }
+
+
+  /* ========================================================
+     OCULTAR COLUMNAS EN CELULAR
+
+     En celular solamente mostramos:
+
+     ID Policial
+     Tipo
+     Identificador
+     Acciones
+     ======================================================== */
+
+  .ocultar-movil {
+    display: none !important;
+  }
+
+
+  /* ================= TABLA ================= */
+
+  .distribucion-tabla-container {
+    border-radius: 0.75rem;
+
+    overflow-x: hidden;
+  }
+
+  .distribucion-tabla {
+    width: 100%;
+
+    min-width: 100%;
+
+    table-layout: fixed;
+
+    font-size: 0.85rem;
+  }
+
+  .distribucion-tabla th,
+  .distribucion-tabla td {
+    padding: 0.65rem 0.35rem;
+
+    white-space: normal;
+
+    vertical-align: middle;
+
+    word-break: break-word;
+  }
+
+
+  /* ID POLICIAL */
+
+  .distribucion-tabla th:nth-child(1),
+  .distribucion-tabla td:nth-child(1) {
+    width: 23%;
+  }
+
+
+  /* TIPO */
+
+  .distribucion-tabla th:nth-child(2),
+  .distribucion-tabla td:nth-child(2) {
+    width: 22%;
+  }
+
+
+  /* IDENTIFICADOR */
+
+  .distribucion-tabla th:nth-child(5),
+  .distribucion-tabla td:nth-child(5) {
+    width: 35%;
+  }
+
+
+  /* ACCIONES */
+
+  .distribucion-tabla th:nth-child(7),
+  .distribucion-tabla td:nth-child(7) {
+    width: 20%;
+  }
+
+
+  /* ================= IDENTIFICADOR ================= */
+
+  .identificador {
+    white-space: normal;
+
+    overflow-wrap: anywhere;
+
+    word-break: break-word;
+  }
+
+
+  /* ================= ID POLICIAL ================= */
+
+  .id-policial {
+    white-space: normal;
+
+    word-break: break-word;
+  }
+
+
+  /* ================= BOTÓN EDITAR ================= */
+
+  .btn-editar {
+    min-width: 40px;
+
+    min-height: 40px;
+
+    padding: 0.45rem 0.7rem;
+  }
+
+
+  /* ================= FOOTER ================= */
+
+  .distribucion-footer {
+    padding: 0.8rem 1rem;
+  }
+
+}
+
+
+/* ============================================================
+   CELULARES PEQUEÑOS
+   HASTA 575px
+   ============================================================ */
+
+@media (max-width: 575.98px) {
+
+  /* ================= CONTENEDOR ================= */
+
+  .distribucion-container {
+    padding: 0.4rem;
+  }
+
+
+  /* ================= HEADER ================= */
+
+  .distribucion-header {
+    padding: 0.8rem;
+  }
+
+  .distribucion-header-titulo {
+    font-size: 0.95rem;
+  }
+
+  .distribucion-header-titulo i {
+    margin-right: 0.3rem !important;
+  }
+
+
+  /* ================= CUERPO ================= */
+
+  .distribucion-body {
+    padding: 0.5rem;
+  }
+
+
+  /* ================= TABLA ================= */
+
+  .distribucion-tabla {
+    font-size: 0.8rem;
+  }
+
+  .distribucion-tabla th {
+    font-size: 0.75rem;
+  }
+
+  .distribucion-tabla th,
+  .distribucion-tabla td {
+    padding: 0.6rem 0.25rem;
+  }
+
+
+  /* ================= BOTÓN EDITAR ================= */
+
+  .btn-editar {
+    min-width: 38px;
+
+    min-height: 38px;
+
+    padding: 0.4rem 0.55rem;
+  }
+
+
+  /* ================= SIN RESULTADOS ================= */
+
+  .sin-resultados {
+    padding: 2rem 0.75rem !important;
+  }
+
+  .sin-resultados-icono {
+    font-size: 2.5rem;
+  }
+
+  .sin-resultados h5 {
+    font-size: 1rem;
+  }
+
+  .sin-resultados p {
+    font-size: 0.85rem;
+  }
+
+
+  /* ================= FOOTER ================= */
+
+  .footer-contenido {
+    justify-content: center;
+  }
+
+}
+
+
+/* ============================================================
+   CELULARES MUY PEQUEÑOS
+   HASTA 400px
+   ============================================================ */
+
+@media (max-width: 400px) {
+
+  .distribucion-tabla {
+    font-size: 0.75rem;
+  }
+
+  .distribucion-tabla th {
+    font-size: 0.7rem;
+  }
+
+  .distribucion-tabla th,
+  .distribucion-tabla td {
+    padding-left: 0.15rem;
+
+    padding-right: 0.15rem;
+  }
+
+  .btn-editar {
+    min-width: 36px;
+
+    min-height: 36px;
+
+    padding: 0.35rem;
+  }
+
 }

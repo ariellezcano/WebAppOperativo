@@ -1,26 +1,535 @@
-.card {
+/* ============================================================
+   CARD
+   ============================================================ */
 
-    border-radius: 12px;
+.entrega-card {
+  border-radius: 12px;
 
+  overflow: hidden;
 }
 
+.entrega-card .card-header {
+  font-size: 18px;
 
-.card-header {
-
-    font-size: 18px;
-
+  padding: 0.9rem 1rem;
 }
 
+.titulo-entrega {
+  font-size: 1.1rem;
 
-table tbody tr {
-
-    cursor:pointer;
-
+  line-height: 1.4;
 }
 
+.section-title {
+  margin-bottom: 0.75rem;
+}
 
-table tbody tr:hover {
+/* ============================================================
+   FORMULARIOS
+   ============================================================ */
 
-    background:#f5f5f5;
+.form-control,
+.form-select {
+  min-height: 40px;
+}
 
+textarea.form-control {
+  min-height: auto;
+
+  resize: vertical;
+}
+
+/* ============================================================
+   TABLA EQUIPOS DISPONIBLES
+   ============================================================ */
+
+.equipos-table-container {
+  width: 100%;
+
+  overflow-x: auto;
+
+  -webkit-overflow-scrolling: touch;
+
+  border-radius: 0.6rem;
+}
+
+.equipos-table {
+  width: 100%;
+
+  min-width: 700px;
+}
+
+.equipos-table th {
+  white-space: nowrap;
+
+  vertical-align: middle;
+}
+
+.equipos-table td {
+  vertical-align: middle;
+}
+
+.equipos-table tbody tr {
+  cursor: pointer;
+}
+
+.equipos-table tbody tr:hover {
+  background-color: #f5f5f5;
+}
+
+/* ============================================================
+   CHECKBOX
+   ============================================================ */
+
+.col-check {
+  width: 50px;
+}
+
+.equipo-checkbox {
+  width: 1.15rem;
+
+  height: 1.15rem;
+
+  cursor: pointer;
+}
+
+/* ============================================================
+   ID POLICIAL
+   ============================================================ */
+
+.equipo-id-policial {
+  color: #0d6efd;
+
+  white-space: nowrap;
+}
+
+/* ============================================================
+   IDENTIFICADOR
+   ============================================================ */
+
+.equipo-identificador {
+  white-space: nowrap;
+}
+
+/* ============================================================
+   EQUIPOS SELECCIONADOS
+   ============================================================ */
+
+.equipos-seleccionados-container {
+  width: 100%;
+
+  overflow-x: auto;
+
+  -webkit-overflow-scrolling: touch;
+
+  border-radius: 0.6rem;
+}
+
+.equipos-seleccionados-table {
+  width: 100%;
+
+  min-width: 600px;
+}
+
+.col-accion {
+  width: 90px;
+}
+
+/* ============================================================
+   BOTÓN QUITAR
+   ============================================================ */
+
+.btn-quitar {
+  border-radius: 30px;
+}
+
+.texto-quitar {
+  display: none;
+
+  margin-left: 0.25rem;
+}
+
+/* ============================================================
+   RESUMEN
+   ============================================================ */
+
+.resumen-entrega {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 1rem;
+
+  flex-wrap: wrap;
+}
+
+.resumen-cantidad {
+  white-space: nowrap;
+}
+
+.resumen-info {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 0.35rem 1rem;
+
+  flex: 1;
+}
+
+.resumen-info span {
+  white-space: nowrap;
+}
+
+.resumen-acciones {
+  display: flex;
+
+  gap: 0.5rem;
+
+  justify-content: flex-end;
+}
+
+/* ============================================================
+   PANTALLAS GRANDES
+   ============================================================ */
+
+@media (min-width: 1400px) {
+  .entrega-card {
+    max-width: 1600px;
+
+    margin-left: auto;
+
+    margin-right: auto;
+  }
+}
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 991.98px) {
+  .resumen-entrega {
+    align-items: stretch;
+  }
+
+  .resumen-info {
+    width: 100%;
+
+    order: 3;
+
+    justify-content: flex-start;
+  }
+}
+
+/* ============================================================
+   CELULAR
+   HASTA 767px
+   ============================================================ */
+
+@media (max-width: 767.98px) {
+  /* ================= CARD ================= */
+
+  .entrega-card {
+    border-radius: 8px;
+  }
+
+  .entrega-card .card-header {
+    padding: 0.75rem;
+  }
+
+  .titulo-entrega {
+    font-size: 1rem;
+  }
+
+  /* ================= FORMULARIO ================= */
+
+  .card-body {
+    font-size: 0.95rem;
+  }
+
+  .form-control,
+  .form-select {
+    min-height: 44px;
+  }
+
+  .btn {
+    min-height: 44px;
+  }
+
+  /* ========================================================
+     OCULTAR COLUMNAS
+     ======================================================== */
+
+  .ocultar-movil {
+    display: none !important;
+  }
+
+  /* ========================================================
+     TABLA EQUIPOS DISPONIBLES
+
+     CELULAR:
+
+     CHECK
+     TIPO
+     ID POLICIAL
+     SERIE / IMEI
+     ======================================================== */
+
+  .equipos-table-container {
+    overflow-x: hidden;
+  }
+
+  .equipos-table {
+    width: 100%;
+
+    min-width: 100%;
+
+    table-layout: fixed;
+
+    font-size: 0.85rem;
+  }
+
+  .equipos-table th,
+  .equipos-table td {
+    padding: 0.65rem 0.3rem;
+
+    white-space: normal;
+
+    word-break: break-word;
+  }
+
+  /* CHECKBOX */
+
+  .equipos-table th:nth-child(1),
+  .equipos-table td:nth-child(1) {
+    width: 10%;
+  }
+
+  /* TIPO */
+
+  .equipos-table th:nth-child(2),
+  .equipos-table td:nth-child(2) {
+    width: 24%;
+  }
+
+  /* ID POLICIAL */
+
+  .equipos-table th:nth-child(3),
+  .equipos-table td:nth-child(3) {
+    width: 25%;
+  }
+
+  /* SERIE / IMEI */
+
+  .equipos-table th:nth-child(6),
+  .equipos-table td:nth-child(6) {
+    width: 41%;
+  }
+
+  /* IDENTIFICADOR */
+
+  .equipo-identificador {
+    white-space: normal;
+
+    overflow-wrap: anywhere;
+
+    word-break: break-word;
+  }
+
+  /* ID POLICIAL */
+
+  .equipo-id-policial {
+    white-space: normal;
+
+    word-break: break-word;
+  }
+
+  /* ========================================================
+     EQUIPOS SELECCIONADOS
+
+     CELULAR:
+
+     TIPO
+     SERIE / IMEI
+     ACCIÓN
+     ======================================================== */
+
+  .equipos-seleccionados-container {
+    overflow-x: hidden;
+  }
+
+  .equipos-seleccionados-table {
+    width: 100%;
+
+    min-width: 100%;
+
+    table-layout: fixed;
+
+    font-size: 0.85rem;
+  }
+
+  .equipos-seleccionados-table th,
+  .equipos-seleccionados-table td {
+    padding: 0.65rem 0.35rem;
+
+    white-space: normal;
+
+    word-break: break-word;
+  }
+
+  /* TIPO */
+
+  .equipos-seleccionados-table th:nth-child(1),
+  .equipos-seleccionados-table td:nth-child(1) {
+    width: 30%;
+  }
+
+  /* SERIE / IMEI */
+
+  .equipos-seleccionados-table th:nth-child(4),
+  .equipos-seleccionados-table td:nth-child(4) {
+    width: 45%;
+  }
+
+  /* ACCIÓN */
+
+  .equipos-seleccionados-table th:nth-child(5),
+  .equipos-seleccionados-table td:nth-child(5) {
+    width: 25%;
+  }
+
+  /* ================= BOTÓN QUITAR ================= */
+
+  .btn-quitar {
+    min-width: 40px;
+
+    min-height: 40px;
+
+    padding: 0.45rem 0.65rem;
+  }
+
+  /* ================= RESUMEN ================= */
+
+  .resumen-entrega {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .resumen-cantidad {
+    width: 100%;
+  }
+
+  .resumen-info {
+    order: initial;
+
+    width: 100%;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 0.25rem;
+  }
+
+  .resumen-info span {
+    white-space: normal;
+  }
+
+  .resumen-acciones {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 0.5rem;
+  }
+
+  .resumen-acciones .btn {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   CELULARES PEQUEÑOS
+   HASTA 575px
+   ============================================================ */
+
+@media (max-width: 575.98px) {
+  .container-fluid {
+    padding-left: 0.4rem !important;
+
+    padding-right: 0.4rem !important;
+  }
+
+  .card-body {
+    padding-left: 0.75rem !important;
+
+    padding-right: 0.75rem !important;
+  }
+
+  .section-title {
+    font-size: 0.95rem;
+  }
+
+  /* ================= TABLAS ================= */
+
+  .equipos-table,
+  .equipos-seleccionados-table {
+    font-size: 0.8rem;
+  }
+
+  .equipos-table th,
+  .equipos-seleccionados-table th {
+    font-size: 0.75rem;
+  }
+
+  /* ================= RESUMEN ================= */
+
+  .resumen-acciones {
+    grid-template-columns: 1fr;
+  }
+
+  /* ================= QUITAR ================= */
+
+  .btn-quitar {
+    min-width: 38px;
+
+    min-height: 38px;
+
+    padding: 0.4rem 0.5rem;
+  }
+}
+
+/* ============================================================
+   CELULARES MUY PEQUEÑOS
+   HASTA 400px
+   ============================================================ */
+
+@media (max-width: 400px) {
+  .equipos-table,
+  .equipos-seleccionados-table {
+    font-size: 0.75rem;
+  }
+
+  .equipos-table th,
+  .equipos-seleccionados-table th {
+    font-size: 0.7rem;
+  }
+
+  .equipos-table th,
+  .equipos-table td,
+  .equipos-seleccionados-table th,
+  .equipos-seleccionados-table td {
+    padding-left: 0.2rem;
+
+    padding-right: 0.2rem;
+  }
 }

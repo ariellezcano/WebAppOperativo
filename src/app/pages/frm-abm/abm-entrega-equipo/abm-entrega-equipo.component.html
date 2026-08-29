@@ -1,16 +1,21 @@
-<div class="container-fluid">
-  <div class="card shadow">
+<div class="container-fluid px-2 px-sm-3 px-lg-4 py-2 py-md-3">
+  <div class="card shadow entrega-card">
+    <!-- ================= HEADER ================= -->
+
     <div class="card-header bg-primary text-white">
-      <h5 class="mb-0">Entrega de Radios / Teléfonos</h5>
+      <h5 class="mb-0 titulo-entrega">
+        <i class="bi bi-phone me-2"></i>
+        Entrega de Radios / Teléfonos
+      </h5>
     </div>
 
-    <div class="card-body">
+    <div class="card-body p-2 p-sm-3 p-lg-4">
       <!-- ================= PERSONA ================= -->
 
-      <h6 class="fw-bold">Persona que recibe</h6>
+      <h6 class="fw-bold section-title">Persona que recibe</h6>
 
       <div class="row mb-3">
-        <div class="col-md-12">
+        <div class="col-12">
           <app-fil-busqueda-policia (filter)="doFound($event)">
           </app-fil-busqueda-policia>
         </div>
@@ -19,8 +24,8 @@
       <!-- ================= DATOS PERSONA ================= -->
 
       <div class="row g-3">
-        <div class="col-md-3">
-          <label class="form-label">DNI</label>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <label class="form-label"> DNI </label>
 
           <input
             type="text"
@@ -30,8 +35,8 @@
           />
         </div>
 
-        <div class="col-md-3">
-          <label class="form-label">Apellido</label>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <label class="form-label"> Apellido </label>
 
           <input
             type="text"
@@ -41,8 +46,8 @@
           />
         </div>
 
-        <div class="col-md-3">
-          <label class="form-label">Nombre</label>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <label class="form-label"> Nombre </label>
 
           <input
             type="text"
@@ -52,28 +57,33 @@
           />
         </div>
 
-        <div class="col-md-3">
-          <label class="form-label fw-bold">Unidad que recibe</label>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <label class="form-label fw-bold"> Unidad que recibe </label>
 
           <app-fil-autocompletado-unidad
             (unidadSeleccionada)="unidadSeleccionada($event)"
           >
           </app-fil-autocompletado-unidad>
 
-          <small *ngIf="item.nombreUnidad" class="text-muted fst-italic">
+          <small
+            *ngIf="item.nombreUnidad"
+            class="text-muted fst-italic d-block mt-1"
+          >
             Seleccionada:
             {{ item.nombreUnidad }}
           </small>
         </div>
       </div>
 
-      <hr />
+      <hr class="my-4" />
 
       <!-- ================= BUSQUEDA ================= -->
 
+      <h6 class="fw-bold section-title">Búsqueda de equipos</h6>
+
       <div class="row g-3">
-        <div class="col-md-4">
-          <label class="form-label">Operativo</label>
+        <div class="col-12 col-md-4">
+          <label class="form-label"> Operativo </label>
 
           <select class="form-select" [(ngModel)]="idOperativo">
             <option [ngValue]="0">Seleccione operativo</option>
@@ -87,8 +97,8 @@
           </select>
         </div>
 
-        <div class="col-md-5">
-          <label class="form-label">Buscar equipo</label>
+        <div class="col-12 col-md-5">
+          <label class="form-label"> Buscar equipo </label>
 
           <input
             type="text"
@@ -99,7 +109,7 @@
           />
         </div>
 
-        <div class="col-md-3 d-flex align-items-end">
+        <div class="col-12 col-md-3 d-flex align-items-md-end">
           <button
             type="button"
             class="btn btn-primary w-100"
@@ -111,48 +121,97 @@
         </div>
       </div>
 
-      <hr />
+      <hr class="my-4" />
 
-      <!-- ================= TABLA ================= -->
+      <!-- ===================================================== -->
+      <!-- EQUIPOS DISPONIBLES -->
+      <!-- ===================================================== -->
 
-      <div class="table-responsive">
-        <table class="table table-hover align-middle">
+      <div
+        class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2"
+      >
+        <h6 class="fw-bold section-title mb-0">Equipos disponibles</h6>
+
+        <span *ngIf="equipos.length > 0" class="badge bg-secondary">
+          {{ equipos.length }} disponibles
+        </span>
+      </div>
+
+      <div
+        class="table-responsive equipos-table-container"
+        *ngIf="equipos.length > 0"
+      >
+        <table class="table table-hover align-middle mb-0 equipos-table">
+          <!-- ================= CABECERA ================= -->
+
           <thead class="table-light">
             <tr>
-              <th width="50"></th>
+              <th class="col-check"></th>
+
               <th>Tipo</th>
-              <th>Marca</th>
-              <th>Modelo</th>
+
+              <th>Id. Policial</th>
+
+              <!-- OCULTO EN CELULAR -->
+
+              <th class="ocultar-movil">Marca</th>
+
+              <!-- OCULTO EN CELULAR -->
+
+              <th class="ocultar-movil">Modelo</th>
+
               <th>Serie / IMEI</th>
             </tr>
           </thead>
+
+          <!-- ================= CUERPO ================= -->
 
           <tbody>
             <tr
               *ngFor="let e of equipos"
               [class.table-primary]="seleccionado(e)"
+              (click)="seleccionarEquipo(e)"
             >
-              <td>
+              <!-- CHECKBOX -->
+
+              <td class="text-center" (click)="$event.stopPropagation()">
                 <input
                   type="checkbox"
+                  class="form-check-input equipo-checkbox"
                   [checked]="seleccionado(e)"
                   (change)="seleccionarEquipo(e)"
                 />
               </td>
 
-              <td>
-                {{ e.tipoEquipo }}
-              </td>
+              <!-- TIPO -->
 
               <td>
+                {{ e.tipoEquipo || "-" }}
+              </td>
+
+              <!-- ID POLICIAL -->
+
+              <td>
+                <strong class="equipo-id-policial">
+                  {{ e.idPolicial || "-" }}
+                </strong>
+              </td>
+
+              <!-- MARCA - OCULTO CELULAR -->
+
+              <td class="ocultar-movil">
                 {{ e.marca || "-" }}
               </td>
 
-              <td>
+              <!-- MODELO - OCULTO CELULAR -->
+
+              <td class="ocultar-movil">
                 {{ e.modelo || "-" }}
               </td>
 
-              <td>
+              <!-- SERIE / IMEI -->
+
+              <td class="equipo-identificador">
                 {{ e.nroSerie || e.imei || "-" }}
               </td>
             </tr>
@@ -162,53 +221,90 @@
 
       <!-- ================= SIN RESULTADOS ================= -->
 
-      <div *ngIf="equipos.length === 0" class="alert alert-info">
-        No existen equipos disponibles
+      <div *ngIf="equipos.length === 0" class="alert alert-info mb-0">
+        <i class="bi bi-info-circle me-1"></i>
+        No existen equipos disponibles.
       </div>
 
-      <!-- ================= EQUIPOS SELECCIONADOS ================= -->
+      <!-- ===================================================== -->
+      <!-- EQUIPOS SELECCIONADOS -->
+      <!-- ===================================================== -->
 
-      <div *ngIf="equiposSeleccionados.length > 0" class="mt-3">
-        <h6 class="fw-bold">Equipos seleccionados</h6>
+      <div *ngIf="equiposSeleccionados.length > 0" class="mt-4">
+        <div
+          class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2"
+        >
+          <h6 class="fw-bold section-title mb-0">Equipos seleccionados</h6>
 
-        <div class="table-responsive">
-          <table class="table table-sm table-bordered align-middle">
+          <span class="badge bg-primary">
+            {{ equiposSeleccionados.length }}
+          </span>
+        </div>
+
+        <div class="table-responsive equipos-seleccionados-container">
+          <table
+            class="table table-sm table-bordered align-middle mb-0 equipos-seleccionados-table"
+          >
+            <!-- ================= CABECERA ================= -->
+
             <thead class="table-light">
               <tr>
                 <th>Tipo</th>
-                <th>Marca</th>
-                <th>Modelo</th>
+
+                <!-- OCULTO CELULAR -->
+
+                <th class="ocultar-movil">Marca</th>
+
+                <!-- OCULTO CELULAR -->
+
+                <th class="ocultar-movil">Modelo</th>
+
                 <th>Serie / IMEI</th>
-                <th width="80">Acción</th>
+
+                <th class="text-center col-accion">Acción</th>
               </tr>
             </thead>
 
+            <!-- ================= CUERPO ================= -->
+
             <tbody>
               <tr *ngFor="let e of equiposSeleccionados">
-                <td>
-                  {{ e.tipoEquipo }}
-                </td>
+                <!-- TIPO -->
 
                 <td>
+                  {{ e.tipoEquipo || "-" }}
+                </td>
+
+                <!-- MARCA -->
+
+                <td class="ocultar-movil">
                   {{ e.marca || "-" }}
                 </td>
 
-                <td>
+                <!-- MODELO -->
+
+                <td class="ocultar-movil">
                   {{ e.modelo || "-" }}
                 </td>
 
-                <td>
+                <!-- IDENTIFICADOR -->
+
+                <td class="equipo-identificador">
                   {{ e.nroSerie || e.imei || "-" }}
                 </td>
+
+                <!-- ACCIÓN -->
 
                 <td class="text-center">
                   <button
                     type="button"
-                    class="btn btn-sm btn-outline-danger"
+                    class="btn btn-sm btn-outline-danger btn-quitar"
                     (click)="seleccionarEquipo(e)"
                     title="Quitar"
                   >
                     <i class="bi bi-trash"></i>
+
+                    <span class="texto-quitar"> Quitar </span>
                   </button>
                 </td>
               </tr>
@@ -219,8 +315,8 @@
 
       <!-- ================= OBSERVACION ================= -->
 
-      <div class="row mt-3">
-        <div class="col-md-12">
+      <div class="row mt-4">
+        <div class="col-12">
           <label class="form-label fw-bold"> Observación </label>
 
           <textarea
@@ -235,29 +331,51 @@
         </div>
       </div>
 
-      <hr />
+      <hr class="my-4" />
 
-      <!-- ================= RESUMEN ================= -->
+      <!-- ===================================================== -->
+      <!-- RESUMEN -->
+      <!-- ===================================================== -->
 
-      <div class="d-flex justify-content-between align-items-center">
-        <div>
-          <strong>Equipos seleccionados:</strong>
+      <div class="resumen-entrega">
+        <!-- CANTIDAD -->
+
+        <div class="resumen-cantidad">
+          <strong> Equipos seleccionados: </strong>
 
           <span class="badge bg-primary ms-1">
             {{ equiposSeleccionados.length }}
           </span>
         </div>
-        <div class="mt-2 text-muted small">
-          Persona: {{ item.idPersona }} | Unidad: {{ item.unidadRecibe }} |
-          Operativo: {{ idOperativo }} | Equipos:
-          {{ equiposSeleccionados.length }}
-        </div>
-        <div>
-          <button
-            type="button"
-            class="btn btn-secondary me-2"
-            (click)="limpiar()"
-          >
+
+        <!-- INFORMACIÓN -->
+
+        <!-- <div class="resumen-info text-muted small">
+          <span>
+            <strong>Persona:</strong>
+            {{ item.idPersona }}
+          </span>
+
+          <span>
+            <strong>Unidad:</strong>
+            {{ item.unidadRecibe }}
+          </span>
+
+          <span>
+            <strong>Operativo:</strong>
+            {{ idOperativo }}
+          </span>
+
+          <span>
+            <strong>Equipos:</strong>
+            {{ equiposSeleccionados.length }}
+          </span>
+        </div> -->
+
+        <!-- ACCIONES -->
+
+        <div class="resumen-acciones">
+          <button type="button" class="btn btn-secondary" (click)="limpiar()">
             <i class="bi bi-arrow-counterclockwise me-1"></i>
             Limpiar
           </button>

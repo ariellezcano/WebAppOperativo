@@ -148,26 +148,154 @@ export class AbmEntregaEquipoComponent implements OnInit {
   // =====================================================
 
   buscarEquipos(): void {
-    if (this.idOperativo === 0) {
-      alert('Debe seleccionar un operativo');
+    if (!this.idOperativo || Number(this.idOperativo) <= 0) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Seleccione un operativo',
+        text: 'Debe seleccionar un operativo antes de buscar el equipo.',
+        confirmButtonText: 'Aceptar',
+      });
+
+      return;
+    }
+
+    const filtro = this.filtro?.trim();
+
+    if (!filtro) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Ingrese un equipo',
+        text: 'Ingrese el ID policial, serie, IMEI, marca o modelo.',
+        confirmButtonText: 'Aceptar',
+      });
+
       return;
     }
 
     this.service
-      .buscarEquipamientoOperativo(this.idOperativo, this.filtro)
+      .buscarEquipamientoOperativo(Number(this.idOperativo), filtro)
       .subscribe({
+        // =====================================================
+        // RESPUESTA CORRECTA
+        // =====================================================
+
         next: (resp) => {
-          console.log('equipo', resp);
-          if (resp.code === '200') {
-            this.equipos = resp.data ?? [];
-          } else {
-            this.equipos = [];
+          console.log('Respuesta API:', resp);
+
+          // =================================================
+          // EQUIPOS DISPONIBLES
+          // =================================================
+
+          if (resp.code === '200' && resp.data && resp.data.length > 0) {
+            this.equipos = resp.data;
+
+            return;
           }
+
+          // =================================================
+          // SIN RESULTADOS
+          // =================================================
+
+          if (resp.code === '204') {
+            this.equipos = [];
+
+            Swal.fire({
+              icon: 'info',
+              title: 'Sin resultados',
+              text: resp.message ?? 'No existen equipos disponibles.',
+              confirmButtonText: 'Aceptar',
+            });
+
+            return;
+          }
+
+          this.equipos = [];
         },
+
+        // =====================================================
+        // ERRORES
+        // =====================================================
 
         error: (error) => {
           console.error('Error al buscar equipos:', error);
+
           this.equipos = [];
+
+          // =================================================
+          // RADIO EXACTA YA ENTREGADA
+          // =================================================
+
+          if (error.status === 409) {
+            const respuesta = error.error;
+
+            const radio = respuesta?.data?.[0];
+
+            const persona =
+              `${radio?.apellido ?? ''} ${radio?.nombre ?? ''}`.trim();
+
+            Swal.fire({
+              icon: 'warning',
+
+              title: 'Radio ya entregada',
+
+              html: `
+              <div class="text-start">
+
+                <p class="mb-2">
+                  La radio
+                  <strong>
+                    ${radio?.idPolicial ?? filtro}
+                  </strong>
+                  ya se encuentra entregada.
+                </p>
+
+                ${
+                  persona
+                    ? `
+                      <p class="mb-1">
+                        <strong>
+                          Entregada a:
+                        </strong>
+
+                        ${persona}
+                      </p>
+                    `
+                    : ''
+                }
+
+                ${
+                  radio?.nombreUnidad
+                    ? `
+                      <p class="mb-1">
+                        <strong>
+                          Unidad:
+                        </strong>
+
+                        ${radio.nombreUnidad}
+                      </p>
+                    `
+                    : ''
+                }
+
+              </div>
+            `,
+
+              confirmButtonText: 'Aceptar',
+            });
+
+            return;
+          }
+
+          // =================================================
+          // OTRO ERROR
+          // =================================================
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un error al buscar el equipo.',
+            confirmButtonText: 'Aceptar',
+          });
         },
       });
   }

@@ -1,42 +1,45 @@
-<div class="container-fluid my-5 px-5">
-  <!-- CARD PRINCIPAL -->
-  <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-    <!-- CABECERA -->
-    <div
-      class="card-header d-flex justify-content-between align-items-center py-3"
-      style="
-        background: linear-gradient(90deg, #0d6efd, #0b5ed7);
-        color: white;
-        border-bottom: 4px solid #ff9800;
-      "
-    >
-      <h3 class="m-0 fw-bold">
+
+<div class="container-fluid detalle-container">
+  <div class="card shadow-lg border-0 detalle-principal">
+
+    <!-- ================= CABECERA ================= -->
+
+    <div class="card-header detalle-header">
+      <h3 class="m-0 fw-bold detalle-header-titulo">
         <i class="bi bi-box-seam me-2"></i>
         Detalle de Entrega
       </h3>
 
-      <button class="btn btn-light rounded-pill px-4" (click)="back()">
+      <button
+        type="button"
+        class="btn btn-light detalle-btn-volver"
+        (click)="back()"
+      >
         <i class="bi bi-arrow-left me-2"></i>
         Volver
       </button>
     </div>
 
-    <!-- CUERPO -->
-    <div class="card-body bg-light">
-      <!-- ===================================== -->
-      <!-- BUSCADOR -->
-      <!-- ===================================== -->
+    <!-- ================= CUERPO ================= -->
+
+    <div class="card-body bg-light detalle-body">
+
+      <!-- ================= BUSCADOR ================= -->
 
       <div class="card detalle-card border-0 shadow-sm mb-4">
         <div class="card-body">
+
           <h5 class="detalle-titulo">
             <i class="bi bi-search me-2"></i>
             Buscar equipo pendiente de recepción
           </h5>
 
           <div class="row g-3 align-items-end">
-            <div class="col-lg-10 col-md-9">
-              <label class="form-label"> ID Policial / Serie / IMEI </label>
+
+            <div class="col-12 col-md-9 col-lg-10">
+              <label class="form-label">
+                ID Policial / Serie / IMEI
+              </label>
 
               <input
                 type="text"
@@ -47,13 +50,15 @@
               />
             </div>
 
-            <div class="col-lg-2 col-md-3">
+            <div class="col-12 col-md-3 col-lg-2">
+
               <button
                 type="button"
-                class="btn btn-primary w-100"
+                class="btn btn-primary w-100 btn-buscar"
                 (click)="buscarEquipo()"
                 [disabled]="cargando"
               >
+
                 <span *ngIf="!cargando">
                   <i class="bi bi-search me-2"></i>
                   Buscar
@@ -61,56 +66,73 @@
 
                 <span *ngIf="cargando">
                   <span class="spinner-border spinner-border-sm me-2"></span>
-
                   Buscando
                 </span>
+
               </button>
+
             </div>
+
           </div>
         </div>
       </div>
 
-      <!-- ===================================== -->
-      <!-- CARGANDO -->
-      <!-- ===================================== -->
+      <!-- ================= CARGANDO ================= -->
 
       <div *ngIf="cargando" class="text-center py-5">
-        <div class="spinner-border text-primary" role="status">
-          <span class="visually-hidden"> Cargando... </span>
+
+        <div
+          class="spinner-border text-primary"
+          role="status"
+        >
+          <span class="visually-hidden">
+            Cargando...
+          </span>
         </div>
+
       </div>
 
-      <!-- ===================================== -->
-      <!-- TODAVIA NO SE BUSCO EQUIPO -->
-      <!-- ===================================== -->
+      <!-- ================= SIN BUSQUEDA ================= -->
 
-      <div *ngIf="!item && !cargando" class="text-center py-5">
-        <i class="bi bi-broadcast-pin fs-1 text-secondary"></i>
+      <div
+        *ngIf="!item && !cargando"
+        class="estado-vacio text-center py-5"
+      >
 
-        <h5 class="mt-3">Buscar equipamiento</h5>
+        <i class="bi bi-broadcast-pin estado-vacio-icono"></i>
 
-        <p class="text-muted">
-          Ingrese el ID policial, número de serie o IMEI de un equipo pendiente
-          de recepción.
+        <h5 class="mt-3">
+          Buscar equipamiento
+        </h5>
+
+        <p class="text-muted mb-0">
+          Ingrese el ID policial, número de serie o IMEI de un equipo
+          pendiente de recepción.
         </p>
+
       </div>
 
-      <!-- ===================================== -->
-      <!-- DETALLE ENCONTRADO -->
-      <!-- ===================================== -->
+      <!-- ================= DETALLE ================= -->
 
       <ng-container *ngIf="item && !cargando">
-        <!-- PERSONA -->
+
+        <!-- ================= PERSONA ================= -->
+
         <div class="card detalle-card border-0 shadow-sm mb-4">
           <div class="card-body">
+
             <h5 class="detalle-titulo">
               <i class="bi bi-person-badge me-2"></i>
               Persona que recibió
             </h5>
 
             <div class="row g-3">
-              <div class="col-lg-3 col-md-6">
-                <label class="form-label"> DNI </label>
+
+              <div class="col-12 col-sm-6 col-lg-3">
+
+                <label class="form-label">
+                  DNI
+                </label>
 
                 <input
                   type="text"
@@ -118,10 +140,14 @@
                   [value]="item.dni || '-'"
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-3 col-md-6">
-                <label class="form-label"> Apellido </label>
+              <div class="col-12 col-sm-6 col-lg-3">
+
+                <label class="form-label">
+                  Apellido
+                </label>
 
                 <input
                   type="text"
@@ -129,10 +155,14 @@
                   [value]="item.apellido || '-'"
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-3 col-md-6">
-                <label class="form-label"> Nombre </label>
+              <div class="col-12 col-sm-6 col-lg-3">
+
+                <label class="form-label">
+                  Nombre
+                </label>
 
                 <input
                   type="text"
@@ -140,10 +170,14 @@
                   [value]="item.nombre || '-'"
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-3 col-md-6">
-                <label class="form-label"> Unidad </label>
+              <div class="col-12 col-sm-6 col-lg-3">
+
+                <label class="form-label">
+                  Unidad
+                </label>
 
                 <input
                   type="text"
@@ -151,22 +185,30 @@
                   [value]="item.nombreUnidad || '-'"
                   readonly
                 />
+
               </div>
+
             </div>
           </div>
         </div>
 
-        <!-- EQUIPO -->
+        <!-- ================= EQUIPO ================= -->
+
         <div class="card detalle-card border-0 shadow-sm mb-4">
           <div class="card-body">
+
             <h5 class="detalle-titulo">
               <i class="bi bi-broadcast-pin me-2"></i>
               Equipo entregado
             </h5>
 
             <div class="row g-3">
-              <div class="col-lg-3 col-md-6">
-                <label class="form-label"> ID Policial </label>
+
+              <div class="col-12 col-sm-6 col-lg-3">
+
+                <label class="form-label">
+                  ID Policial
+                </label>
 
                 <input
                   type="text"
@@ -174,10 +216,14 @@
                   [value]="item.idPolicial || '-'"
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-3 col-md-6">
-                <label class="form-label"> Tipo </label>
+              <div class="col-12 col-sm-6 col-lg-3">
+
+                <label class="form-label">
+                  Tipo
+                </label>
 
                 <input
                   type="text"
@@ -185,10 +231,14 @@
                   [value]="item.tipoEquipo || '-'"
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-3 col-md-6">
-                <label class="form-label"> Marca </label>
+              <div class="col-12 col-sm-6 col-lg-3">
+
+                <label class="form-label">
+                  Marca
+                </label>
 
                 <input
                   type="text"
@@ -196,10 +246,14 @@
                   [value]="item.marca || '-'"
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-3 col-md-6">
-                <label class="form-label"> Modelo </label>
+              <div class="col-12 col-sm-6 col-lg-3">
+
+                <label class="form-label">
+                  Modelo
+                </label>
 
                 <input
                   type="text"
@@ -207,10 +261,14 @@
                   [value]="item.modelo || '-'"
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-6 col-md-6">
-                <label class="form-label"> Número de serie </label>
+              <div class="col-12 col-md-6">
+
+                <label class="form-label">
+                  Número de serie
+                </label>
 
                 <input
                   type="text"
@@ -218,10 +276,14 @@
                   [value]="item.nroSerie || '-'"
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-6 col-md-6">
-                <label class="form-label"> IMEI </label>
+              <div class="col-12 col-md-6">
+
+                <label class="form-label">
+                  IMEI
+                </label>
 
                 <input
                   type="text"
@@ -229,22 +291,30 @@
                   [value]="item.imei || '-'"
                   readonly
                 />
+
               </div>
+
             </div>
           </div>
         </div>
 
-        <!-- ENTREGA -->
+        <!-- ================= ENTREGA ================= -->
+
         <div class="card detalle-card border-0 shadow-sm mb-4">
           <div class="card-body">
+
             <h5 class="detalle-titulo">
               <i class="bi bi-clipboard-check me-2"></i>
               Datos de la entrega
             </h5>
 
             <div class="row g-3">
-              <div class="col-lg-4 col-md-6">
-                <label class="form-label"> Fecha de entrega </label>
+
+              <div class="col-12 col-sm-6 col-lg-4">
+
+                <label class="form-label">
+                  Fecha de entrega
+                </label>
 
                 <input
                   type="text"
@@ -256,12 +326,17 @@
                   "
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-4 col-md-6">
-                <label class="form-label"> Estado del equipo </label>
+              <div class="col-12 col-sm-6 col-lg-4">
+
+                <label class="form-label">
+                  Estado del equipo
+                </label>
 
                 <div class="estado-box">
+
                   <span
                     *ngIf="item.estadoDetalle === 1"
                     class="badge bg-warning text-dark"
@@ -293,11 +368,16 @@
                   >
                     SIN ESTADO
                   </span>
+
                 </div>
+
               </div>
 
-              <div class="col-lg-4 col-md-6">
-                <label class="form-label"> Fecha de recepción </label>
+              <div class="col-12 col-sm-6 col-lg-4">
+
+                <label class="form-label">
+                  Fecha de recepción
+                </label>
 
                 <input
                   type="text"
@@ -309,14 +389,17 @@
                   "
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-4 col-md-6">
+              <div class="col-12 col-sm-6 col-lg-4">
+
                 <label class="form-label">
                   Estado general de la planilla
                 </label>
 
                 <div class="estado-box">
+
                   <span
                     *ngIf="item.estadoPlanilla === 1"
                     class="badge bg-warning text-dark"
@@ -344,11 +427,16 @@
                   >
                     ANULADA
                   </span>
+
                 </div>
+
               </div>
 
-              <div class="col-lg-4 col-md-6">
-                <label class="form-label"> Fecha recepción planilla </label>
+              <div class="col-12 col-sm-6 col-lg-4">
+
+                <label class="form-label">
+                  Fecha recepción planilla
+                </label>
 
                 <input
                   type="text"
@@ -360,10 +448,14 @@
                   "
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-4 col-md-6">
-                <label class="form-label"> Usuario que recepcionó </label>
+              <div class="col-12 col-sm-6 col-lg-4">
+
+                <label class="form-label">
+                  Usuario que recepcionó
+                </label>
 
                 <input
                   type="text"
@@ -375,52 +467,81 @@
                   "
                   readonly
                 />
+
               </div>
 
               <div class="col-12">
-                <label class="form-label"> Observación de entrega </label>
 
-                <textarea class="form-control" rows="3" readonly>{{
-                  item.observacionEntrega || "-"
-                }}</textarea>
+                <label class="form-label">
+                  Observación de entrega
+                </label>
+
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  readonly
+                >{{ item.observacionEntrega || "-" }}</textarea>
+
               </div>
 
               <div class="col-12">
-                <label class="form-label"> Observación del equipo </label>
 
-                <textarea class="form-control" rows="3" readonly>{{
-                  item.observacion || "-"
-                }}</textarea>
+                <label class="form-label">
+                  Observación del equipo
+                </label>
+
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  readonly
+                >{{ item.observacion || "-" }}</textarea>
+
               </div>
+
             </div>
           </div>
         </div>
 
-        <!-- DATOS ANULACION -->
+        <!-- ================= ANULACIÓN ================= -->
+
         <div
           *ngIf="item.estadoDetalle === 3"
           class="card detalle-card border-0 shadow-sm mb-4"
         >
+
           <div class="card-body">
+
             <h5 class="detalle-titulo text-danger">
               <i class="bi bi-x-octagon me-2"></i>
               Datos de anulación
             </h5>
 
             <div class="row g-3">
-              <div class="col-lg-6 col-md-6">
-                <label class="form-label"> Usuario que anuló </label>
+
+              <div class="col-12 col-md-6">
+
+                <label class="form-label">
+                  Usuario que anuló
+                </label>
 
                 <input
                   type="text"
                   class="form-control"
-                  [value]="item.usuarioAnula != null ? item.usuarioAnula : '-'"
+                  [value]="
+                    item.usuarioAnula != null
+                      ? item.usuarioAnula
+                      : '-'
+                  "
                   readonly
                 />
+
               </div>
 
-              <div class="col-lg-6 col-md-6">
-                <label class="form-label"> Fecha de anulación </label>
+              <div class="col-12 col-md-6">
+
+                <label class="form-label">
+                  Fecha de anulación
+                </label>
 
                 <input
                   type="text"
@@ -432,20 +553,29 @@
                   "
                   readonly
                 />
+
               </div>
+
             </div>
           </div>
         </div>
 
-        <!-- ACCIONES -->
-        <div class="d-flex justify-content-end gap-3 flex-wrap">
-          <button class="btn btn-secondary px-4" (click)="back()">
+        <!-- ================= ACCIONES ================= -->
+
+        <div class="detalle-acciones">
+
+          <button
+            type="button"
+            class="btn btn-secondary px-4"
+            (click)="back()"
+          >
             <i class="bi bi-arrow-left me-2"></i>
             Volver
           </button>
 
           <button
             *ngIf="item.estadoDetalle === 1"
+            type="button"
             class="btn btn-success px-4"
             (click)="recepcionar()"
           >
@@ -455,14 +585,19 @@
 
           <button
             *ngIf="item.estadoDetalle === 1"
+            type="button"
             class="btn btn-danger px-4"
             (click)="anular()"
           >
             <i class="bi bi-x-circle me-2"></i>
             Anular entrega
           </button>
+
         </div>
+
       </ng-container>
+
     </div>
   </div>
 </div>
+
