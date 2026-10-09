@@ -4,17 +4,24 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+
   { path: 'login', component: LoginComponent },
+
   {
     path: 'pages',
     loadChildren: () =>
       import('./pages/pages.module').then((m) => m.PagesModule),
   },
+
   { path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      useHash: true,
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
